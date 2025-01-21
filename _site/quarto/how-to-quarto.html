@@ -75,8 +75,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
-<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,13 +102,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -227,7 +224,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#reference-materials" id="toc-reference-materials" class="nav-link" data-scroll-target="#reference-materials">Reference Materials</a>
+  <ul class="collapse">
+  <li><a href="#optional-video" id="toc-optional-video" class="nav-link" data-scroll-target="#optional-video"><em>Optional</em> Video</a></li>
+  </ul></li>
+  <li><a href="#logistics" id="toc-logistics" class="nav-link" data-scroll-target="#logistics">Logistics</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#logging-in-to-rstudio" id="toc-logging-in-to-rstudio" class="nav-link" data-scroll-target="#logging-in-to-rstudio">Logging in to RStudio</a></li>
+  <li><a href="#panels" id="toc-panels" class="nav-link" data-scroll-target="#panels">Panels</a></li>
+  <li><a href="#executing-code-in-r" id="toc-executing-code-in-r" class="nav-link" data-scroll-target="#executing-code-in-r">Executing code in R</a></li>
+  </ul></li>
+  <li><a href="#quarto-qmd-files" id="toc-quarto-qmd-files" class="nav-link" data-scroll-target="#quarto-qmd-files">Quarto (qmd) Files</a>
+  <ul class="collapse">
+  <li><a href="#quarto-files-are-stand-alone" id="toc-quarto-files-are-stand-alone" class="nav-link" data-scroll-target="#quarto-files-are-stand-alone">Quarto files are stand-alone!</a></li>
+  <li><a href="#create-a-quarto-file" id="toc-create-a-quarto-file" class="nav-link" data-scroll-target="#create-a-quarto-file">Create a Quarto file</a></li>
+  <li><a href="#save-your-qmd-file" id="toc-save-your-qmd-file" class="nav-link" data-scroll-target="#save-your-qmd-file">Save your qmd file</a></li>
+  <li><a href="#render" id="toc-render" class="nav-link" data-scroll-target="#render">Render!</a></li>
+  <li><a href="#source-vs.-visual-editor" id="toc-source-vs.-visual-editor" class="nav-link" data-scroll-target="#source-vs.-visual-editor">Source vs.&nbsp;Visual Editor</a></li>
+  <li><a href="#personalize-your-markdown-file" id="toc-personalize-your-markdown-file" class="nav-link" data-scroll-target="#personalize-your-markdown-file">Personalize your Markdown file</a></li>
+  </ul></li>
+  <li><a href="#quarto-yaml-settings" id="toc-quarto-yaml-settings" class="nav-link" data-scroll-target="#quarto-yaml-settings">Quarto YAML settings</a>
+  <ul class="collapse">
+  <li><a href="#pdf-or-html" id="toc-pdf-or-html" class="nav-link" data-scroll-target="#pdf-or-html">PDF or html?</a></li>
+  <li><a href="#code-tools" id="toc-code-tools" class="nav-link" data-scroll-target="#code-tools">Code tools</a></li>
+  </ul></li>
+  <li><a href="#text-and-code-in-quarto" id="toc-text-and-code-in-quarto" class="nav-link" data-scroll-target="#text-and-code-in-quarto">Text and Code in Quarto</a>
+  <ul class="collapse">
+  <li><a href="#text" id="toc-text" class="nav-link" data-scroll-target="#text">Text</a></li>
+  <li><a href="#qmd-file-anatomy-r-code-chunks" id="toc-qmd-file-anatomy-r-code-chunks" class="nav-link" data-scroll-target="#qmd-file-anatomy-r-code-chunks">qmd file anatomy: R code chunks</a></li>
+  <li><a href="#how-to-add-a-new-r-code-chunk-to-your-file" id="toc-how-to-add-a-new-r-code-chunk-to-your-file" class="nav-link" data-scroll-target="#how-to-add-a-new-r-code-chunk-to-your-file">How to add a new R code chunk to your file</a></li>
+  <li><a href="#setup-chunk" id="toc-setup-chunk" class="nav-link" data-scroll-target="#setup-chunk">Setup Chunk</a></li>
+  <li><a href="#the-settings-chunk-is-invisible" id="toc-the-settings-chunk-is-invisible" class="nav-link" data-scroll-target="#the-settings-chunk-is-invisible">The settings chunk is invisible!</a></li>
+  <li><a href="#clean-up" id="toc-clean-up" class="nav-link" data-scroll-target="#clean-up">Clean Up</a></li>
+  </ul></li>
+  <li><a href="#run-r-code" id="toc-run-r-code" class="nav-link" data-scroll-target="#run-r-code">Run R Code</a>
+  <ul class="collapse">
+  <li><a href="#running-r-code-from-a-qmd-file-render-the-file" id="toc-running-r-code-from-a-qmd-file-render-the-file" class="nav-link" data-scroll-target="#running-r-code-from-a-qmd-file-render-the-file">Running R Code from a qmd file: Render the file</a></li>
+  <li><a href="#running-r-code-from-a-qmd-file-run-menu" id="toc-running-r-code-from-a-qmd-file-run-menu" class="nav-link" data-scroll-target="#running-r-code-from-a-qmd-file-run-menu">Running R Code from a qmd file: Run Menu</a></li>
+  <li><a href="#running-code-from-a-qmd-file-shortcut-button" id="toc-running-code-from-a-qmd-file-shortcut-button" class="nav-link" data-scroll-target="#running-code-from-a-qmd-file-shortcut-button">Running Code from a qmd file: Shortcut Button</a></li>
+  <li><a href="#running-code-from-a-qmd-file-copy-and-paste" id="toc-running-code-from-a-qmd-file-copy-and-paste" class="nav-link" data-scroll-target="#running-code-from-a-qmd-file-copy-and-paste">Running Code from a qmd file: Copy and Paste</a></li>
+  </ul></li>
+  <li><a href="#downloading-files-from-rstudio" id="toc-downloading-files-from-rstudio" class="nav-link" data-scroll-target="#downloading-files-from-rstudio">Downloading files from RStudio</a></li>
+  <li><a href="#quarto-files-stand-alone" id="toc-quarto-files-stand-alone" class="nav-link" data-scroll-target="#quarto-files-stand-alone">Quarto Files Stand Alone!</a></li>
+  <li><a href="#data-from-a-url" id="toc-data-from-a-url" class="nav-link" data-scroll-target="#data-from-a-url">Data from a URL</a>
+  <ul class="collapse">
+  <li><a href="#when-you-read-in-data-store-it-to-a-named-object" id="toc-when-you-read-in-data-store-it-to-a-named-object" class="nav-link" data-scroll-target="#when-you-read-in-data-store-it-to-a-named-object">When you read in data, store it to a named object</a></li>
+  </ul></li>
+  <li><a href="#data-from-google-sheets" id="toc-data-from-google-sheets" class="nav-link" data-scroll-target="#data-from-google-sheets">Data from Google Sheets</a></li>
+  <li><a href="#data-from-a-file" id="toc-data-from-a-file" class="nav-link" data-scroll-target="#data-from-a-file">Data from a File</a></li>
+  <li><a href="#r-functions" id="toc-r-functions" class="nav-link" data-scroll-target="#r-functions">R functions</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/how-to-quarto.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -702,34 +757,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W119
-</script>
-<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
-<div id="exercise-loading-status" class="d-flex gap-2">
-
-</div>
-<div class="spinner-grow spinner-grow-sm">
-
-</div>
-</div>
-<script type="vfs-file">
-W10=
-</script>
 </section>
 
 </main> <!-- /main -->
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W119
-</script>
-<script type="module">
-if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../quarto";
-window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "..";
-window._ojs.selfContained = false;
-window._ojs.runtime.interpretFromScriptTags();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1167,4 +1197,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/how-to-quarto.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/how-to-quarto.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

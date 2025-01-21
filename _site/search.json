@@ -51,7 +51,7 @@
     "href": "quarto/how-to-quarto.html#logistics",
     "title": "Reproducible Documents with Quarto in RStudio",
     "section": "Logistics",
-    "text": "Logistics\nTo create a .qmd file, you will have to work in RStudio (outside this tutorial environment). So, as you work on this tutorial, you will probably switch back and forth between the tutorial itself and an RStudio session at https://r.cs.calvin.edu.\nHistorical Note: The precursor of the Quarto document is the Rmarkdown document (and even older - the Sweave document). If you know and love one of those, you may use it. Our server can handle all options. For now, our class will stick to qmd as our default.",
+    "text": "Logistics\nTo create a .qmd file, you will have to work in RStudio (outside this tutorial environment). So, as you work on this tutorial, you will probably switch back and forth between the tutorial itself and an RStudio session at https://r.cs.calvin.edu.\nHistorical Note: The precursor of the Quarto document is the Rmarkdown (.rmd) document (and even older - the Sweave document). If you know and love one of those, you may use it. Our server can handle all options. For now, our class will stick to qmd as our default.",
     "crumbs": [
       "Home",
       "R Basics",
@@ -75,7 +75,7 @@
     "href": "quarto/how-to-quarto.html#quarto-qmd-files",
     "title": "Reproducible Documents with Quarto in RStudio",
     "section": "Quarto (qmd) Files",
-    "text": "Quarto (qmd) Files\n\nQuarto files are stand-alone!\nEvery Quarto file (qmd file) must be completely stand-alone. It doesn’t share any information with the Console or the Environment that you see in your RStudio session. All R code that you need to do whatever you are trying to do must be included in the qmd file itself!\nFor example, if you use the point-and-click user interface in the RStudio Environment tab to import a data file, that dataset will not be available when rendering your qmd file.\nSimilarly, if you load the mosaic package by typing in the Console window,\n\nlibrary(mosaic)\n\nmosaic functions and data will not be available to use within the qmd file.\n\n\nSo: Keep your qmd files stand-alone! (You have no choice, actually…)\n\n\n\n\nCreate a Quarto file\nIn RStudio, navigate to File -&gt; New File -&gt; Quarto Document…, or click on the white rectangle with a green circle+ :\n\n\n\n\n\n\n\n\n\nand select Quarto from the drop-down menu.\nChoose html or pdf output.\n(Why not Word? Too much temptation to make changes and do formatting after the fact in Word…which makes your work no-longer-reproducible. In qmd, you have documented everything you’ve done. If you make changes after rendering to Word, that’s not true anymore.)\n\n\nSave your qmd file\nSave your file by clicking on the disk icon at the top of the file tab (give it a clear file name like deruiter_quarto_practice.qmd).\nDo your best to avoid spaces and special characters in your file names.\nThe file will be saved to the server, not to your computer. All your files will be accessible in the RStudio Files tab (lower right panel) whenever you log into RStudio, regardless of which computer you are using. You may organize them into directories (folders) if you want.\n\n\n\n\n\n\n\n\n\n\n\nRender!\nHow do qmd files actually work? What’s so cool about them?\nClick on the fat blue arrow next to the word “Render” at the top of the file window.\n\n\n\n\n\n\n\n\n\nCheck out the rendered html or pdf result, and compare it to the original Quarto file.\nWow!\n\n\nSource vs. Visual Editor\nLook to the upper right corner of your qmd file. You should see some buttons that allow you to toggle between “Source” and “Visual” editor modes.\n\n\n\n\n\n\n\n\n\nIn your own file, toggle back and forth a few times. The Source mode lets you see (and type) the straight-up markdown – which is probably nice if you’re already used to it, and annoying or mystifying if not. The Visual mode is more of a what-you-see-is-what-you-get (like the rendered version), point-and-click type interface. You may use whichever you prefer.\n\n\nPersonalize your Markdown file\nAt the top of the Quarto file, there is a section called the “YAML header”. It starts and ends with 3 dashes - - -.\n\n\nIn this part of the file, be very careful what you type: a stray space or character will lead to an error.\n\n\nThis is where you can enter an appropriate title, author(s), and date (within the quotation marks). You can also choose the format you want to render to (usually pdf or html – not in quotes).\n\n\n\n\n\n\n\n\n\nCustomize your YAML header in your own Quarto doc, and then render again to see the effect.\nMake sure you do this for every assignment! (No prof or boss likes getting submissions called “Untitled”…)\n\n\nYAML settings\n\nPDF or html?\nFor our course, you can choose to render to either an html file or a PDF file.\nBut if you choose html, there’s an important change you have to make to the YAML header to ensure your html file is stand-alone. Meaning: you want all images, etc. to be embedded in the one file rather than stored in an accompanying folder. Otherwise, when you (say) upload the file on Moodle, all the images and graphs will be omitted (yikes)!\nIf rendering to html, it is essential that you specify the setting embed-resources: true!\nSo, make sure you add embed-resources: true after the entry format: html: in your YAML header, exactly as shown below. Make sure to keep the spacing and line breaks just as shown. (The indents are each two spaces, so there are 2 spaces before html: and 4 before embed-resources:.)\n\n\n\n\n\n\n\n\n\n\n\nCode tools\nNote that the YAML header shown above also had a second option activated for rendered html files: code-tools: true.\n\n\n\n\n\n\n\n\n\nWhat does this one do?\nIt adds a button “Code” at the top right of your file.\n\n\n\n\n\n\n\n\n\nIf you click it, you can view and copy the source code (basically, the contents of the original qmd file before rendering). This is not a bad option, for example for homework, as it allows me to see every detail of the settings you used and may help me troubleshoot any issues.",
+    "text": "Quarto (qmd) Files\n\nQuarto files are stand-alone!\nEvery Quarto file (qmd file) must be completely stand-alone. It doesn’t share any information with the Console or the Environment that you see in your RStudio session. All R code that you need to do whatever you are trying to do must be included in the qmd file itself!\nFor example, if you use the point-and-click user interface in the RStudio Environment tab to import a data file, that dataset will not be available when rendering your qmd file.\nSimilarly, if you load the mosaic package by typing in the Console window,\n\nlibrary(mosaic)\n\nmosaic functions and data will not be available to use within the qmd file.\n\n\nSo: Keep your qmd files stand-alone! (You have no choice, actually…)\n\n\n\n\nCreate a Quarto file\nIn RStudio, navigate to File -&gt; New File -&gt; Quarto Document…, or click on the white rectangle with a green circle+ :\n\n\n\n\n\n\n\n\n\nand select Quarto from the drop-down menu.\nChoose html or pdf output.\n(Why not Word? Too much temptation to make changes and do formatting after the fact in Word…which makes your work no-longer-reproducible. In qmd, you have documented everything you’ve done. If you make changes after rendering to Word, that’s not true anymore.)\n\n\nSave your qmd file\nSave your file by clicking on the disk icon at the top of the file tab (give it a clear file name like deruiter_quarto_practice.qmd).\nDo your best to avoid spaces and special characters in your file names.\nThe file will be saved to the server, not to your computer. All your files will be accessible in the RStudio Files tab (lower right panel) whenever you log into RStudio, regardless of which computer you are using. You may organize them into directories (folders) if you want.\n\n\n\n\n\n\n\n\n\n\n\nRender!\nHow do qmd files actually work? What’s so cool about them?\nClick on the fat blue arrow next to the word “Render” at the top of the file window.\n\n\n\n\n\n\n\n\n\nCheck out the rendered html or pdf result, and compare it to the original Quarto file.\nWow!\n\n\nSource vs. Visual Editor\nLook to the upper right corner of your qmd file. You should see some buttons that allow you to toggle between “Source” and “Visual” editor modes.\n\n\n\n\n\n\n\n\n\nIn your own file, toggle back and forth a few times. The Source mode lets you see (and type) the straight-up markdown – which is probably nice if you’re already used to it, and annoying or mystifying if not. The Visual mode is more of a what-you-see-is-what-you-get (like the rendered version), point-and-click type interface. You may use whichever you prefer.\n\n\nPersonalize your Markdown file\nAt the top of the Quarto file, there is a section called the “YAML header”. It starts and ends with 3 dashes - - -.\n\n\nIn this part of the file, be very careful what you type: a stray space or character will lead to an error.\n\n\nThis is where you can enter an appropriate title, author(s), and date (within the quotation marks). You can also choose the format you want to render to (usually pdf or html – not in quotes).\n\n\n\n\n\n\n\n\n\nCustomize your YAML header in your own Quarto doc, and then render again to see the effect.\nMake sure you do this for every assignment! (No prof or boss likes getting submissions called “Untitled”…)",
     "crumbs": [
       "Home",
       "R Basics",
@@ -122,8 +122,8 @@
     "objectID": "quarto/how-to-quarto.html#quarto-files-stand-alone",
     "href": "quarto/how-to-quarto.html#quarto-files-stand-alone",
     "title": "Reproducible Documents with Quarto in RStudio",
-    "section": "Quarto files stand alone",
-    "text": "Quarto files stand alone\nWe already covered this once, but we’re covering it again because it’s one of the most common student mistakes in qmd files!\nIf you run R code in the console or the RStudio GUI (for example, reading in a data set by pasting code into the console or using the Import Dataset button in the Environment tab), you won’t be able to use the results in your markdown file.\nAny and all commands you need, including reading in data, need to be included in the file.\nThe reverse is also true. If you run just one R code chunk in a qmd file using the “run” buttons mentioned above, or by copy-pasting into the console, you are effectively running that code in the console.\nIf R gives an error saying it cannot find a certain funtion, variable, or dataset, the most likely fix is to run the preceding code chunks (especially setup!) before the one you’re stuck on.",
+    "section": "Quarto Files Stand Alone!",
+    "text": "Quarto Files Stand Alone!\nWe already covered this once, but we’re covering it again because it’s one of the most common student mistakes in qmd files!\nIf you run R code in the console or the RStudio GUI (for example, reading in a data set by pasting code into the console or using the Import Dataset button in the Environment tab), you won’t be able to use the results in your markdown file.\nAny and all commands you need, including reading in data, need to be included in the file.\nThe reverse is also true. If you run just one R code chunk in a qmd file using the “run” buttons mentioned above, or by copy-pasting into the console, you are effectively running that code in the console.\nIf R gives an error saying it cannot find a certain funtion, variable, or dataset, the most likely fix is to run the preceding code chunks (especially setup!) before the one you’re stuck on.",
     "crumbs": [
       "Home",
       "R Basics",
@@ -279,6 +279,102 @@
       "Home",
       "R Basics",
       "R Basics"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#instructions",
+    "href": "quarto/how-to-quarto.html#instructions",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "",
+    "text": "While you work through this tutorial, you will create a Quarto (.qmd) document.\nQuarto lets you combine R code, output, and text in a single document that can be rendered in HTML, PDF, Word and more formats.\nIt’s like magic: you save all your text and R code in a simple file; when you’re ready, push a button and it’s compiled into an output document with nicely formatted text, code (optional to include, but for this class you always will), and all the figures and tables generated by your code.\nSince all the data analysis and results are automatically included in the compiled output document, your work is reproducible and it’s easy to re-do analysis if the data change, or if a mistake is uncovered.",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#quarto-yaml-settings",
+    "href": "quarto/how-to-quarto.html#quarto-yaml-settings",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "Quarto YAML settings",
+    "text": "Quarto YAML settings\n\nPDF or html?\nFor our course, you can choose to render to either an html file or a PDF file.\nSo, you’ll have either format: pdf or format: html in your YAML header. You can also try format: typst to render PDF files a bit faster (learn more about typst output format online).\nBut if you choose html, there’s an important change you have to make to the YAML header to ensure your html file is stand-alone. Meaning: you want all images, etc. to be embedded in the one file rather than stored in an accompanying folder. Otherwise, when you (say) upload the file on Moodle or email it, all the images and graphs will be omitted…yikes! Yes, embedding these makes the file larger, but if you are sharing the rendered html document, you need to.\nIf rendering to html, it is essential that you specify the setting embed-resources: true!\nSo, make sure you add embed-resources: true after the entry format: html: in your YAML header, exactly as shown below.\nMake sure to keep the spacing and line breaks just as shown.\nThe indents are each two spaces, so there are 2 spaces before html: and 4 before embed-resources:.\n\n\n\n\n\n\n\n\n\n\n\nCode tools\nNote that the YAML header shown above also had a second option activated for rendered html files: code-tools: true.\n\n\n\n\n\n\n\n\n\nWhat does this one do?\nIt adds a button “Code” at the top right of your file.\n\n\n\n\n\n\n\n\n\nIf you click it, you can view and copy the source code (basically, the contents of the original qmd file before rendering). This is not a bad option, for example for homework, as it allows me to see every detail of the settings you used and may help me troubleshoot any issues.",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#text-and-code-in-quarto",
+    "href": "quarto/how-to-quarto.html#text-and-code-in-quarto",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "Text and Code in Quarto",
+    "text": "Text and Code in Quarto\n\nText\nThe Quarto file is where you save all the R commands you want to use, plus any text commenting on the work you are doing and the results you get. Parts of the file with a plain white background are normal text.\nYou can format the text. For example, enclosing a word in asterisks will generate italics, so *my text* in the qmd file will become my text in the PDF. Using two asterisks instead of one will generate boldface, so **my text** becomes my text. You can also make bulleted lists, numbered lists, section headers, and more. For example,\n#### Some Text\nbecomes\n\nSome Text\n(a sub-section header). Fewer hashtags make the text even larger, and more make it smaller.\nCaution! Forgetting the space after the last hashtag will format your text verbatim rather than as a header (#fail). Failing to leave a blank line before the header can also make formatting fail.\nCheck out the Quarto Markdown Basics reference at https://quarto.org/docs/authoring/markdown-basics.html for more examples of how to format text in Quarto.\nFor instructions on how to include R output and special characters (symbols, subscripts, etc.) in your text, see also: https://connect.cs.calvin.edu/STAT341/symbols/\nBefore moving on, try a few of the tricks you just learned in your qmd file. Make it pretty!\n\n\n\nqmd file anatomy: R code chunks\nAn qmd file can (of course!) contain one or more R code chunks. These sections of the file have a grey background onscreen. In Source mode, each one begins with\n```{r}\nand ends with\n```\nlike so:\n\n\n\n\n\n\n\n\n\nIn Visual mode you can’t see the `:\n\n\n\n\n\n\n\n\n\n\n\nHow to add a new R code chunk to your file\nTo add a code chunk to your file in Source editor mode, you have three options.\n\nYou can type in the header and footer by hand to start and end the chunk.\nYou can click on the “add chunk” button at the top right. It’s a green box with the C inside (at the top of the qmd file; choose the first option, “R”, in the pulldown) to insert an empty chunk.\nYou can use a keyboard shortcut: Windows, Ctrl + Alt + I or OS X, Cmd + Option + I\n\nWhen you click the Render button, code in code chunks will be run, and any output will be included in the document.\n\n\n\n\n\n\n\n\n\n\n\nSetup Chunk\nConsider using the first R code chunk in a qmd file to specify settings (for graphics, display, etc.). In this chunk, you can also give R permission to use certain packages (software toolkits) with\n\nlibrary(packagename) \n\nFor example, we will use the ggformula package for graphics. So, verify that the first R code chunk in your file includes the line library(ggformula).\nYou can also specify options for each R code chunk - these go at the top, prefaced by #|. A typical setup chunk for our course might look like:\n\n\n\n\n\n\n\n\n\nNotice that several packages are loaded (that we will use frequently). theme_set() is used to specify some settings for graph output, and knitr::opts_chunk$set() is used to specify whether or not to include R code in the rendered file (Yes please: use echo: true!) and specify the default figure size.\nThere are tons more options and settings, and you can explore them at https://yihui.org/renderr/options/#chunk-options.\nBut for now, if you use something like the setup chunk shown above, it should work well and have what you need for almost all work in this course.\n\n\nThe settings chunk is invisible!\nIf you look carefully at the rendered output, you will see that the setup chunk does not appear there. That’s intentional - when you load packages with library(), they often print a lot of long and pretty useless messages, which you want to omit from your rendered document.\nThis is achieved by having the setting include: false\nHowever, for our course, no chunk other than the setup chunk should have the setting “include: false” (or echo: false for that matter). Generally, anyone evaluating your coursework needs to see all the code you used, not just its output.\n\n\nClean Up\nAt this point, you probably want to get rid of all the extra content in the template.\nIf you haven’t put a setup chunk into your own qmd file…do it now! Here’s another reminder of how it would look:\n\n\n\n\n\n\n\n\n\nNext, Delete everything in the file other than the YAML header and your setup R code chunk.\nNow the clutter is gone and you have space to include your own R code and text.\n(Before going further, make sure it still renders.)",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#run-r-code",
+    "href": "quarto/how-to-quarto.html#run-r-code",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "Run R Code",
+    "text": "Run R Code\nThere are multiple ways to run and test R code from a markdown file. Sometimes you want to render the whole file and get the PDF or HTML; other times you want to run just a specific bit of code to make sure it’s working correctly.\n\nRunning R Code from a qmd file: Render the file\nEvery time you render the file, all R code will be run automatically.\nA side note: PDF or HTML? Which is preferable?\nI think PDFs are a little more portable and a good default option, and their formatting is best for anything you are going to print out or share via email (especially with less technically inclined folks).\nHowever, later in the semester we may see how to create some pretty cool interactive graphics and/or tables in R, and these can only be rendered in HTML. For this class, you may use either one. (But not Word, remember? Because you’ll lose reproducibility…)\n\n\nRunning R Code from a qmd file: Run Menu\nYou can also use shortcuts/buttons to run specific chunk(s). Here is one way to do it (option 1): Use the Run pulldown menu at the top of the file. (Choose the option you want based on what you are trying to do).\n\n\n\n\n\n\n\n\n\n\n\nRunning Code from a qmd file: Shortcut Button\nHere is another way to use shortcuts/buttons to run only a specific chunk (option 2): Click on the green arrow at the upper right of a code chunk to run the chunk.\n\n\n\n\n\n\n\n\n\n\n\nRunning Code from a qmd file: Copy and Paste\nFinally, here’s a third way to use shortcuts/buttons (option 3):\nCopy the code you want to run, paste to the console window, and hit Enter.\n(Or, place your cursor in the line you want to run and hit ctrl + enter (Windows) or cmd + enter (Mac).)",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#data-from-a-url",
+    "href": "quarto/how-to-quarto.html#data-from-a-url",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "Data from a URL",
+    "text": "Data from a URL\nYou can load online datafiles in .csv format into R using the function read_csv(). The input to read_csv() is the full url where the file is located, in quotation marks. (Single or double quotes – it doesn’t matter which you choose, as they are equivalent in R.)\nFor example, we will consider a dataset with counts of the numbers of birds of different species seen at different locations in Hawai’i. It is stored at https://sldr.netlify.app/data/hawaii_birds.csv, and can be read into R using the command below.\n\nhi_birds &lt;- read_csv('https://sldr.netlify.app/data/hawaii_birds.csv')\n\n\nWhen you read in data, store it to a named object\nNote that we didn’t just run the read_csv() function – we assigned the results a name so that instead of printing the data table to the screen, R stores the dataset for later use.\n\nhi_birds &lt;- read_csv('https://sldr.netlify.app/data/hawaii_birds.csv')\n\nHere, we assigned the name hi_birds to the dataset using an “assignment arrow” &lt;- (the “arrow” points from the object toward the name).",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#data-from-google-sheets",
+    "href": "quarto/how-to-quarto.html#data-from-google-sheets",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "Data from Google Sheets",
+    "text": "Data from Google Sheets\nThere’s also a simple way to read in data from a Google Sheet.\nFirst, go to the Google Sheet online to prepare it by “publishing it online”.\nIn the File menu, choose “Publish to the Web”:\n\n\n\n\n\n\n\n\n\nIn the pop-up window, choose to publish your “Entire Document” as a .csv file:\n\n\n\n\n\n\n\n\n\nFinally, copy the resulting link.\n\n\n\n\n\n\n\n\n\nYou can use read_csv() with this link as input to read your data into R.",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#data-from-a-file",
+    "href": "quarto/how-to-quarto.html#data-from-a-file",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "Data from a File",
+    "text": "Data from a File\nYou can also upload your own data file to the server, and then read it in to R using read_csv(). The basic process is:\n\nUse spreadsheet software to create the data table\nSave the file as a csv file.\nUpload the csv file to the RStudio server\nUse the read_csv() function to read the file into R",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
+    ]
+  },
+  {
+    "objectID": "quarto/how-to-quarto.html#r-functions",
+    "href": "quarto/how-to-quarto.html#r-functions",
+    "title": "Reproducible Documents with Quarto in RStudio",
+    "section": "R functions",
+    "text": "R functions\nAfter reading the data in, you can use R functions to have a look at it, for example:\n\nhead(hi_birds)\nglimpse(hi_birds)\nnrow(hi_birds)\n\nTry each of the lines of code above in R. What do the functions head(), glimpse(), and nrow() do? Try to figure it out based on the output they produce.\nIf you get stuck, consult R’s built-in help files. Remember, you can access the help for a function by running the code ?functionName – for example, if you want help on head(), run:\n\n?head",
+    "crumbs": [
+      "Home",
+      "R Basics",
+      "Using Quarto"
     ]
   }
 ]

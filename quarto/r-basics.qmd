@@ -17,10 +17,10 @@ webr:
     - gt
     - pander
     - reactable
-
   cell-options:
     autorun: false
 engine: "knitr"
+toc: true
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -267,7 +267,7 @@ Make sure you change the name `my_root` in *both* places.
 
 :::{.solution exercise="name-a-variable"}
 
-::::{.callout-note collapse=true}
+::::{.callout-note collapse=false}
 ## Solution
 
 ```r
@@ -313,7 +313,7 @@ sum(___)
 :::
 
 :::{.solution exercise="c-and-sum"}
-::::{.callout-note collapse=true}
+::::{.callout-note collapse=false}
 ## Solution
 
 This is just one possible solution.
@@ -416,10 +416,10 @@ function(____)
 ```
 
 :::{.solution exercise="check-out-data"}
-::::{.callout-note collapse=true}
+::::{.callout-note collapse=false}
 ## Solution
 
-The input for each of the functions here is the name of the dataset: `HELPrct`.
+The input for each of the functions is the name of the dataset: `HELPrct`.
 
 ```r
 head(HELPrct)
@@ -442,7 +442,7 @@ You can get help related to R function, and built-in R datasets, using a special
 ```
 
 :::{.solution exercise="get-help"}
-::::{.callout-note collapse=true}
+::::{.callout-note collapse=false}
 ## Solution
 
 For example, if you want to know about the function `nrow()`:
@@ -488,7 +488,7 @@ Think about:
 :::
 
 :::{.solution exercise="baseball-mistakes"}
-::::{.callout-note collapse=true}
+::::{.callout-note collapse=false}
 
 ## Solution
 
