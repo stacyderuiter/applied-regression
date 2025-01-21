@@ -430,7 +430,7 @@
     "href": "quarto/r-results.html",
     "title": "R Results in Quarto",
     "section": "",
-    "text": "You may also want to include the results of R calculations in the TEXT part of your report.\nLet’s say you compute the mean of some kids’ foot lengths:\n\nmean(~length, data = KidsFeet)\n\n[1] 24.72308\n\n\nYou can use the result in the text part of your file…so you would type:\nThe mean length of the kids’ feet was ` r mean(~length, data=KidsFeet) ` cm.\nTo get:\nThe mean length of the kids’ feet was 24.7230769 cm.\nNote: those accent marks (before the “r” and at the end of the R-code stuff) are not normal single quotes or apostrophes; they are “back-ticks” or “graves” ( ` ), just like those used to help define the start and end of R code chunks in your markdown file.\nBut it’s annoying (and sometimes not really practical) to (re)type the entire R command in the text part of your file. An option is to save the quantity you want to refer to as a variable in R:\n\nmean_length &lt;- mean(~length, data = KidsFeet)\n\nThen you can write: The mean foot length of the kids was ` r mean_length` cm.\nTo get: The mean foot length of the kids was 24.7230769 cm.",
+    "text": "You may also want to include the results of R calculations in the TEXT part of your report.\nLet’s say you compute the mean of some kids’ foot lengths:\n\nmean(~length, data = KidsFeet)\n\n[1] 24.72308\n\n\nYou can use the result in the text part of your file…so you would type:\nThe mean length of the kids’ feet was ` r mean(~length, data=KidsFeet) ` cm.\nTo get:\nThe mean length of the kids’ feet was 24.7230769 cm.\nNote: those accent marks (before the “r” and at the end of the R-code stuff) are not normal single quotes or apostrophes; they are “back-ticks” or “graves” ( ` ), just like those used to help define the start and end of R code chunks in your Quarto file. There should not actually be a space between the ` and the r.\nBut it’s annoying (and sometimes not really practical) to (re)type the entire R command in the text part of your file. An option is to save the quantity you want to refer to as a variable in R:\n\nmean_length &lt;- mean(~length, data = KidsFeet)\n\nThen you can write: The mean foot length of the kids was ` r mean_length` cm.\nTo get: The mean foot length of the kids was 24.7230769 cm.",
     "crumbs": [
       "Home",
       "R Basics",
@@ -442,7 +442,7 @@
     "href": "quarto/r-results.html#including-results-of-r-calculations-in-your-text",
     "title": "R Results in Quarto",
     "section": "",
-    "text": "You may also want to include the results of R calculations in the TEXT part of your report.\nLet’s say you compute the mean of some kids’ foot lengths:\n\nmean(~length, data = KidsFeet)\n\n[1] 24.72308\n\n\nYou can use the result in the text part of your file…so you would type:\nThe mean length of the kids’ feet was ` r mean(~length, data=KidsFeet) ` cm.\nTo get:\nThe mean length of the kids’ feet was 24.7230769 cm.\nNote: those accent marks (before the “r” and at the end of the R-code stuff) are not normal single quotes or apostrophes; they are “back-ticks” or “graves” ( ` ), just like those used to help define the start and end of R code chunks in your markdown file.\nBut it’s annoying (and sometimes not really practical) to (re)type the entire R command in the text part of your file. An option is to save the quantity you want to refer to as a variable in R:\n\nmean_length &lt;- mean(~length, data = KidsFeet)\n\nThen you can write: The mean foot length of the kids was ` r mean_length` cm.\nTo get: The mean foot length of the kids was 24.7230769 cm.",
+    "text": "You may also want to include the results of R calculations in the TEXT part of your report.\nLet’s say you compute the mean of some kids’ foot lengths:\n\nmean(~length, data = KidsFeet)\n\n[1] 24.72308\n\n\nYou can use the result in the text part of your file…so you would type:\nThe mean length of the kids’ feet was ` r mean(~length, data=KidsFeet) ` cm.\nTo get:\nThe mean length of the kids’ feet was 24.7230769 cm.\nNote: those accent marks (before the “r” and at the end of the R-code stuff) are not normal single quotes or apostrophes; they are “back-ticks” or “graves” ( ` ), just like those used to help define the start and end of R code chunks in your Quarto file. There should not actually be a space between the ` and the r.\nBut it’s annoying (and sometimes not really practical) to (re)type the entire R command in the text part of your file. An option is to save the quantity you want to refer to as a variable in R:\n\nmean_length &lt;- mean(~length, data = KidsFeet)\n\nThen you can write: The mean foot length of the kids was ` r mean_length` cm.\nTo get: The mean foot length of the kids was 24.7230769 cm.",
     "crumbs": [
       "Home",
       "R Basics",
@@ -471,6 +471,210 @@
       "Home",
       "R Basics",
       "R Results in Text"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html",
+    "href": "quarto/graphics-design.html",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "",
+    "text": "After this section, you will be able to:\n\nCritique statistical graphics based on design principles.\nRecognize common misleading design choices for data visualizations\nRecognize data visualization that tells a true story, identifying elements that emphasize the main finding and make the figure easy to interpret at a glance",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#module-learning-outcomes",
+    "href": "quarto/graphics-design.html#module-learning-outcomes",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "",
+    "text": "After this section, you will be able to:\n\nCritique statistical graphics based on design principles.\nRecognize common misleading design choices for data visualizations\nRecognize data visualization that tells a true story, identifying elements that emphasize the main finding and make the figure easy to interpret at a glance",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#reference-materials",
+    "href": "quarto/graphics-design.html#reference-materials",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Reference Materials",
+    "text": "Reference Materials\n\nBeyond Multiple Linear Regression Ch. 1.5\nEcological Models & Data in R Ch. 2 discusses graphics, but is not recommended as the approach to reading in data, writing R code, and generating graphs in R is very different to that used in this course.\nA comprehensive, and free, supplemental reference is Fundamentals of Data Visualization by Claus Wilke\n\nIt’s suggested that you refer to the above materials as needed after doing this section, with particular focus on the topics you found most challenging.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#inspiration",
+    "href": "quarto/graphics-design.html#inspiration",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Inspiration",
+    "text": "Inspiration\n\nAbove all, show the data.\nE. Tufte, The Visual Display of Quantitative Information\n\nBut…\n\nThe Numbers Don’t Speak for Themselves.\nC. D’Ignazio and L. Klein, Data Feminism\n\nIn visualizing data, we use graphics to gain and communicate an honest understanding of data in context.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#motivation-imagine-first",
+    "href": "quarto/graphics-design.html#motivation-imagine-first",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Motivation: Imagine First!",
+    "text": "Motivation: Imagine First!\nFigures are a crucial tool for exploring your data and communicating what you learn from the data.\nWhether you are doing a quick check to assess basic features of a dataset or creating a key figure for an important presentation, the best practice is to work thoughtfully.\n\nThe I.C.E.E. method:\n\nImagine how you want your graph to look, before you\nCode. Once you have the basic starting point,\nEvaluate your work, and\nElaborate (refine it).\n\nRepeat until the figure is as awesome as it needs to be.\n\n\nNO To Mindless Copy/Paste\nToo many of us fall into the trap of starting to write code (or copy/pasting it!) before pausing to think carefully about the desired outcome, then settling for the first vaguely relevant result (or delighting in the unintended outcome…).\n\n\nYou can do better than mindless copying! Only mindful copy-pasting allowed.\n\n\nThis section provides some advice to get you started. It can also provide inspiration for constructive critique of others’ graphics.\nHere we focus only on the I_EE parts of the process, where you design and assess graphics. Code will come later.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#appearance-goals",
+    "href": "quarto/graphics-design.html#appearance-goals",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Appearance Goals",
+    "text": "Appearance Goals\nSpecifically, how exactly should a graphic look? There are so many choices: color, size, text and more. What are best practices for creating something beautiful, that represents the data honestly, and is easy to understand?\nThis section will provide some rules of thumb to help you Evaluate statistical graphics. It will also teach you to spot common problems and suggest ways to fix them, allowing you to provide constructive critique (to yourself or to others!) about how to Elaborate and refine data visualizations.\n\nYou still have your freedom!\nAs you digest all these rules and tips, you may wonder: “Do I have to always obey every one?” Well…No, of course not. Be creative!\nSometimes it’s OK to break these rules when you have thought it through and with a good justification.\nA good justification means that in your particular case, breaking a certain rule will make your graph more informative, easier to understand, or better at telling the story you’re highlighting.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#learning-objectives",
+    "href": "quarto/graphics-design.html#learning-objectives",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nThis section will give you some basic tools to:\n\nGraph data with integrity, avoiding misleading design choices\nTell the right story, including elements that emphasize your main finding and make your figure easy to interpret at a glance",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#bye-junk",
+    "href": "quarto/graphics-design.html#bye-junk",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Bye, Junk!",
+    "text": "Bye, Junk!\nOur first principle is: if it doesn’t need to be in your graph, it shouldn’t be there. Keep things as simple as possible. What are some justifications for a need to include an element in a plot?\n\nIt is crucial to the story you are telling, or the research question you are answering.\nIt emphasizes your main point. For example, some plots may not need color, and in others it may add crucial visual contrast to highlight a main point.\nIt makes the graph easier to read and understand\nIt makes the main message of the graph more memorable\n\nIf you need it, include it, but if not, keep it simple!\nImagine you are using very expensive ink to print every element of the graph. Is every drop of in you’re using really worth it? If not, take it out. As influential data visualization thinker Edward Tufte put it in The Visual Display of Quantitative Information,\n\nA large share of ink on a graphic should present data-information, the ink changing as the data change. Data-ink is the non-erasable core of a graphic…\n\nIn other words, don’t let annotations, labels, grids, etc. overwhelm the visual impact of your data:\n\nCartoon source: https://freshspectrum.com/data-ink-ratio/\n\nCheck: Critique the Pie\nThe figure below, from a Forbes article on mobile operating system crashes, is pretty awful.\n\nWhat is one main conclusion from the graph above? (It’s pretty confusing to interpret, so you may have to study carefully to find something…)\nNow that you have identified one main conclusion from the graph, what is one element of the plot that obscures that conclusion, is NOT necessary, and could be removed to improve the plot? Answer constructively - as if the person who made the plot was incredibly smart and someone you admire, and to whom you wanted to be kind but helpful.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#proportional-ink-and-axis-scales",
+    "href": "quarto/graphics-design.html#proportional-ink-and-axis-scales",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Proportional Ink and Axis Scales",
+    "text": "Proportional Ink and Axis Scales\nFor bar graphs and other filled-area plots, the area of a graphic element should correspond to the proportion of the data it represents.\nThis principle might be violated if the lower limit of a count/frequency axis is not 0. If you’re showing the number or proportion or percentage of observations in categories, it’s usually best to set the lower limit of the axis to 0.\nIf you don’t start at 0, make sure the “at a glance” interpretation of your figure is not misleading!\nA similar principle applies for plots of quantitative variables if they use filled areas to represent numeric values and there is some value (zero or another threshold value) that is an important reference point.\nFor optional additional detail on choosing honest axis limits and more examples, check out the blog post by the excellent but (sorry) profanely named Calling B*** project.\nAn example from Chapter 17 of C. Wilke’s *Fundamentals of Data Visualization shows the “Stock price of Facebook (FB) from Oct. 22, 2016 to Jan. 21, 2017”:\n\n\nWhy is the Facebook figure above ‘bad’? Mark all correct answers as TRUE.\nThe graph suggests that Facebook stock value dropped dramatically around November 1, 2016. But it actually only lost about 10% of its value. TRUEFALSE\nThe grey area should be plain white, not colored in. TRUEFALSE\nThe stock price values appear too jagged and should be smoothed out. TRUEFALSE\nThere are some stock price values that appear to be outliers and should be removed. TRUEFALSE\n\n\n\nClick for explanations of solutions above.\n\n\nIn this case, it would probably be less misleading to use a y axis ranging from 0 to 135 instead of 110 to 135.\nA line chart could also be used here (without filling in the grey area), but using the color emphasizes the values rather than the trend over time.\nWe can not just change data values to make them look how we like. If we wanted to emphasize the smoothed trend over time, we could show the smoothed curve atop a scatter plot of the original data points, which would present the desired message without altering the data. If we did average over time before plotting, it should be clearly noted (for example, “Weekly average Facebook stock prices…”).\nEven if there are outliers (there are not extreme ones here), it is only acceptable to exclude them from analysis if you can verify that they are errors.\n\n\nConsider two ways to try to “fix” the figure (again from Wilke).\n\nA.\n\n\n\nB.\n\n\nWhy is the Facebook figure above ‘bad’? Mark all correct answers as TRUE.\nWhich of the figures above solves the proportional-ink problem with the Facebook stock price plot?\n\nA does it! TRUEFALSE\nB does it! TRUEFALSE\nActually maybe both of them do it…TRUEFALSE\nNeither of them solves the problem. TRUEFALSE\n\n\n\n\nClick for explanations of solutions above.\n\nA accurately shows the reduction in stock price as a proportion of the initial price. But what about B? Some would say B accurately shows the amount of value lost (and then regained) over time. Others would argue that it is as bad as the original, for similar reasons - the graph shows the absolute lost value, not the proportion lost value. So B may be OK, or bad, depending on your perspective.\nSome would say B accurately shows the amount of value lost (and then regained) over time. Others would argue that it is as bad as the original, for similar reasons - the graph shows the absolute lost value, not the proportion lost value.\n\n\n\nCounts or Proportions or Percentages?\n\nFor categorical data, should you show the Count in each category, or the Frequency (proportion or percent)? It depends!\n\nWhen you want to compare by category across groups, and the total number in each group varies, frequency works well\nIf representing differences in sample size between groups is crucial, counts work better",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#grids-and-boxes",
+    "href": "quarto/graphics-design.html#grids-and-boxes",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Grids and Boxes",
+    "text": "Grids and Boxes\nShould your graphics include boxes, axis lines, and grid lines?\nWell, it depends…\n\nRemoving unnecessary axes, grids, and labels yields a cleaner plot that may be easier to take in at a glance – there is less to distract from the main story\nBut… omitting needed baselines, tick marks, gridlines, and labels can cause confusion and make it hard to identify categories or estimate numeric values\nScientific graphics usually need axis lines, with tick marks\nIf a viewer will need to refer to an axis to estimate heights of bars or locations of points, then consider using gridlines for that axis.\nInstead of an entire grid, it may be more effective to include single lines indicating important threshold values\nConsider using a color that nearly blends into the background for grid lines, so that they detract as little attention as possible from the data\n\n\nExample\nStorytelling with Data provide an example of a cluttered figure where the trend over time pops out more as unnecessary grids and boxes are made less visible, then removed:\n\nOptionally, if you’d like more examples, read S. Few’s 3.5-page article on when grid lines are helpful.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#text-elements-titles-labels-size",
+    "href": "quarto/graphics-design.html#text-elements-titles-labels-size",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Text Elements: Titles, Labels, Size",
+    "text": "Text Elements: Titles, Labels, Size\nWhen using text in a figure, ensure it is easy to read. Make sure no unneccessary text is included.\n\nDefault size of text in figures produced by statistical software is almost always too small. Make sure your text is big enough to be easily legible in the context where you will present it (on the page in a report, on a slide for a presentation, etc.)\nOther than the title of the vertical (y) axis, all the text in a plot should be horizontal. This makes it easier to read.\nAxis labels should be self-explanatory\n\nViewers should be able to guess what they mean accurately without looking at anything but the figure\nUse words instead of numeric codes or cryptic abbreviations\n\nAxis labels should also be as short as possible while remaining easy to understand\nEvery plot should have a title. Sometimes this might be a literal title at the top of the graph, but those are relatively rare. More often in scientific work, a text caption appears below the figure. The first phrase/sentence of the caption acts as the figure’s title\n\nRemember the melanoma rates over time figure from the last section?\n\n\nWhat helpful changes did Storytelling with Data make to the text labels as they improved the figure?\nThe x axis labels are rotated so they are horizonal. TRUEFALSE\nThe title color is changed to blue and the axis labels to grey. TRUEFALSE\nThe box around the plot is removed. TRUEFALSE\n\n\n\nClick for explanations of solutions above.\n\n\nRotating axis labels so they are horizontal is generally an improvement. To make this happen, the number of tick marks and labels on the x axis was also reduced. Notice the labels are much easier to read.\nThe color changes helped too. The blue links the title with the trend it describes, and the grey makes the axis titles less prominent and lets the viewer focus on the data. Continue to the next section for more on using color…\nThe box is gone, and it is a big improvement to the plot! But technically, you were asked about changes to the text labels…",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#using-color",
+    "href": "quarto/graphics-design.html#using-color",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Using Color",
+    "text": "Using Color\nColor - used with care - can be an incredibly effective part of a data visualization.\n\nEnsure your color choices highlight the story you want to tell\n\nConsider using black and grey to help some elements fade into the background - for example, grid lines and labels that must be present but aren’t the most important elements\n\nChoose color combinations that look good and are distinguishable by color-blind viewers and in greyscale\n\nDefault to using pre-defined color palettes provided by your software rather than choosing colors manually\nConsider being redundant - use size and/or shape as well as color to indicate groups.\n\nUse color consistently. Example: if “young” cases are red in one graph, don’t use red for “old” in the next graph\n\nThe video below, from Storytelling with Data, gives explanations and examples.\n\nIf you have time, watch from 11:48 to 28:41 (about 17 minutes). This segment will play automatically in the clip below.\nIf you’re in a rush, the most important sections (about 10 minutes) are:\n\n13:57 - 15:12 (Sparing use of color)\n18:44 - 21:25; see also the infographic of color in culture\n22:25 - 23:10 (Color blindness - to view your graphs as someone with color blindness would, take a screen shot and try the simulator online\n23:50 - 28:41 (Consistency)\n\n\n\n\n\nWhich of the following are lessons from the Storytelling with Data video on Being Clever with Color? Mark all correct answers “TRUE”.\nColor grabs attention. TRUEFALSE\nColor signals where to look. TRUEFALSE\nColor should be used sparingly. TRUEFALSE\nToo much color, and everything is highlighted - the viewer does not know what to pay attention to. TRUEFALSE\nColor can show quantitative values, too, not just categories. TRUEFALSE\nColors have tone and meaning. TRUEFALSE\nNot everyone can see colors. TRUEFALSE\nUse color consistently. TRUEFALSE\nSimple black and white is always the best choice. TRUEFALSE\n\n\n\nClick for explanations of solutions above.\n\n\nThe human eye is naturally drawn to colors.\nSince color grabs attention, we expect it to direct us toward the most important stuff that is worthy of our attention.\nBut…Too much color, and everything is highlighted - the viewer does not know what to pay attention to.\nAlso, remember that the meaning and interpretation of colors varies by culture.\nSince some people can not see color, use color-blind friendly palettes and redundant coding (shape, text) where possible without cluttering the figure.\nInconsistent use of color can be confusing and distracting.\nSometimes black and white is great - but often color helps you tell a story!",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#when-things-overlap",
+    "href": "quarto/graphics-design.html#when-things-overlap",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "When Things Overlap",
+    "text": "When Things Overlap\nEspecially when graphing variables with long category values, you may end up with ugly, illegible overlapping labels. Two easy solutions, in order of preference, are to switch x and y coordinates so the “long” labels are on the y axis (in R, this resizes the plot area so that labels fit); or, to rotate the too-long labels, which eliminates the overlap but makes them harder to read than horizontal text.\nSometimes a title or axis label is too long and runs off the edge of the figure. Using a smaller font is not often an ideal solution. If you can’t just use a shorter label, consider adding line breaks.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#critique-practice",
+    "href": "quarto/graphics-design.html#critique-practice",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Critique Practice",
+    "text": "Critique Practice\nTry using what you have learned to provide a constructive critique of an example.\nConsider the graphic below. At a glance, what do you think it means? Looking more carefully, what do you notice?\n\nPause to think: What changes, if any, would you suggest to the figure’s creator to make it clearer and easier to understand? Be sure to be constructive - gently explain any problems and suggest solutions.",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#video-review",
+    "href": "quarto/graphics-design.html#video-review",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Video Review",
+    "text": "Video Review\nWow, that was quite a lot of information! If you could use a brief review from a different point of view, check out the optional video from Kristen Sosulski:",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#recap-reflect-12-tips",
+    "href": "quarto/graphics-design.html#recap-reflect-12-tips",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Recap & Reflect: 12 Tips",
+    "text": "Recap & Reflect: 12 Tips\nThe 4-minute video below summarizes design principles for data visualization in the form of 12 tips.\nAs you watch, make note of one or two tips that strike you (you’ll report your thoughts in the next section). Is there one that nicely summarizes an idea introduced earlier in the section? One you’re not sure about? One that you think is incredibly important? One that makes you say “Aha! Now I see why I loved/hated that visualization!”",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
+    ]
+  },
+  {
+    "objectID": "quarto/graphics-design.html#pause-for-reflection",
+    "href": "quarto/graphics-design.html#pause-for-reflection",
+    "title": "Graphics: Design Effective Visualizations",
+    "section": "Pause for Reflection",
+    "text": "Pause for Reflection\nTake a moment to reflect on what you learned. Which Tip do you remember most clearly, think is most important, or want to challenge? Consider making a few notes for yourself for the future (you’ll have to make and critique plenty of graphics in your homework assignments).",
+    "crumbs": [
+      "Home",
+      "Visualization",
+      "Designing Data Visualizations"
     ]
   }
 ]

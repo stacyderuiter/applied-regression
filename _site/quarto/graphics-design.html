@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stacy DeRuiter">
+<meta name="dcterms.date" content="2025-01-21">
+
+<title>Graphics: Design Effective Visualizations – Applied Regression with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../quarto/graphics-choose.qmd" rel="next">
+<link href="../quarto/r-results.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Regression with R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/graphics-design.html">Visualization</a></li><li class="breadcrumb-item"><a href="../quarto/graphics-design.html">Designing Data Visualizations</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applied Regression in R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">R Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/r-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/how-to-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/math-notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mathematical Notation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/r-results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Results in Text</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-design.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Designing Data Visualizations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-choose.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choosing a Graph Type</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-code.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code Examples</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#module-learning-outcomes" id="toc-module-learning-outcomes" class="nav-link active" data-scroll-target="#module-learning-outcomes">Module Learning Outcomes</a></li>
+  <li><a href="#reference-materials" id="toc-reference-materials" class="nav-link" data-scroll-target="#reference-materials">Reference Materials</a></li>
+  <li><a href="#inspiration" id="toc-inspiration" class="nav-link" data-scroll-target="#inspiration">Inspiration</a></li>
+  <li><a href="#motivation-imagine-first" id="toc-motivation-imagine-first" class="nav-link" data-scroll-target="#motivation-imagine-first">Motivation: Imagine First!</a>
+  <ul class="collapse">
+  <li><a href="#the-i.c.e.e.-method" id="toc-the-i.c.e.e.-method" class="nav-link" data-scroll-target="#the-i.c.e.e.-method">The <strong>I.C.E.E. method</strong>:</a></li>
+  <li><a href="#no-to-mindless-copypaste" id="toc-no-to-mindless-copypaste" class="nav-link" data-scroll-target="#no-to-mindless-copypaste">NO To Mindless Copy/Paste</a></li>
+  </ul></li>
+  <li><a href="#appearance-goals" id="toc-appearance-goals" class="nav-link" data-scroll-target="#appearance-goals">Appearance Goals</a>
+  <ul class="collapse">
+  <li><a href="#you-still-have-your-freedom" id="toc-you-still-have-your-freedom" class="nav-link" data-scroll-target="#you-still-have-your-freedom">You still have your freedom!</a></li>
+  </ul></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#bye-junk" id="toc-bye-junk" class="nav-link" data-scroll-target="#bye-junk">Bye, Junk!</a>
+  <ul class="collapse">
+  <li><a href="#check-critique-the-pie" id="toc-check-critique-the-pie" class="nav-link" data-scroll-target="#check-critique-the-pie">Check: Critique the Pie</a></li>
+  </ul></li>
+  <li><a href="#proportional-ink-and-axis-scales" id="toc-proportional-ink-and-axis-scales" class="nav-link" data-scroll-target="#proportional-ink-and-axis-scales">Proportional Ink and Axis Scales</a>
+  <ul class="collapse">
+  <li><a href="#counts-or-proportions-or-percentages" id="toc-counts-or-proportions-or-percentages" class="nav-link" data-scroll-target="#counts-or-proportions-or-percentages">Counts or Proportions or Percentages?</a></li>
+  </ul></li>
+  <li><a href="#grids-and-boxes" id="toc-grids-and-boxes" class="nav-link" data-scroll-target="#grids-and-boxes">Grids and Boxes</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  </ul></li>
+  <li><a href="#text-elements-titles-labels-size" id="toc-text-elements-titles-labels-size" class="nav-link" data-scroll-target="#text-elements-titles-labels-size">Text Elements: Titles, Labels, Size</a></li>
+  <li><a href="#using-color" id="toc-using-color" class="nav-link" data-scroll-target="#using-color">Using Color</a></li>
+  <li><a href="#when-things-overlap" id="toc-when-things-overlap" class="nav-link" data-scroll-target="#when-things-overlap">When Things Overlap</a></li>
+  <li><a href="#critique-practice" id="toc-critique-practice" class="nav-link" data-scroll-target="#critique-practice">Critique Practice</a></li>
+  <li><a href="#video-review" id="toc-video-review" class="nav-link" data-scroll-target="#video-review">Video Review</a></li>
+  <li><a href="#recap-reflect-12-tips" id="toc-recap-reflect-12-tips" class="nav-link" data-scroll-target="#recap-reflect-12-tips">Recap &amp; Reflect: 12 Tips</a></li>
+  <li><a href="#pause-for-reflection" id="toc-pause-for-reflection" class="nav-link" data-scroll-target="#pause-for-reflection">Pause for Reflection</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/graphics-design.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/graphics-design.html">Visualization</a></li><li class="breadcrumb-item"><a href="../quarto/graphics-design.html">Designing Data Visualizations</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Graphics: Design Effective Visualizations</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Stacy DeRuiter </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 21, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="module-learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="module-learning-outcomes">Module Learning Outcomes</h2>
+<p>After this section, you will be able to:</p>
+<ol type="1">
+<li>Critique statistical graphics based on design principles.</li>
+<li>Recognize common misleading design choices for data visualizations</li>
+<li>Recognize data visualization that tells a true story, identifying elements that emphasize the main finding and make the figure easy to interpret at a glance</li>
+</ol>
+</section>
+<section id="reference-materials" class="level2">
+<h2 class="anchored" data-anchor-id="reference-materials">Reference Materials</h2>
+<ul>
+<li><a href="https://bookdown.org/roback/bookdown-BeyondMLR/ch-MLRreview.html#explorech1" target="_blank"><em>Beyond Multiple Linear Regression</em> Ch. 1.5</a></li>
+<li><em>Ecological Models &amp; Data in R</em> Ch. 2 discusses graphics, but is not recommended as the approach to reading in data, writing R code, and generating graphs in R is very different to that used in this course.</li>
+<li>A comprehensive, and free, supplemental reference is <a href="https://clauswilke.com/dataviz/" target="_blank">Fundamentals of Data Visualization by Claus Wilke</a></li>
+</ul>
+<p>It’s suggested that you refer to the above materials as needed <em>after</em> doing this section, with particular focus on the topics you found most challenging.</p>
+</section>
+<section id="inspiration" class="level2">
+<h2 class="anchored" data-anchor-id="inspiration">Inspiration</h2>
+<blockquote class="blockquote">
+<p>Above all, show the data.</p>
+<p>E. Tufte, <a href="https://www.edwardtufte.com/tufte/books_vdqi" target="_blank"><em>The Visual Display of Quantitative Information</em></a></p>
+</blockquote>
+<p>But…</p>
+<blockquote class="blockquote">
+<p>The Numbers Don’t Speak for Themselves.</p>
+<p>C. D’Ignazio and L. Klein, <a href="https://data-feminism.mitpress.mit.edu/pub/czq9dfs5/release/2" target="_blank"><em>Data Feminism</em></a></p>
+</blockquote>
+<p>In visualizing data, we use graphics to gain and communicate an honest understanding of data in context.</p>
+</section>
+<section id="motivation-imagine-first" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-imagine-first">Motivation: Imagine First!</h2>
+<p>Figures are a crucial tool for exploring your data <em>and</em> communicating what you learn from the data.</p>
+<p>Whether you are doing a quick check to assess basic features of a dataset or creating a key figure for an important presentation, the best practice is to work thoughtfully.</p>
+<section id="the-i.c.e.e.-method" class="level3">
+<h3 class="anchored" data-anchor-id="the-i.c.e.e.-method">The <strong>I.C.E.E. method</strong>:</h3>
+<ul>
+<li><strong>I</strong><em>magine</em> how you want your graph to look, <em>before</em> you</li>
+<li><strong>C</strong><em>ode</em>. Once you have the basic starting point,</li>
+<li><strong>E</strong><em>valuate</em> your work, and</li>
+<li><strong>E</strong><em>laborate</em> (refine it).</li>
+</ul>
+<p>Repeat until the figure is as awesome as it needs to be.</p>
+</section>
+<section id="no-to-mindless-copypaste" class="level3">
+<h3 class="anchored" data-anchor-id="no-to-mindless-copypaste">NO To Mindless Copy/Paste</h3>
+<p>Too many of us fall into the trap of starting to write code (or copy/pasting it!) <em>before</em> pausing to think carefully about the desired outcome, then settling for the first vaguely relevant result (or <a href="https://twitter.com/accidental__art?lang=en" target="_blank">delighting in the unintended outcome</a>…).</p>
+<blockquote class="blockquote">
+<blockquote class="blockquote">
+<p>You can do better than mindless copying! Only <em>mindful</em> copy-pasting allowed.</p>
+</blockquote>
+</blockquote>
+<p>This section provides some advice to get you started. It can also provide inspiration for constructive critique of others’ graphics.</p>
+<p>Here we focus only on the <strong>I_EE</strong> parts of the process, where you design and assess graphics. Code will come later.</p>
+</section>
+</section>
+<section id="appearance-goals" class="level2">
+<h2 class="anchored" data-anchor-id="appearance-goals">Appearance Goals</h2>
+<p>Specifically, how <em>exactly</em> should a graphic look? There are so many choices: color, size, text and more. What are best practices for creating something beautiful, that represents the data honestly, and is easy to understand?</p>
+<p>This section will provide some rules of thumb to help you <strong>Evaluate</strong> statistical graphics. It will also teach you to spot common problems and suggest ways to fix them, allowing you to provide <em>constructive</em> critique (to yourself or to others!) about how to <strong>Elaborate</strong> and refine data visualizations.</p>
+<section id="you-still-have-your-freedom" class="level3">
+<h3 class="anchored" data-anchor-id="you-still-have-your-freedom">You still have your freedom!</h3>
+<p>As you digest all these rules and tips, you may wonder: “Do I <em>have</em> to always obey every one?” Well…No, of course not. Be creative!</p>
+<p>Sometimes it’s OK to break these rules <em>when you have thought it through</em> and <em>with a good justification</em>.</p>
+<p>A good justification means that in your particular case, breaking a certain rule will make your graph more informative, easier to understand, or better at telling the story you’re highlighting.</p>
+</section>
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<p>This section will give you some basic tools to:</p>
+<ol type="1">
+<li><strong>Graph data with integrity</strong>, avoiding misleading design choices</li>
+<li><strong>Tell the right story</strong>, including elements that <em>emphasize your main finding</em> and make your figure <em>easy to interpret at a glance</em></li>
+</ol>
+</section>
+<section id="bye-junk" class="level2">
+<h2 class="anchored" data-anchor-id="bye-junk">Bye, Junk!</h2>
+<p>Our first principle is: if it doesn’t <em>need</em> to be in your graph, it shouldn’t be there. Keep things as simple as possible. What are some justifications for a <em>need</em> to include an element in a plot?</p>
+<ul>
+<li>It is crucial to the story you are telling, or the research question you are answering.</li>
+<li>It emphasizes your main point. For example, some plots may not need color, and in others it may add crucial visual contrast to highlight a main point.</li>
+<li>It makes the graph easier to read and understand</li>
+<li>It makes the main message of the graph more memorable</li>
+</ul>
+<p><strong>If you need it, include it, but if not, keep it simple!</strong></p>
+<p>Imagine you are using <em>very</em> expensive ink to print every element of the graph. Is every drop of in you’re using really worth it? If not, take it out. As influential data visualization thinker Edward Tufte put it in <a href="https://www.edwardtufte.com/tufte/books_vdqi" target="_blank"><em>The Visual Display of Quantitative Information</em></a>,</p>
+<blockquote class="blockquote">
+<p>A large share of ink on a graphic should present data-information, the ink changing as the data change. Data-ink is the non-erasable core of a graphic…</p>
+</blockquote>
+<p>In other words, don’t let annotations, labels, grids, etc. overwhelm the visual impact of your data:</p>
+<p><img src="https://freshspectrum.com/wp-content/uploads/2015/07/Data-ink-1024x768.png" class="img-fluid" alt="cartoon about data-ink ratio showing what not to do" title="cartoon about data-ink ratio showing what not to do" width="400"></p>
+<p><em>Cartoon source: <a href="https://freshspectrum.com/data-ink-ratio/" class="uri">https://freshspectrum.com/data-ink-ratio/</a></em></p>
+<section id="check-critique-the-pie" class="level3">
+<h3 class="anchored" data-anchor-id="check-critique-the-pie">Check: Critique the Pie</h3>
+<p>The figure below, from <a href="https://www.forbes.com/sites/tomiogeron/2012/02/02/does-ios-crash-more-than-android-a-data-dive/#4997f14d5385" target="_blank">a <em>Forbes</em> article on mobile operating system crashes</a>, <strong>is pretty awful</strong>.</p>
+<p><img src="https://thumbor.forbes.com/thumbor/576x0/https%3A%2F%2Fblogs-images.forbes.com%2Ftomiogeron%2Ffiles%2F2012%2F02%2Fcrashes-ios-android-1.jpg" class="img-fluid" alt="terrible pie chart from Forbes" title="terrible pie chart from Forbes"></p>
+<p><strong>What is one main conclusion from the graph above? (It’s pretty confusing to interpret, so you may have to study carefully to find something…)</strong></p>
+<p><strong>Now that you have identified one main conclusion from the graph, what is one element of the plot that obscures that conclusion, is NOT necessary, and could be removed to improve the plot? Answer constructively - as if the person who made the plot was incredibly smart and someone you admire, and to whom you wanted to be kind but helpful.</strong></p>
+</section>
+</section>
+<section id="proportional-ink-and-axis-scales" class="level2">
+<h2 class="anchored" data-anchor-id="proportional-ink-and-axis-scales">Proportional Ink and Axis Scales</h2>
+<p>For bar graphs and other filled-area plots, the <strong>area</strong> of a graphic element should correspond to the proportion of the data it represents.</p>
+<p>This principle might be violated if the lower limit of a count/frequency axis is not 0. If you’re showing the number or proportion or percentage of observations in categories, it’s usually best to set the lower limit of the axis to 0.</p>
+<p>If you don’t start at 0, make sure the “at a glance” interpretation of your figure is not misleading!</p>
+<p>A similar principle applies for plots of quantitative variables <em>if they use filled areas to represent numeric values</em> and <em>there is some value (zero or another threshold value) that is an important reference point.</em></p>
+<p>For optional additional detail on choosing honest axis limits and more examples, check out the blog post by the excellent but (sorry) profanely named <a href="https://www.callingbullshit.org/tools/tools_misleading_axes.html" target="_blank">Calling B*** project</a>.</p>
+<p>An example from <a href="https://clauswilke.com/dataviz/proportional-ink.html" target="_blank">Chapter 17 of C. Wilke’s *Fundamentals of Data Visualization</a> shows the “Stock price of Facebook (FB) from Oct.&nbsp;22, 2016 to Jan.&nbsp;21, 2017”:</p>
+<p><img src="https://clauswilke.com/dataviz/proportional_ink_files/figure-html/fb-stock-drop-bad-1.png" class="img-fluid" alt="chart showing facebook stock price over time, with limited price range visible" title="chart showing facebook stock price over time" width="400"></p>
+<div class="webex-check webex-box">
+<p><strong>Why is the Facebook figure above ‘bad’? Mark all correct answers as TRUE.</strong></p>
+<p>The graph suggests that Facebook stock value dropped dramatically around November 1, 2016. But it actually only lost about 10% of its value. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>The grey area should be plain white, not colored in. <select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+<p>The stock price values appear too jagged and should be smoothed out. <select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+<p>There are some stock price values that appear to be outliers and should be removed. <select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</div>
+<div class="webex-solution">
+<button>
+Click for explanations of solutions above.
+</button>
+<ul>
+<li>In this case, it would probably be less misleading to use a y axis ranging from 0 to 135 instead of 110 to 135.</li>
+<li>A line chart could also be used here (without filling in the grey area), but using the color emphasizes the values rather than the trend over time.</li>
+<li>We can not just change data values to make them look how we like. If we wanted to emphasize the smoothed trend over time, we could show the smoothed curve atop a scatter plot of the original data points, which would present the desired message without altering the data. If we did average over time before plotting, it should be clearly noted (for example, “Weekly average Facebook stock prices…”).</li>
+<li>Even if there are outliers (there are not extreme ones here), it is only acceptable to exclude them from analysis if you can verify that they are errors.</li>
+</ul>
+</div>
+<p>Consider two ways to try to “fix” the figure (again from <a href="https://clauswilke.com/dataviz/proportional-ink.html" target="_blank">Wilke</a>).</p>
+<section id="a." class="level4">
+<h4 class="anchored" data-anchor-id="a.">A.</h4>
+<p><img src="https://clauswilke.com/dataviz/proportional_ink_files/figure-html/fb-stock-drop-good-1.png" class="img-fluid" alt="chart showing facebook stock price over time, with price range going down to 0" width="400"></p>
+</section>
+<section id="b." class="level4">
+<h4 class="anchored" data-anchor-id="b.">B.</h4>
+<p><img src="https://clauswilke.com/dataviz/proportional_ink_files/figure-html/fb-stock-drop-inverse-1.png" class="img-fluid" alt="chart showing facebook stock price over time, showing price loss compared to initial date" width="400"></p>
+<div class="webex-check webex-box">
+<p><strong>Why is the Facebook figure above ‘bad’? Mark all correct answers as TRUE.</strong></p>
+<p>Which of the figures above solves the proportional-ink problem with the Facebook stock price plot?</p>
+<ul>
+<li><strong>A</strong> does it! <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></li>
+<li><strong>B</strong> does it! <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></li>
+<li>Actually maybe both of them do it…<select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></li>
+<li>Neither of them solves the problem. <select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></li>
+</ul>
+</div>
+<div class="webex-solution">
+<button>
+Click for explanations of solutions above.
+</button>
+<p>A accurately shows the reduction in stock price as a proportion of the initial price. But what about B? Some would say B accurately shows the amount of value lost (and then regained) over time. Others would argue that it is as bad as the original, for similar reasons - the graph shows the <em>absolute</em> lost value, not the proportion lost value. So B may be OK, or bad, depending on your perspective.</p>
+<p>Some would say B accurately shows the amount of value lost (and then regained) over time. Others would argue that it is as bad as the original, for similar reasons - the graph shows the <i>absolute</i> lost value, not the proportion lost value.</p>
+</div>
+</section>
+<section id="counts-or-proportions-or-percentages" class="level3">
+<h3 class="anchored" data-anchor-id="counts-or-proportions-or-percentages">Counts or Proportions or Percentages?</h3>
+<ul>
+<li>For categorical data, should you show the Count in each category, or the Frequency (proportion or percent)? It depends!
+<ul>
+<li>When you want to compare by category across groups, and the total number in each group varies, frequency works well</li>
+<li>If representing differences in sample size between groups is crucial, counts work better</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="grids-and-boxes" class="level2">
+<h2 class="anchored" data-anchor-id="grids-and-boxes">Grids and Boxes</h2>
+<p>Should your graphics include boxes, axis lines, and grid lines?</p>
+<p>Well, it depends…</p>
+<ul>
+<li>Removing unnecessary axes, grids, and labels yields a cleaner plot that may be easier to take in at a glance – there is less to distract from the main story</li>
+<li><strong>But…</strong> omitting needed baselines, tick marks, gridlines, and labels can cause confusion and make it hard to identify categories or estimate numeric values</li>
+<li>Scientific graphics usually need axis lines, with tick marks</li>
+<li>If a viewer will need to refer to an axis to estimate heights of bars or locations of points, then consider using gridlines for that axis.</li>
+<li>Instead of an entire grid, it may be more effective to include single lines indicating important threshold values</li>
+<li>Consider using a color that nearly blends into the background for grid lines, so that they detract as little attention as possible from the data</li>
+</ul>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p><a href="http://www.storytellingwithdata.com/blog/2011/07/gridlines-are-gratuitous" target="_blank">Storytelling with Data</a> provide an example of a cluttered figure where the trend over time pops out more as unnecessary grids and boxes are made less visible, then removed:</p>
+<p><img src="https://images.squarespace-cdn.com/content/v1/55b6a6dce4b089e11621d3ed/1438044611950-YY4YYAYAY1O95P8VGJ8G/ke17ZwdGBToddI8pDm48kDa6fENzg3THuPXOjlBueplZw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7Xj1nVWs2aaTtWBneO2WM-s7QUvVpCKf9Q5vGl5-jKOjePt_rSAREIxGXEmq0OLmZA/image-asset.jpeg?format=300w" class="img-fluid" alt="cluttered figure where the trend over time pops out more as unnecessary grids and boxes are made less visible, then removed" width="300"></p>
+<p>Optionally, if you’d like more examples, read <a href="http://www.perceptualedge.com/articles/dmreview/grid_lines.pdf" target="_blank">S. Few’s 3.5-page article on when grid lines are helpful.</a></p>
+</section>
+</section>
+<section id="text-elements-titles-labels-size" class="level2">
+<h2 class="anchored" data-anchor-id="text-elements-titles-labels-size">Text Elements: Titles, Labels, Size</h2>
+<p>When using text in a figure, ensure it is easy to read. Make sure no unneccessary text is included.</p>
+<ul>
+<li>Default size of text in figures produced by statistical software <em>is almost always too small</em>. Make sure your text is <em>big enough to be easily legible in the context where you will present it</em> (on the page in a report, on a slide for a presentation, etc.)</li>
+<li>Other than the title of the vertical (y) axis, all the text in a plot should be horizontal. This makes it easier to read.</li>
+<li>Axis labels should be self-explanatory
+<ul>
+<li>Viewers should be able to guess what they mean accurately without looking at anything but the figure</li>
+<li>Use words instead of numeric codes or cryptic abbreviations</li>
+</ul></li>
+<li>Axis labels should also be as short as possible while remaining easy to understand</li>
+<li>Every plot should have a title. Sometimes this might be a literal title at the top of the graph, but those are relatively rare. More often in scientific work, a text caption appears below the figure. The first phrase/sentence of the caption acts as the figure’s title</li>
+</ul>
+<p>Remember the melanoma rates over time figure from the last section?</p>
+<p><img src="https://images.squarespace-cdn.com/content/v1/55b6a6dce4b089e11621d3ed/1438044611950-YY4YYAYAY1O95P8VGJ8G/ke17ZwdGBToddI8pDm48kDa6fENzg3THuPXOjlBueplZw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7Xj1nVWs2aaTtWBneO2WM-s7QUvVpCKf9Q5vGl5-jKOjePt_rSAREIxGXEmq0OLmZA/image-asset.jpeg?format=300w" class="img-fluid" alt="chart showing melanoma rates over time" width="300"></p>
+<div class="webex-check webex-box">
+<p><strong>What helpful changes did Storytelling with Data make to the text labels as they improved the figure?</strong></p>
+<p>The x axis labels are rotated so they are horizonal. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>The title color is changed to blue and the axis labels to grey. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>The box around the plot is removed. <select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</div>
+<div class="webex-solution">
+<button>
+Click for explanations of solutions above.
+</button>
+<ul>
+<li>Rotating axis labels so they are horizontal is generally an improvement. To make this happen, the number of tick marks and labels on the x axis was also reduced. Notice the labels are much easier to read.</li>
+<li>The color changes helped too. The blue links the title with the trend it describes, and the grey makes the axis titles less prominent and lets the viewer focus on the data. Continue to the next section for more on using color…</li>
+<li>The box is gone, and it is a big improvement to the plot! But technically, you were asked about changes to the text labels…</li>
+</ul>
+</div>
+</section>
+<section id="using-color" class="level2">
+<h2 class="anchored" data-anchor-id="using-color">Using Color</h2>
+<p>Color - used with care - can be an incredibly effective part of a data visualization.</p>
+<ul>
+<li>Ensure your color choices highlight the story you want to tell
+<ul>
+<li>Consider using black and grey to help some elements fade into the background - for example, grid lines and labels that must be present but aren’t the most important elements</li>
+</ul></li>
+<li>Choose color combinations that look good and are distinguishable by color-blind viewers and in greyscale
+<ul>
+<li>Default to using pre-defined color palettes provided by your software rather than choosing colors manually</li>
+<li>Consider being redundant - use size and/or shape as well as color to indicate groups.</li>
+</ul></li>
+<li>Use color consistently. Example: if “young” cases are red in one graph, don’t use red for “old” in the next graph</li>
+</ul>
+<p>The video below, from Storytelling with Data, gives explanations and examples.</p>
+<ul>
+<li>If you have time, watch from 11:48 to 28:41 (about 17 minutes). This segment will play automatically in the clip below.</li>
+<li>If you’re in a rush, the most important sections (about 10 minutes) are:
+<ul>
+<li>13:57 - 15:12 (Sparing use of color)</li>
+<li>18:44 - 21:25; see also the <a href="https://www.informationisbeautiful.net/visualizations/colours-in-cultures/" target="_blank">infographic of color in culture</a></li>
+<li>22:25 - 23:10 (Color blindness - to view your graphs as someone with color blindness would, take a screen shot and try the <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/" target="_blank">simulator online</a></li>
+<li>23:50 - 28:41 (Consistency)</li>
+</ul></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/AiD6etOB6qI?start=708&amp;end=1721" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+<div class="webex-check webex-box">
+<p><strong>Which of the following are lessons from the Storytelling with Data video on Being Clever with Color? Mark all correct answers “TRUE”.</strong></p>
+<p>Color grabs attention. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Color signals where to look. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Color should be used sparingly. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Too much color, and everything is highlighted - the viewer does not know what to pay attention to. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Color can show quantitative values, too, not just categories. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Colors have tone and meaning. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Not everyone can see colors. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Use color consistently. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p>Simple black and white is always the best choice. <select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</div>
+<div class="webex-solution">
+<button>
+Click for explanations of solutions above.
+</button>
+<ul>
+<li>The human eye is naturally drawn to colors.</li>
+<li>Since color grabs attention, we expect it to direct us toward the most important stuff that is worthy of our attention.</li>
+<li>But…Too much color, and everything is highlighted - the viewer does not know what to pay attention to.</li>
+<li>Also, remember that the meaning and interpretation of colors varies by culture.</li>
+<li>Since some people can not see color, use color-blind friendly palettes and redundant coding (shape, text) where possible without cluttering the figure.</li>
+<li>Inconsistent use of color can be confusing and distracting.</li>
+<li>Sometimes black and white is great - but often color helps you tell a story!</li>
+</ul>
+</div>
+</section>
+<section id="when-things-overlap" class="level2">
+<h2 class="anchored" data-anchor-id="when-things-overlap">When Things Overlap</h2>
+<p>Especially when graphing variables with long category values, you may end up with ugly, illegible overlapping labels. Two easy solutions, in order of preference, are to switch x and y coordinates so the “long” labels are on the y axis (in R, this resizes the plot area so that labels fit); or, to rotate the too-long labels, which eliminates the overlap but makes them harder to read than horizontal text.</p>
+<p>Sometimes a title or axis label is too long and runs off the edge of the figure. Using a smaller font is <em>not</em> often an ideal solution. If you can’t just use a shorter label, consider adding line breaks.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-design_files/figure-html/bad-labels-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-design_files/figure-html/better-labels-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="critique-practice" class="level2">
+<h2 class="anchored" data-anchor-id="critique-practice">Critique Practice</h2>
+<p>Try using what you have learned to provide a constructive critique of an example.</p>
+<p>Consider the graphic below. At a glance, what do you think it means? Looking more carefully, what do you notice?</p>
+<p><img src="https://www.callingbullshit.org/tools/img/stand_your_ground.png" class="img-fluid" alt="chart showing gun deaths in Florida over time with inverted y axis" width="300"></p>
+<p><strong>Pause to think: What changes, if any, would you suggest to the figure’s creator to make it clearer and easier to understand? Be sure to be constructive - gently explain any problems and suggest solutions.</strong></p>
+</section>
+<section id="video-review" class="level2">
+<h2 class="anchored" data-anchor-id="video-review">Video Review</h2>
+<p>Wow, that was quite a lot of information! If you could use a brief review from a different point of view, check out the <strong>optional</strong> <a href="https://www.youtube.com/watch?v=m9AhRIh49eU" target="_blank">video from Kristen Sosulski</a>:</p>
+<p><img src="https://www.youtube.com/watch?v=m9AhRIh49eU.png" class="img-fluid"></p>
+</section>
+<section id="recap-reflect-12-tips" class="level2">
+<h2 class="anchored" data-anchor-id="recap-reflect-12-tips">Recap &amp; Reflect: 12 Tips</h2>
+<p>The 4-minute video below summarizes design principles for data visualization in the form of 12 tips.</p>
+<p>As you watch, make note of one or two tips that strike you (you’ll report your thoughts in the next section). Is there one that nicely summarizes an idea introduced earlier in the section? One you’re not sure about? One that you think is incredibly important? One that makes you say “Aha! <em>Now</em> I see why I loved/hated that visualization!”</p>
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/185421073" width="640" height="360" frameborder="0" allowfullscreen="">
+</iframe>
+</section>
+<section id="pause-for-reflection" class="level2">
+<h2 class="anchored" data-anchor-id="pause-for-reflection">Pause for Reflection</h2>
+<p>Take a moment to reflect on what you learned. Which Tip do you remember most clearly, think is most important, or want to challenge? Consider making a few notes for yourself for the future (you’ll have to make and critique plenty of graphics in your homework assignments).</p>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../quarto";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../quarto/r-results.html" class="pagination-link" aria-label="R Results in Text">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R Results in Text</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../quarto/graphics-choose.qmd" class="pagination-link" aria-label="Choosing a Graph Type">
+        <span class="nav-page-text">Choosing a Graph Type</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/graphics-design.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
