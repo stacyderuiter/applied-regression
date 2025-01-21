@@ -1,0 +1,44 @@
+project:
+  type: website
+
+website:
+  title: "Applied Regression with R"
+  repo-url: https://github.com/stacyderuiter/applied-regression
+  repo-actions: [edit, issue]
+  page-navigation: true
+  sidebar: 
+    style: "docked"
+    collapse-level: 3
+    contents: 
+      - href: index.qmd
+      - section: R Basics
+        contents:
+          - href: quarto/r-basics.qmd
+            text: "R Basics"
+          - href: quarto/how-to-quarto.qmd
+            text: "Using Quarto"
+          - href: quarto/math-notation.qmd
+            text: "Mathematical Notation"
+      - section: Visualization
+        contents: 
+          - href: quarto/graphics-design.qmd
+            text: "Designing Data Visualizations"
+          - href: quarto/graphics-choose.qmd
+            text: "Choosing a Graph Type"
+          - href: quarto/graphics-code.qmd
+            text: "Code Examples"
+  navbar:
+    search: true
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme: litera
+    css: styles.css
+    toc: true
+
+editor: visual
+

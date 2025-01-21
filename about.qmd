@@ -1,0 +1,7 @@
+---
+title: "About"
+---
+
+This site contains materials developed for statistics courses at Calvin University.
+
+It contains tutorials and reference guides for using R/RStudio for reproducible research with Quarto, data visualization with `ggformula`, and applied regression using packages including `glmmTMB`, `ggeffects`, `mgcv`, and `DHARMa`.

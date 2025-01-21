@@ -1,0 +1,42 @@
+---
+title: "Applied Regression in R"
+author: "Stacy DeRuiter, Calvin University"
+format: live-html
+
+engine: "knitr"
+toc: true
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+This site contains materials developed for statistics courses at Calvin University.
+
+It contains tutorials and reference guides for using R/RStudio for reproducible research with Quarto, data visualization with `ggformula`, and applied regression using packages including `glmmTMB`, `ggeffects`, `mgcv`, and `DHARMa`.
+
+Throughout the website, we will include many code examples.  These code examples are live. You can 
+edit the code and re-run it to see how things change. 
+
+:::{your-turn}
+
+Give it a try.  Run the code below to calculate `1 + 1`.
+Then see if you can get R to compute the product 3 * 5
+in the code block below.
+
+```{webr}
+#| exercise: ex_1_r
+1 + 1
+
+```
+
+```{webr}
+#| exercise: ex_1_r
+#| check: true
+results <- Filter(\(x) inherits(x, "result"), .evaluate_result)
+if(is.null(Find(\(x) x$value == 15, results))) {
+  list(correct = FALSE, message = "Now see if you can compute 3 * 5.")
+} else {
+  list(correct = TRUE, message = "Correct!")
+}
+```
+
+:::
