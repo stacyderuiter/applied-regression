@@ -1,0 +1,118 @@
+---
+title: "R Results in Quarto"
+author: "Stacy DeRuiter"
+date: "last-modified"
+toc: true
+---
+
+
+```{r}
+#| setup: true
+#| include: false
+
+library(mosaic)
+```
+
+
+## Including results of R calculations in your text
+
+You may also want to include the results of R calculations in the TEXT part of your report.
+
+Let's say you compute the mean of some kids' foot lengths:
+
+```{r}
+mean(~length, data = KidsFeet)
+```
+
+You can use the result in the text part of your file...so you would type:
+
+The mean length of the kids' feet was \` r mean(~length, data=KidsFeet) \` cm. 
+
+To get:
+
+The mean length of the kids' feet was `r mean(~length, data=KidsFeet)` cm.
+
+*Note: those accent marks (before the "r" and at the end of the R-code stuff) are not normal single quotes or apostrophes; they are "back-ticks" or "graves" ( \` ), just like those used to help define the start and end of R code chunks in your Quarto file. There should not actually be a space between the \` and the r.*
+
+But it's annoying (and sometimes not really practical) to (re)type the entire R command in the text part of your file.  An option is to save the quantity you want to refer to as a variable in R:
+
+```{r}
+mean_length <- mean(~length, data = KidsFeet)
+```
+
+Then you can write: The mean foot length of the kids was \` r mean_length\` cm.
+
+To get: The mean foot length of the kids was `r mean_length` cm.
+
+
+## Rounding
+
+What if you want to include a more reasonable number of decimal places? Use \texttt{round()}: The mean foot length of the kids was \` r round(mean_length, digits = 2)\` cm
+
+and you get: The mean foot length of the kids was `r round(mean_length, digits=2) ` cm
+
+## R results with more than one value inside
+What if you have an object with more than one value in it? For example, what if you computes means for both boys and girls?  You can use hard brackets ( [ ... ] ) to refer to the first, second, etc. entries.  For example:
+
+```{r}
+girlboy.means <- mean(~ length | sex,
+                      data = KidsFeet)
+```
+
+You type: The girls' mean foot length was \` r girlboy.means["G"] \`, and the boys' was \` r girlboy.means["B"] \`
+
+to get: The girls' mean foot length was `r girlboy.means["G"]`, and the boys' was `r girlboy.means["B"]`.
+
+*You can also use numeric indices -- for example, \` r girlboy.means[2] \` instead of \` r girlboy.means["G"] \` to get the girls' value -- but using names when you can is always safer because you don't have to worry about whether things are stored in the order you think that they are!*
+
+If you are referring to a data table or other object with multiple rows and columns, you can use the syntax \texttt{[row.numbers, column.numbers]} to extract a row, a column, or a specific value of interest. If you leave either \texttt{row.numbers} or \texttt{column.numbers} blank, all rows/columns will be included.
+
+For example, consider a table showing some data from a survey of intro stat students (\texttt{Ticket} tells whether they have gotten a speeding ticket while driving a car, and \texttt{Texted} tells whether they have texted while driving a car):
+
+```{r}
+student_survey <- read.csv('https://sldr.netlify.app/data/IntroStatStudents.csv', 
+              na.strings = list('', 'NA'))
+tally(~Ticket | Texted, 
+      data = student_survey, 
+      format = 'proportion')
+```
+
+What if we want to print just the first column of data? 
+
+(*Note: Don't count the row and column names when numbering the rows and columns*.)
+
+```{r}
+tally(~Ticket | Texted, 
+      data = student_survey,
+      format = 'proportion')[,1]
+```
+
+Or better (and clearer...)
+
+```{r}
+tally(~Ticket | Texted, 
+      data = student_survey,
+      format = 'proportion')[, "No"]
+```
+
+What about the third row (for people who have gotten a ticket)?
+
+```{r}
+tally(~Ticket | Texted, 
+      data = student_survey, 
+      format = 'proportion')["Yes",]
+```
+
+What about the proportion of students with tickets, among those who've texted while driving? (Row 3, Column 2 = row "Yes" and column "Yes")? Let's first save the table so we don't have to recompute...
+
+```{r}
+driver_table <- tally(~Ticket | Texted, 
+      data = student_survey, 
+      format = 'proportion')
+```
+
+Type: The proportion of students who have texted while driving who have gotten a speeding ticket is \` r driver_table["Yes","Yes"] \`.
+
+To get: The proportion of students who have texted while driving who have gotten a speeding ticket is `r driver_table["Yes","Yes"]`.
+
+(*Like before, if it's possible to use names instead of numeric indices, try to do so!*)

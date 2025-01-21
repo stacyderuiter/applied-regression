@@ -19,6 +19,8 @@ website:
             text: "Using Quarto"
           - href: quarto/math-notation.qmd
             text: "Mathematical Notation"
+          - href: quarto/r-results.qmd
+            text: "R Results in Text"
       - section: Visualization
         contents: 
           - href: quarto/graphics-design.qmd
