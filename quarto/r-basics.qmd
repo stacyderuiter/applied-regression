@@ -34,6 +34,7 @@ library(readr)
 library(tidyr)
 library(ggformula)
 library(mosaic)
+library(mosaicData)
 
 theme_set(theme_bw())
 
@@ -41,6 +42,8 @@ knitr::opts_chunk$set(
   echo = TRUE,
   fig.align = "center",
   fig.width = 6, fig.height = 2.5)
+
+data(HELPrct, package = "mosaicData")
 
 MI_lead <- read_csv(file='https://sldr.netlify.app/data/MI_lead.csv')
 ```
@@ -387,6 +390,7 @@ The `mosaic` package includes a dataset called `HELPrct`.
 If you just run the dataset name (`HELPrct`) as a command, R will print some of the dataset out to the screen:
 
 ```{r}
+library(mosaic)
 HELPrct
 ```
 

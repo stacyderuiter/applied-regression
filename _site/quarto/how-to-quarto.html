@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../quarto/math-notation.qmd" rel="next">
-<link href="../quarto/r-basics.qmd" rel="prev">
+<link href="../quarto/r-basics.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -75,6 +75,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,12 +104,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-sidebar docked nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -143,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/r-basics.qmd">R Basics</a></li><li class="breadcrumb-item"><a href="../quarto/how-to-quarto.html">Using Quarto</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/r-basics.html">R Basics</a></li><li class="breadcrumb-item"><a href="../quarto/how-to-quarto.html">Using Quarto</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -172,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto/r-basics.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../quarto/r-basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R Basics</span></a>
   </div>
 </li>
@@ -224,65 +227,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#general-instructions" id="toc-general-instructions" class="nav-link active" data-scroll-target="#general-instructions">General Instructions</a></li>
-  <li><a href="#reference-materials" id="toc-reference-materials" class="nav-link" data-scroll-target="#reference-materials">Reference Materials</a>
-  <ul class="collapse">
-  <li><a href="#optional-video" id="toc-optional-video" class="nav-link" data-scroll-target="#optional-video"><em>Optional</em> Video</a></li>
-  </ul></li>
-  <li><a href="#logistics" id="toc-logistics" class="nav-link" data-scroll-target="#logistics">Logistics</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a>
-  <ul class="collapse">
-  <li><a href="#logging-in-to-rstudio" id="toc-logging-in-to-rstudio" class="nav-link" data-scroll-target="#logging-in-to-rstudio">Logging in to RStudio</a></li>
-  <li><a href="#panels" id="toc-panels" class="nav-link" data-scroll-target="#panels">Panels</a></li>
-  <li><a href="#executing-code-in-r" id="toc-executing-code-in-r" class="nav-link" data-scroll-target="#executing-code-in-r">Executing code in R</a></li>
-  </ul></li>
-  <li><a href="#quarto-qmd-files" id="toc-quarto-qmd-files" class="nav-link" data-scroll-target="#quarto-qmd-files">Quarto (qmd) Files</a>
-  <ul class="collapse">
-  <li><a href="#quarto-files-are-stand-alone" id="toc-quarto-files-are-stand-alone" class="nav-link" data-scroll-target="#quarto-files-are-stand-alone">Quarto files are stand-alone!</a></li>
-  <li><a href="#create-a-quarto-file" id="toc-create-a-quarto-file" class="nav-link" data-scroll-target="#create-a-quarto-file">Create a Quarto file</a></li>
-  <li><a href="#save-your-qmd-file" id="toc-save-your-qmd-file" class="nav-link" data-scroll-target="#save-your-qmd-file">Save your qmd file</a></li>
-  <li><a href="#render" id="toc-render" class="nav-link" data-scroll-target="#render">Render!</a></li>
-  <li><a href="#source-vs.-visual-editor" id="toc-source-vs.-visual-editor" class="nav-link" data-scroll-target="#source-vs.-visual-editor">Source vs.&nbsp;Visual Editor</a></li>
-  <li><a href="#personalize-your-markdown-file" id="toc-personalize-your-markdown-file" class="nav-link" data-scroll-target="#personalize-your-markdown-file">Personalize your Markdown file</a></li>
-  <li><a href="#yaml-settings" id="toc-yaml-settings" class="nav-link" data-scroll-target="#yaml-settings">YAML settings</a></li>
-  </ul></li>
-  <li><a href="#qmd-file-anatomy" id="toc-qmd-file-anatomy" class="nav-link" data-scroll-target="#qmd-file-anatomy">qmd file anatomy</a>
-  <ul class="collapse">
-  <li><a href="#text" id="toc-text" class="nav-link" data-scroll-target="#text">Text</a></li>
-  <li><a href="#qmd-file-anatomy-r-code-chunks" id="toc-qmd-file-anatomy-r-code-chunks" class="nav-link" data-scroll-target="#qmd-file-anatomy-r-code-chunks">qmd file anatomy: R code chunks</a></li>
-  <li><a href="#how-to-add-a-new-r-code-chunk-to-your-file" id="toc-how-to-add-a-new-r-code-chunk-to-your-file" class="nav-link" data-scroll-target="#how-to-add-a-new-r-code-chunk-to-your-file">How to add a new R code chunk to your file</a></li>
-  <li><a href="#setup-chunk" id="toc-setup-chunk" class="nav-link" data-scroll-target="#setup-chunk">Setup Chunk</a></li>
-  <li><a href="#the-settings-chunk-is-invisible" id="toc-the-settings-chunk-is-invisible" class="nav-link" data-scroll-target="#the-settings-chunk-is-invisible">The settings chunk is invisible!</a></li>
-  <li><a href="#clean-up" id="toc-clean-up" class="nav-link" data-scroll-target="#clean-up">Clean Up</a></li>
-  </ul></li>
-  <li><a href="#running-r-code" id="toc-running-r-code" class="nav-link" data-scroll-target="#running-r-code">Running R Code</a>
-  <ul class="collapse">
-  <li><a href="#running-r-code-from-a-qmd-file-render-the-file" id="toc-running-r-code-from-a-qmd-file-render-the-file" class="nav-link" data-scroll-target="#running-r-code-from-a-qmd-file-render-the-file">Running R Code from a qmd file: Render the file</a></li>
-  <li><a href="#running-r-code-from-a-qmd-file-run-menu" id="toc-running-r-code-from-a-qmd-file-run-menu" class="nav-link" data-scroll-target="#running-r-code-from-a-qmd-file-run-menu">Running R Code from a qmd file: Run Menu</a></li>
-  <li><a href="#running-code-from-a-qmd-file-shortcut-button" id="toc-running-code-from-a-qmd-file-shortcut-button" class="nav-link" data-scroll-target="#running-code-from-a-qmd-file-shortcut-button">Running Code from a qmd file: Shortcut Button</a></li>
-  <li><a href="#running-code-from-a-qmd-file-copy-and-paste" id="toc-running-code-from-a-qmd-file-copy-and-paste" class="nav-link" data-scroll-target="#running-code-from-a-qmd-file-copy-and-paste">Running Code from a qmd file: Copy and Paste</a></li>
-  </ul></li>
-  <li><a href="#downloading-files-from-rstudio" id="toc-downloading-files-from-rstudio" class="nav-link" data-scroll-target="#downloading-files-from-rstudio">Downloading files from RStudio</a></li>
-  <li><a href="#quarto-files-stand-alone" id="toc-quarto-files-stand-alone" class="nav-link" data-scroll-target="#quarto-files-stand-alone">Quarto files stand alone</a></li>
-  <li><a href="#reading-data-from-url" id="toc-reading-data-from-url" class="nav-link" data-scroll-target="#reading-data-from-url">Reading Data from URL</a>
-  <ul class="collapse">
-  <li><a href="#when-you-read-in-data-store-it-to-a-named-object" id="toc-when-you-read-in-data-store-it-to-a-named-object" class="nav-link" data-scroll-target="#when-you-read-in-data-store-it-to-a-named-object">When you read in data, store it to a named object</a></li>
-  </ul></li>
-  <li><a href="#reading-data-from-google-sheets" id="toc-reading-data-from-google-sheets" class="nav-link" data-scroll-target="#reading-data-from-google-sheets">Reading Data from Google Sheets</a></li>
-  <li><a href="#reading-data-from-local-file" id="toc-reading-data-from-local-file" class="nav-link" data-scroll-target="#reading-data-from-local-file">Reading Data from Local File</a></li>
-  <li><a href="#a-few-very-basic-r-functions" id="toc-a-few-very-basic-r-functions" class="nav-link" data-scroll-target="#a-few-very-basic-r-functions">A few (very) basic R functions</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/how-to-quarto.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/r-basics.qmd">R Basics</a></li><li class="breadcrumb-item"><a href="../quarto/how-to-quarto.html">Using Quarto</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/r-basics.html">R Basics</a></li><li class="breadcrumb-item"><a href="../quarto/how-to-quarto.html">Using Quarto</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Reproducible Documents with Quarto in RStudio</h1>
 </div>
@@ -301,8 +250,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="general-instructions" class="level2">
-<h2 class="anchored" data-anchor-id="general-instructions">General Instructions</h2>
+<section id="instructions" class="level2">
+<h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
 <p>While you work through this tutorial, you will create a Quarto (.qmd) document.</p>
 <p>Quarto lets you combine R code, output, and text in a single document that can be rendered in HTML, PDF, Word and more formats.</p>
 <p>It’s like magic: you save all your text and R code in a simple file; when you’re ready, push a button and it’s compiled into an output document with nicely formatted text, code (optional to include, but for this class you always will), and <strong>all the figures and tables generated by your code</strong>.</p>
@@ -326,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="logistics" class="level2">
 <h2 class="anchored" data-anchor-id="logistics">Logistics</h2>
 <p>To create a .qmd file, you will have to work in RStudio (outside this tutorial environment). So, as you work on this tutorial, you will probably switch back and forth between the tutorial itself and an RStudio session at <a href="https://r.cs.calvin.edu" class="uri">https://r.cs.calvin.edu</a>.</p>
-<p><em>Historical Note: The precursor of the Quarto document is the Rmarkdown document (and even older - the Sweave document). If you know and love one of those, you may use it. Our server can handle all options. For now, our class will stick to qmd as our default.</em></p>
+<p><em>Historical Note: The precursor of the Quarto document is the Rmarkdown (.rmd) document (and even older - the Sweave document). If you know and love one of those, you may use it. Our server can handle all options. For now, our class will stick to qmd as our default.</em></p>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
@@ -446,14 +395,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Customize your YAML header in your own Quarto doc, and then render again to see the effect.</p>
 <p>Make sure you do this for every assignment! (No prof or boss likes getting submissions called “Untitled”…)</p>
 </section>
-<section id="yaml-settings" class="level3">
-<h3 class="anchored" data-anchor-id="yaml-settings">YAML settings</h3>
-<section id="pdf-or-html" class="level4">
-<h4 class="anchored" data-anchor-id="pdf-or-html">PDF or html?</h4>
+</section>
+<section id="quarto-yaml-settings" class="level2">
+<h2 class="anchored" data-anchor-id="quarto-yaml-settings">Quarto YAML settings</h2>
+<section id="pdf-or-html" class="level3">
+<h3 class="anchored" data-anchor-id="pdf-or-html">PDF or html?</h3>
 <p>For our course, you can choose to render to <em>either</em> an html file or a PDF file.</p>
-<p>But <em>if</em> you choose html, there’s an important change you have to make to the YAML header to ensure your html file is stand-alone. Meaning: you want all images, etc. to be embedded in the one file rather than stored in an accompanying folder. Otherwise, when you (say) upload the file on Moodle, all the images and graphs will be omitted (yikes)!</p>
+<p>So, you’ll have either <code>format: pdf</code> or <code>format: html</code> in your YAML header. You can also try <code>format: typst</code> to render PDF files a bit faster (learn more about <a href="https://quarto.org/docs/output-formats/typst.html">typst output format</a> online).</p>
+<p>But <em>if</em> you choose html, there’s an important change you have to make to the YAML header to ensure your html file is stand-alone. Meaning: you want all images, etc. to be embedded in the one file rather than stored in an accompanying folder. Otherwise, when you (say) upload the file on Moodle or email it, all the images and graphs will be omitted…yikes! Yes, embedding these makes the file larger, but if you are sharing the rendered html document, you need to.</p>
 <p><strong>If rendering to html, it is</strong> <em>essential</em> <strong>that you specify the setting <code>embed-resources: true</code>!</strong></p>
-<p>So, <em>make sure</em> you add <code>embed-resources: true</code> after the entry <code>format: html:</code> in your YAML header, exactly as shown below. Make sure to keep the spacing and line breaks just as shown. (The indents are each two spaces, so there are 2 spaces before <code>html:</code> and 4 before <code>embed-resources:</code>.)</p>
+<p>So, <em>make sure</em> you add <code>embed-resources: true</code> after the entry <code>format: html:</code> in your YAML header, exactly as shown below.</p>
+<p>Make sure to keep the spacing and line breaks just as shown.</p>
+<p>The indents are each two spaces, so there are 2 spaces before <code>html:</code> and 4 before <code>embed-resources:</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -464,8 +417,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="code-tools" class="level4">
-<h4 class="anchored" data-anchor-id="code-tools">Code tools</h4>
+<section id="code-tools" class="level3">
+<h3 class="anchored" data-anchor-id="code-tools">Code tools</h3>
 <p>Note that the YAML header shown above also had a second option activated for rendered html files: <code>code-tools: true</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -499,9 +452,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-</section>
-<section id="qmd-file-anatomy" class="level2">
-<h2 class="anchored" data-anchor-id="qmd-file-anatomy">qmd file anatomy</h2>
+<section id="text-and-code-in-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="text-and-code-in-quarto">Text and Code in Quarto</h2>
 <section id="text" class="level3">
 <h3 class="anchored" data-anchor-id="text">Text</h3>
 <p>The Quarto file is where you save all the R commands you want to use, plus any text commenting on the work you are doing and the results you get. Parts of the file with a plain white background are normal text.</p>
@@ -608,11 +560,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>(Before going further, make sure it still renders.)</p>
 </section>
 </section>
-<section id="running-r-code" class="level2">
-<h2 class="anchored" data-anchor-id="running-r-code">Running R Code</h2>
+<section id="run-r-code" class="level2">
+<h2 class="anchored" data-anchor-id="run-r-code">Run R Code</h2>
+<p>There are multiple ways to run and test R code from a markdown file. Sometimes you want to render the whole file and get the PDF or HTML; other times you want to run just a specific bit of code to make sure it’s working correctly.</p>
 <section id="running-r-code-from-a-qmd-file-render-the-file" class="level3">
 <h3 class="anchored" data-anchor-id="running-r-code-from-a-qmd-file-render-the-file">Running R Code from a qmd file: Render the file</h3>
-<p>There are multiple ways to run and test R code from a markdown file. Sometimes you want to render the whole file and get the PDF or HTML; other times you want to run just a specific bit of code to make sure it’s working correctly.</p>
 <p>Every time you render the file, all R code will be run automatically.</p>
 <p>A side note: PDF or HTML? Which is preferable?</p>
 <p>I think PDFs are a little more portable and a good default option, and their formatting is best for anything you are going to print out or share via email (especially with less technically inclined folks).</p>
@@ -666,15 +618,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="quarto-files-stand-alone" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-files-stand-alone">Quarto files stand alone</h2>
+<h2 class="anchored" data-anchor-id="quarto-files-stand-alone">Quarto Files Stand Alone!</h2>
 <p>We already covered this once, but we’re covering it again because it’s one of the most common student mistakes in qmd files!</p>
 <p>If you run R code in the console or the RStudio GUI (for example, reading in a data set by pasting code into the console or using the <em>Import Dataset</em> button in the <em>Environment</em> tab), <strong>you won’t be able to use the results in your markdown file.</strong></p>
 <p>Any and all commands you need, including reading in data, need to be included in the file.</p>
 <p>The reverse is also true. If you run just one R code chunk in a qmd file using the “run” buttons mentioned above, or by copy-pasting into the console, you are effectively running that code in the console.</p>
 <p>If R gives an error saying it cannot find a certain funtion, variable, or dataset, the most likely fix is to run the <em>preceding</em> code chunks (especially <code>setup</code>!) before the one you’re stuck on.</p>
 </section>
-<section id="reading-data-from-url" class="level2">
-<h2 class="anchored" data-anchor-id="reading-data-from-url">Reading Data from URL</h2>
+<section id="data-from-a-url" class="level2">
+<h2 class="anchored" data-anchor-id="data-from-a-url">Data from a URL</h2>
 <p>You can load online datafiles in .csv format into R using the function <code>read_csv()</code>. The input to <code>read_csv()</code> is the full url where the file is located, in quotation marks. (Single or double quotes – it doesn’t matter which you choose, as they are equivalent in R.)</p>
 <p>For example, we will consider a dataset with counts of the numbers of birds of different species seen at different locations in Hawai’i. It is stored at <a href="https://sldr.netlify.app/data/hawaii_birds.csv" class="uri">https://sldr.netlify.app/data/hawaii_birds.csv</a>, and can be read into R using the command below.</p>
 <div class="cell">
@@ -689,8 +641,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Here, we assigned the name <strong>hi_birds</strong> to the dataset using an “assignment arrow” <code>&lt;-</code> (the “arrow” points from the object toward the name).</p>
 </section>
 </section>
-<section id="reading-data-from-google-sheets" class="level2">
-<h2 class="anchored" data-anchor-id="reading-data-from-google-sheets">Reading Data from Google Sheets</h2>
+<section id="data-from-google-sheets" class="level2">
+<h2 class="anchored" data-anchor-id="data-from-google-sheets">Data from Google Sheets</h2>
 <p>There’s also a simple way to read in data from a Google Sheet.</p>
 <p>First, go to the Google Sheet online to prepare it by “publishing it online”.</p>
 <p>In the <strong>File</strong> menu, choose “Publish to the Web”:</p>
@@ -725,8 +677,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>You can use <code>read_csv()</code> with this link as input to read your data into R.</p>
 </section>
-<section id="reading-data-from-local-file" class="level2">
-<h2 class="anchored" data-anchor-id="reading-data-from-local-file">Reading Data from Local File</h2>
+<section id="data-from-a-file" class="level2">
+<h2 class="anchored" data-anchor-id="data-from-a-file">Data from a File</h2>
 <p>You can also upload your own data file to the server, and then read it in to R using <code>read_csv()</code>. The basic process is:</p>
 <ul>
 <li>Use spreadsheet software to create the data table</li>
@@ -735,8 +687,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Use the <code>read_csv()</code> function to read the file into R</li>
 </ul>
 </section>
-<section id="a-few-very-basic-r-functions" class="level2">
-<h2 class="anchored" data-anchor-id="a-few-very-basic-r-functions">A few (very) basic R functions</h2>
+<section id="r-functions" class="level2">
+<h2 class="anchored" data-anchor-id="r-functions">R functions</h2>
 <p>After reading the data in, you can use R functions to have a look at it, for example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hi_birds)</span>
@@ -750,9 +702,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../quarto";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1175,7 +1152,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../quarto/r-basics.qmd" class="pagination-link" aria-label="R Basics">
+      <a href="../quarto/r-basics.html" class="pagination-link" aria-label="R Basics">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R Basics</span>
       </a>          
   </div>
@@ -1190,4 +1167,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/how-to-quarto.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/how-to-quarto.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
