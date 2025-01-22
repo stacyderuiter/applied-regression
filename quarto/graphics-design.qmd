@@ -2,6 +2,7 @@
 title: "Graphics: Design Effective Visualizations"
 author: "Stacy DeRuiter"
 date: "last-modified"
+output: webexercises::webexercises_default
 toc: true
 ---
 
@@ -113,7 +114,7 @@ Imagine you are using *very* expensive ink to print every element of the graph. 
 
 > A large share of ink on a graphic should present data-information, the ink changing as the data change. Data-ink is the non-erasable core of a graphic...
 
-In other words, don't let annotations, labels, grids, etc. overwhelm the visual impact of your data:
+In other words, don't let annotations, labels, grids, etc. overwhelm the visual impact of your data -- Don't do this:
 
 ![](https://freshspectrum.com/wp-content/uploads/2015/07/Data-ink-1024x768.png){alt="cartoon about data-ink ratio showing what not to do" title="cartoon about data-ink ratio showing what not to do" width=400px}
 
@@ -351,9 +352,7 @@ Consider the graphic below. At a glance, what do you think it means?  Looking mo
 
   
 ## Video Review
-Wow, that was quite a lot of information! If you could use a brief review from a different point of view, check out the **optional** [video from Kristen Sosulski](https://www.youtube.com/watch?v=m9AhRIh49eU){target="_blank"}:
-
-![](https://www.youtube.com/watch?v=m9AhRIh49eU)
+Wow, that was quite a lot of information! If you could use a brief review from a different point of view, check out the **optional** [video from Kristen Sosulski](https://www.youtube.com/watch?v=m9AhRIh49eU){target="_blank"}
 
 ## Recap & Reflect: 12 Tips
 The 4-minute video below summarizes design principles for data visualization in the form of 12 tips.

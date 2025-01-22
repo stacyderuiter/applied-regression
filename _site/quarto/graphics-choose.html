@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stacy DeRuiter">
+<meta name="dcterms.date" content="2025-01-21">
+
+<title>Graphics: Choose a Graph Type – Applied Regression with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../quarto/graphics-code.html" rel="next">
+<link href="../quarto/graphics-design.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Regression with R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/graphics-design.html">Visualization</a></li><li class="breadcrumb-item"><a href="../quarto/graphics-choose.html">Choosing a Graph Type</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applied Regression in R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">R Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/r-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/how-to-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/math-notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mathematical Notation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/r-results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Results in Text</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Designing Data Visualizations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-choose.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Choosing a Graph Type</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code Examples</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section-learning-outcomes" id="toc-section-learning-outcomes" class="nav-link active" data-scroll-target="#section-learning-outcomes">Section Learning Outcomes</a></li>
+  <li><a href="#text-reference" id="toc-text-reference" class="nav-link" data-scroll-target="#text-reference">Text Reference</a></li>
+  <li><a href="#motivation-imagine-first" id="toc-motivation-imagine-first" class="nav-link" data-scroll-target="#motivation-imagine-first">Motivation: Imagine First!</a>
+  <ul class="collapse">
+  <li><a href="#the-i.c.e.e.-method" id="toc-the-i.c.e.e.-method" class="nav-link" data-scroll-target="#the-i.c.e.e.-method">The <strong>I.C.E.E. method</strong>:</a></li>
+  <li><a href="#limiting-your-imagination" id="toc-limiting-your-imagination" class="nav-link" data-scroll-target="#limiting-your-imagination">Limiting Your Imagination</a></li>
+  </ul></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">Variable Types</a></li>
+  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">DISTRIBUTIONS</a></li>
+  <li><a href="#gallery-one-categorical-variable" id="toc-gallery-one-categorical-variable" class="nav-link" data-scroll-target="#gallery-one-categorical-variable">Gallery: One Categorical Variable</a>
+  <ul class="collapse">
+  <li><a href="#consider-your-audience" id="toc-consider-your-audience" class="nav-link" data-scroll-target="#consider-your-audience">Consider your Audience</a></li>
+  <li><a href="#bar-graph" id="toc-bar-graph" class="nav-link" data-scroll-target="#bar-graph">Bar Graph</a></li>
+  <li><a href="#cleveland-dot-plot" id="toc-cleveland-dot-plot" class="nav-link" data-scroll-target="#cleveland-dot-plot">Cleveland Dot Plot</a></li>
+  <li><a href="#pie-chart" id="toc-pie-chart" class="nav-link" data-scroll-target="#pie-chart">Pie Chart</a></li>
+  </ul></li>
+  <li><a href="#gallery-one-quantitative-variable" id="toc-gallery-one-quantitative-variable" class="nav-link" data-scroll-target="#gallery-one-quantitative-variable">Gallery: One Quantitative Variable</a>
+  <ul class="collapse">
+  <li><a href="#dotplot" id="toc-dotplot" class="nav-link" data-scroll-target="#dotplot">Dotplot</a></li>
+  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram">Histogram</a></li>
+  <li><a href="#density-plot" id="toc-density-plot" class="nav-link" data-scroll-target="#density-plot">Density Plot</a></li>
+  <li><a href="#qq-plot" id="toc-qq-plot" class="nav-link" data-scroll-target="#qq-plot">QQ Plot</a></li>
+  <li><a href="#check-your-understanding-one-variable-plots" id="toc-check-your-understanding-one-variable-plots" class="nav-link" data-scroll-target="#check-your-understanding-one-variable-plots">Check Your Understanding: One-variable plots</a></li>
+  </ul></li>
+  <li><a href="#relationships" id="toc-relationships" class="nav-link" data-scroll-target="#relationships">RELATIONSHIPS</a></li>
+  <li><a href="#gallery-2-3-cat." id="toc-gallery-2-3-cat." class="nav-link" data-scroll-target="#gallery-2-3-cat.">Gallery: 2-3 Cat.</a>
+  <ul class="collapse">
+  <li><a href="#stacked-bar-graph" id="toc-stacked-bar-graph" class="nav-link" data-scroll-target="#stacked-bar-graph">Stacked Bar Graph</a></li>
+  <li><a href="#faceted-bar-graph" id="toc-faceted-bar-graph" class="nav-link" data-scroll-target="#faceted-bar-graph">Faceted Bar Graph</a></li>
+  <li><a href="#combinations-stacked-bars-facets-etc." id="toc-combinations-stacked-bars-facets-etc." class="nav-link" data-scroll-target="#combinations-stacked-bars-facets-etc.">Combinations (Stacked bars + Facets, etc.)</a></li>
+  </ul></li>
+  <li><a href="#gallery-2-3-quant." id="toc-gallery-2-3-quant." class="nav-link" data-scroll-target="#gallery-2-3-quant.">Gallery: 2-3 Quant.</a>
+  <ul class="collapse">
+  <li><a href="#line-plot" id="toc-line-plot" class="nav-link" data-scroll-target="#line-plot">Line Plot</a></li>
+  <li><a href="#adding-more-quant.-variables" id="toc-adding-more-quant.-variables" class="nav-link" data-scroll-target="#adding-more-quant.-variables">Adding More Quant. Variables</a></li>
+  <li><a href="#scatter-size" id="toc-scatter-size" class="nav-link" data-scroll-target="#scatter-size">Scatter + Size</a></li>
+  </ul></li>
+  <li><a href="#gallery-mixed-quant.-cat." id="toc-gallery-mixed-quant.-cat." class="nav-link" data-scroll-target="#gallery-mixed-quant.-cat.">Gallery: Mixed Quant. + Cat.</a>
+  <ul class="collapse">
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
+  <li><a href="#violin-plots" id="toc-violin-plots" class="nav-link" data-scroll-target="#violin-plots">Violin Plots</a></li>
+  <li><a href="#jitter-plots" id="toc-jitter-plots" class="nav-link" data-scroll-target="#jitter-plots">Jitter Plots</a></li>
+  <li><a href="#sina-plots" id="toc-sina-plots" class="nav-link" data-scroll-target="#sina-plots">Sina Plots</a></li>
+  <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets">Facets?</a></li>
+  <li><a href="#check-your-understanding-quant.-cat." id="toc-check-your-understanding-quant.-cat." class="nav-link" data-scroll-target="#check-your-understanding-quant.-cat.">Check Your Understanding: Quant. + Cat.</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/graphics-choose.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/graphics-design.html">Visualization</a></li><li class="breadcrumb-item"><a href="../quarto/graphics-choose.html">Choosing a Graph Type</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Graphics: Choose a Graph Type</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Stacy DeRuiter </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 21, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section-learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="section-learning-outcomes">Section Learning Outcomes</h2>
+<p>After this tutorial, you will:</p>
+<ol type="1">
+<li>Distinguish variable types: quantitative, categorical (nominal, ordinal, interval, ratio); explanatory, response, covariate.</li>
+<li>Choose an appropriate graphical display for a specified combination of variables.</li>
+<li>(Continue to) critique statistical graphics based on design principles.</li>
+</ol>
+<p><strong>Note: You do NOT have to memorize all the information in this tutorial. Review it now, but know you will probably return to this tutorial for later reference. Your goal should be to finish with a basic idea of which graph types should be used for which variable types. Notice that the “Gallery” sections in the navigation bar are labeled by which variable types are to be shown!</strong></p>
+<p>At the end, you might want to finish with your own notes filling in a table like the one below:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variables</th>
+<th style="text-align: left;">Graphs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">One Quantitative</td>
+<td style="text-align: left;">histogram, density plot, …</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">One Categorical</td>
+<td style="text-align: left;">…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="text-reference" class="level2">
+<h2 class="anchored" data-anchor-id="text-reference">Text Reference</h2>
+<ul>
+<li><a href="https://bookdown.org/roback/bookdown-BeyondMLR/ch-MLRreview.html#explorech1" target="_blank"><em>Beyond Multiple Linear Regression</em> Ch. 1.5</a></li>
+<li><em>Ecological Models &amp; Data in R</em> Ch. 2 discusses graphics, but is not recommended as the approach to reading in data, writing R code, and generating graphs in R is very different to that used in this course.</li>
+<li>A comprehensive, and free, supplemental reference is <a href="https://clauswilke.com/dataviz/" target="_blank">Fundamentals of Data Visualization by Claus Wilke</a></li>
+</ul>
+</section>
+<section id="motivation-imagine-first" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-imagine-first">Motivation: Imagine First!</h2>
+<p>Figures are a crucial tool for exploring your data <em>and</em> communicating what you learn from the data.</p>
+<p>Whether you are doing a quick check to assess basic features of a dataset or creating a key figure for an important presentation, the best practice is to work thoughtfully. You already learned about creating graphics by I.C.E.E:</p>
+<section id="the-i.c.e.e.-method" class="level3">
+<h3 class="anchored" data-anchor-id="the-i.c.e.e.-method">The <strong>I.C.E.E. method</strong>:</h3>
+<ul>
+<li><strong>I</strong><em>magine</em> how you want your graph to look, <em>before</em> you</li>
+<li><strong>C</strong><em>ode</em>. Once you have the basic starting point,</li>
+<li><strong>E</strong><em>valuate</em> your work, and</li>
+<li><strong>E</strong><em>laborate</em> (refine it).</li>
+</ul>
+<p>Repeat until the figure is as awesome as it needs to be.</p>
+</section>
+<section id="limiting-your-imagination" class="level3">
+<h3 class="anchored" data-anchor-id="limiting-your-imagination">Limiting Your Imagination</h3>
+<p>There is really no limit to the creative data visualizations you might dream up.</p>
+<p>But there is a set of basic, workhorse graphics that statisticians and data scientists use most frequently. What are the common options and how do you choose among them?</p>
+<p>The best choice depends on what kind of data you have, and also on what you want to do with it: what question are your trying to answer? What story will you tell?</p>
+</section>
+</section>
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<p>Specifically, you will now focus on <strong>choosing the right type of visualization for the task at hand.</strong></p>
+<p>Note that the graphs shown in this tutorial are over-simplified versions - icons, really - with missing labels, huge titles, and huge data elements. This is intentional, to evoke the look of each plot type rather than to present actual data.</p>
+</section>
+<section id="variable-types" class="level2">
+<h2 class="anchored" data-anchor-id="variable-types">Variable Types</h2>
+<p>Before designing a graphic, you need some data. Ideally, it will be in a tidy table, with one row per case and one column per variable.</p>
+<p>Different plots may be appropriate, depending on whether the variable is:</p>
+<ul>
+<li><em>Categorical</em> (either nominal or ordinal) or</li>
+<li><em>Quantitative</em> (interval or ratio)</li>
+<li>Beware categorical variables that are stored using numeric codes: they are still categorical!</li>
+<li><em>Note:</em> Variables that take on discrete numeric values can be treated as either, depending mainly on whether there are a lot of possible values (treat like numeric) or few (treat like categorical)</li>
+<li>Other courses or disciplines may distinguish carefully between ordinal and nominal data. We often won’t, since we don’t learn distinct methods for them, but treat both as <em>categorical</em>.</li>
+</ul>
+<p>The video below gives a concise explanation of the different variable types you need to be able to recognize.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/eghn__C7JLQ?si=Oozu0Z6p4xTBh64z" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="distributions" class="level2">
+<h2 class="anchored" data-anchor-id="distributions">DISTRIBUTIONS</h2>
+<p>Sometimes, you need a plot that lets you <em>see</em> the <strong>distribution</strong> of a single variable:</p>
+<ul>
+<li>What <em>values</em> does it take on?</li>
+<li>How <em>often</em> does each value occur?</li>
+</ul>
+<p>Sometimes these graphs present the answer to a scientific question of interest, but often they are used during exploration or model assessment to better understand a dataset and:</p>
+<ul>
+<li>Check the data
+<ul>
+<li>Are there lots of missing values?</li>
+<li>Are missing values encoded as 999 or -1000 or some other impossible value instead of being marked as “NA”?</li>
+</ul></li>
+<li>Verify whether the variable’s distribution matches expectations (for example, symmetry, etc.)</li>
+</ul>
+</section>
+<section id="gallery-one-categorical-variable" class="level2">
+<h2 class="anchored" data-anchor-id="gallery-one-categorical-variable">Gallery: One Categorical Variable</h2>
+<section id="consider-your-audience" class="level3">
+<h3 class="anchored" data-anchor-id="consider-your-audience">Consider your Audience</h3>
+<p>To show one categorical variable, we will mainly use bar charts. You might also consider lollipop/Cleveland dot plots, or pie graphs.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/one-cat-emojis.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="A table showing features and benefits of different graph types for one categorical variable, highlighting statisticians bias against pie charts"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="bar-graph" class="level3">
+<h3 class="anchored" data-anchor-id="bar-graph">Bar Graph</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a bar chart (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Can show either counts, proportions, or percentages</li>
+<li>Easy to see which categories have more/fewer observations</li>
+</ul>
+<!-- ### Waffle Charts -->
+<!-- ```{r, echo = FALSE} -->
+<!-- my_waffle <- function(factor, nrow, ncol){ -->
+<!-- } -->
+<!-- ``` -->
+<!-- - Show a set number of icons, *not* necessarily the same as number of observations -->
+<!-- - More playful, less serious -->
+<!-- - Well-chosen icons can tell a memorable story -->
+</section>
+<section id="cleveland-dot-plot" class="level3">
+<h3 class="anchored" data-anchor-id="cleveland-dot-plot">Cleveland Dot Plot</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/cleveland-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a cleveland dotplot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/lollipop-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a lollipop chart (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Main difference is whether the “sticks” are drawn (Lollipop) or not (Cleveland Dot)</li>
+<li>Much like a bar chart, but using dots or lollipops to mark the count or proportion in each category</li>
+<li>Work well when there are many categories to be ranked by frequency</li>
+</ul>
+</section>
+<section id="pie-chart" class="level3">
+<h3 class="anchored" data-anchor-id="pie-chart">Pie Chart</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a pie chart (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Display proportions, not counts</li>
+<li>Unpopular with many statisticians and data scientists because…
+<ul>
+<li>Hard to see which categories have more/fewer observation when proportions similar</li>
+<li>Temptation to clutter them up with annotation (for example, percentage for each slice)</li>
+<li>Can be inefficient use of space on rectangular page</li>
+</ul></li>
+<li>Often easier to interpret when there are few categories</li>
+</ul>
+</section>
+</section>
+<section id="gallery-one-quantitative-variable" class="level2">
+<h2 class="anchored" data-anchor-id="gallery-one-quantitative-variable">Gallery: One Quantitative Variable</h2>
+<section id="dotplot" class="level3">
+<h3 class="anchored" data-anchor-id="dotplot">Dotplot</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a dotplot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Intuitive representation: x-axis shows range of variable values, and dots are data points</li>
+<li>As the idea is to show one dot per observation, may not work well for huge datasets</li>
+</ul>
+</section>
+<section id="histogram" class="level3">
+<h3 class="anchored" data-anchor-id="histogram">Histogram</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a histogram (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Range of variable values is divided into bins, then height of each bar corresponds to the number of observations in the bin</li>
+<li>Effective way to examine the <em>shape</em> of a distribution</li>
+<li>Choosing the number of bins to use is tricky: too many, and the shape is jagged; too few over-smooths (peaks blend together). Not sure? Find a number of bins that is definitely too few, and one that is definitely too many, and then try to settle on an in-between value that best shows the real shape of the distribution without over-smoothing.</li>
+</ul>
+</section>
+<section id="density-plot" class="level3">
+<h3 class="anchored" data-anchor-id="density-plot">Density Plot</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a  density plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Like a smoothed version of a histogram (obtained by kernel density estimation, if you want to look up mathematical details)</li>
+<li>Caution: for small datasets, the density plot may show “peaks” that really correspond to one or a few observations</li>
+<li>Can only show <em>density</em> (relative frequency of observation), <em>not counts</em></li>
+</ul>
+</section>
+<section id="qq-plot" class="level3">
+<h3 class="anchored" data-anchor-id="qq-plot">QQ Plot</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a quantile-quantile (or QQ) plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>“Q-Q Plot” is short for “Quantile-Quantile Plot”</li>
+<li>In some cases, we want to examine the shape of a variable’s distribution <em>to see if it matches a theoretical expectation</em>. For example: do the regression residuals match a normal distribution? (If that example doesn’t make sense to you now - it will later in the course, don’t worry.)</li>
+<li>Quantile-quantile plots are one way to make this comparison. They plot the quantiles of the data as a function of the same quantiles of the expected theoretical distribution; if there’s a good match, the points should follow a line with slope = 1.</li>
+<li>How close to the straight line is “close enough”? That’s the tricky part…</li>
+</ul>
+</section>
+<section id="check-your-understanding-one-variable-plots" class="level3">
+<h3 class="anchored" data-anchor-id="check-your-understanding-one-variable-plots">Check Your Understanding: One-variable plots</h3>
+<div class="webex-check webex-box">
+<div class="cell" data-layout-align="center">
+Which plot would work best to show the distribution of 75 families’ household incomes?
+<div id="radio_WJTASYMGAS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_WJTASYMGAS" value=""> <span>Lollipop plot</span></label><label><input type="radio" autocomplete="off" name="radio_WJTASYMGAS" value="answer"> <span>Histogram</span></label><label><input type="radio" autocomplete="off" name="radio_WJTASYMGAS" value=""> <span>Bar chart</span></label>
+</div>
+Which plot would work best to show the distribution of 75 families’ postal codes?
+<div id="radio_LIISZVNLYB" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LIISZVNLYB" value="answer"> <span>Bar chart</span></label><label><input type="radio" autocomplete="off" name="radio_LIISZVNLYB" value=""> <span>Density plot</span></label><label><input type="radio" autocomplete="off" name="radio_LIISZVNLYB" value=""> <span>Histogram</span></label><label><input type="radio" autocomplete="off" name="radio_LIISZVNLYB" value=""> <span>Scatter plot</span></label>
+</div>
+</div>
+</div>
+<div class="webex-solution">
+<button>
+Click for explanations of solutions above.
+</button>
+<p>Lollipop plots and bar graphs work better for categorical variables – they show counts or proportions (or some other summary of counts in categories). By default, there would be one lollipop or bar for each unique value of income - what a mess! Histograms and density plots, on the other hand, show the distribution of one quantitative variable. (Scatter plots are usually used to show 2 quantitative variables.)</p>
+</div>
+</section>
+</section>
+<section id="relationships" class="level2">
+<h2 class="anchored" data-anchor-id="relationships">RELATIONSHIPS</h2>
+<p>Very often, we want to examine <em>relationships</em> between variables, not individual variables’ distributions. This means thinking carefully about what types of variables are in the (potential) relationship, and how we can best show their values graphically.</p>
+</section>
+<section id="gallery-2-3-cat." class="level2">
+<h2 class="anchored" data-anchor-id="gallery-2-3-cat.">Gallery: 2-3 Cat.</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a side-by-side bar graph (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>One set of bars per “category”, colored by “groups” – shows <em>two</em> categorical variables at once</li>
+<li>Good for showing <em>counts</em> in each combination of categories/groups</li>
+<li>It is hard to compare proportion in each group across categories, if the total number in each category differs.</li>
+</ul>
+<section id="stacked-bar-graph" class="level3">
+<h3 class="anchored" data-anchor-id="stacked-bar-graph">Stacked Bar Graph</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/stacked-bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a stacked bar chart (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Similar to side-by-side bar</li>
+<li>Compared to side-by-side, it’s <em>harder</em> to compare proportions in each group within a category, but <em>easier</em> to estimate the proportion in each category.</li>
+</ul>
+</section>
+<section id="faceted-bar-graph" class="level3">
+<h3 class="anchored" data-anchor-id="faceted-bar-graph">Faceted Bar Graph</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/facet-bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a faceted bar chart (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>One plot box – usually called a “panel” or “facet” – for each of a set of groups</li>
+<li>Think carefully about the question of interest and the relationship you want to highlight as you choose: should bar heights correspond to…
+<ul>
+<li>Number of observations?</li>
+<li>Proportion of observations <em>overall in the whole dataset</em>?</li>
+<li>Proportion of observations <em>in the panel</em>?</li>
+<li>Something else?</li>
+</ul></li>
+</ul>
+</section>
+<section id="combinations-stacked-bars-facets-etc." class="level3">
+<h3 class="anchored" data-anchor-id="combinations-stacked-bars-facets-etc.">Combinations (Stacked bars + Facets, etc.)</h3>
+<p>Of course, if you have 3 variables instead of just two, you <em>can</em> combine methods. Avoid it unless you are sure it is necessary and communicates clearly.</p>
+<ul>
+<li><strong>Be sure that the resulting graph is not too complex to understand quickly, at a glance.</strong> Packing too much information into one graph sometimes means <em>none</em> of the info is actually communicated!</li>
+<li>And if showing proportions or percentages in such a display, <strong>be sure you understand what denominator is being used in the calculations</strong> – is it the fraction of the whole dataset, within facets, etc.?</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/stacked-and-facetted-bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a bar chart with stacked bars plus facets (generic and unlabelled, serving as an icon)" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/side-by-side-and-facetted-bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a bar chart with side-by-side bars plus facets (generic and unlabelled, serving as an icon)" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="gallery-2-3-quant." class="level2">
+<h2 class="anchored" data-anchor-id="gallery-2-3-quant.">Gallery: 2-3 Quant.</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/scatter-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a scatter plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>A scatterplot is the default for visualizing the relationship between two quantitative variables</li>
+<li>Be sure you actually have <em>two quantitative variables</em>! If not, another plot may be a better option</li>
+</ul>
+<section id="line-plot" class="level3">
+<h3 class="anchored" data-anchor-id="line-plot">Line Plot</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/scatter-line-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a line plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>If the x-axis variable is <strong>Time</strong> (or it otherwise makes sense to join the dots), a line can replace the dots, or be added to them</li>
+<li>Make sure connecting the dots makes sense in context and does not guide the eye to incorrect interpretations (for example, emphasizing outliers)</li>
+</ul>
+</section>
+<section id="adding-more-quant.-variables" class="level3">
+<h3 class="anchored" data-anchor-id="adding-more-quant.-variables">Adding More Quant. Variables</h3>
+<p>What if you have three or four quantitative variables whose relationships you’re curious about?</p>
+<p><em>Proceed with caution!</em></p>
+<p>It’s possible to include 3+ variables on one plot, but ideally <strong>it should still be interpretable at a glance:</strong></p>
+<ul>
+<li>What is the main point of the figure? Is it possible to make the point without showing all 3+ variables together?</li>
+<li>Keep things as simple as you can while still telling the story you want to tell.</li>
+</ul>
+</section>
+<section id="scatter-size" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-size">Scatter + Size</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/scatter-with-size-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a scatter plot with point size representing a third variable (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>You can adjust the size of each dot in a scatter plot to correspond to the value of a third variable</li>
+<li>This is especially useful when the third variable measures the size of the population being represented – for example, a scatter plot of life expectancy vs income for many countries, with point size indicating population of each country</li>
+</ul>
+</section>
+</section>
+<section id="gallery-mixed-quant.-cat." class="level2">
+<h2 class="anchored" data-anchor-id="gallery-mixed-quant.-cat.">Gallery: Mixed Quant. + Cat.</h2>
+<p>There are several plots designed specifically to look at the distribution of a quantitative variable, grouped by a categorical variable.</p>
+<section id="boxplots" class="level3">
+<h3 class="anchored" data-anchor-id="boxplots">Boxplots</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/boxplot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a boxplot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/boxplot-horiz-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a horizontally-oriented boxplot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The boxplot shows a <em>summary</em> of the distribution. The box spans the middle half of the data, with the line marking the median. The “whisker” lines extend to cover the range of “most of” the data, with outliers shown individually</li>
+<li>For details, check out <a href="https://openintro-ims.netlify.app/explore-numerical.html#boxplots" target="_blank">this optional explanation of how boxplots are constructed</a> from <a href="https://openintro-ims.netlify.app/index.html" target="_blank">Introduction to Modern Statistics</a> by Mine Çetinkaya-Rundel and Johanna Hardin.</li>
+<li>If your dataset is too small to estimate the median and quartiles of the data accurately, consider showing all the observations (for example, using or overlaying a jitter plot)</li>
+</ul>
+</section>
+<section id="violin-plots" class="level3">
+<h3 class="anchored" data-anchor-id="violin-plots">Violin Plots</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/violin-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a violin plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/violin-horiz-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a horisontally-oriented violion plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>These show a mirrored density plot for each group</li>
+<li>As for density plots, make sure you have a large enough dataset so that the bumps in the density curve don’t represent just one or a couple of observations</li>
+</ul>
+</section>
+<section id="jitter-plots" class="level3">
+<h3 class="anchored" data-anchor-id="jitter-plots">Jitter Plots</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/jitter-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a jitter plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>These show all the points in every category, “jittered” (moved slightly away from the category axis) to reduce overplotting</li>
+<li>If the dataset is too large, overplotting may still be a big problem</li>
+<li>Jitter plots are often used as an additional layer on top of boxplots or violin plots to make the size of the dataset, and the locations of individual datapoints, more visible</li>
+</ul>
+</section>
+<section id="sina-plots" class="level3">
+<h3 class="anchored" data-anchor-id="sina-plots">Sina Plots</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics-choose_files/figure-html/sina-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="a sina plot (generic and unlabelled, serving as an icon)" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>These show all the points in every category, arranged so that the width of the point cloud corresponds to the density of observations</li>
+<li>If the dataset is too large, overplotting may become an issue</li>
+<li>A sina plot is a bit of a hybrid between a violin plot and a jitter plot; or, a more organized, less random version of a jitter plot.</li>
+</ul>
+</section>
+<section id="facets" class="level3">
+<h3 class="anchored" data-anchor-id="facets">Facets?</h3>
+<p>You can also consider making multi-panel plots with one histogram, density plot, or dotplot per facet, but comparing between facets is usually harder than comparing boxplots or violin plots on a single axis.</p>
+</section>
+<section id="check-your-understanding-quant.-cat." class="level3">
+<h3 class="anchored" data-anchor-id="check-your-understanding-quant.-cat.">Check Your Understanding: Quant. + Cat.</h3>
+<p><strong>There are some errors and inconsistencies in the chart below!</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://activewizards.com/content/blog/How_to_Choose_the_Right_Chart_Type_%5BInfographic%5D/chart-types-infographics04.png" class="img-fluid figure-img" width="600"></p>
+<figcaption>chart choice infographic</figcaption>
+</figure>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../quarto/graphics-design.html" class="pagination-link" aria-label="Designing Data Visualizations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Designing Data Visualizations</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../quarto/graphics-code.html" class="pagination-link" aria-label="Code Examples">
+        <span class="nav-page-text">Code Examples</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/graphics-choose.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
