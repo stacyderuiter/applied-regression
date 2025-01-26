@@ -201,8 +201,8 @@
     "objectID": "quarto/r-basics.html#your-mission",
     "href": "quarto/r-basics.html#your-mission",
     "title": "R Basics",
-    "section": "",
-    "text": "The purpose of this tutorial is to help you start to get familiar with the way R works, and some basic R commands.\nBut you may have noticed that you are not even using R. At least, you haven’t logged in to RStudio server. (Ummm, wait - don’t click that link! We don’t need it…yet.)\nThis tutorial environment lets you read some helpful information, then practice writing and running your own R code, without tabbing back and forth between the tutorial website and RStudio. Here’s hoping it provides a nice, gentle introduction in a controlled environment!\nTutorials can also serve as helpful reference guides later on, if you need reminders or more practice. Bookmark this site, please!",
+    "section": "Your Mission",
+    "text": "Your Mission\nThe purpose of this tutorial is to help you start to get familiar with the way R works, and some basic R commands.\nBut you may have noticed that you are not even using R. At least, you haven’t logged in to RStudio server. (Ummm, wait - don’t click that link! We don’t need it…yet.)\nThis tutorial environment lets you read some helpful information, then practice writing and running your own R code, without tabbing back and forth between the tutorial website and RStudio. Here’s hoping it provides a nice, gentle introduction in a controlled environment!\nTutorials can also serve as helpful reference guides later on, if you need reminders or more practice. Bookmark this site, please!",
     "crumbs": [
       "Home",
       "R Basics",

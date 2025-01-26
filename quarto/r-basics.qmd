@@ -29,6 +29,17 @@ toc: true
 #| setup: true
 #| autorun: true
 #| include: false
+#| exercise:
+#|   - find-sqrt
+#|   - round-sqrt
+#|   - c-and-sum
+#|   - name-a-variable
+#|   - cat-var
+#|   - check-out-data
+#|   - get-help
+#|   - baseball-mistakes
+#|   - look-at-MI_lead
+#|   
 
 library(readr)
 library(tidyr)
@@ -42,6 +53,8 @@ knitr::opts_chunk$set(
   echo = TRUE,
   fig.align = "center",
   fig.width = 6, fig.height = 2.5)
+
+options("readr.edition" = 1)
 
 data(HELPrct, package = "mosaicData")
 
@@ -387,14 +400,9 @@ library(mosaic)
 ### Viewing a dataset
 The `mosaic` package includes a dataset called `HELPrct`.
 
-If you just run the dataset name (`HELPrct`) as a command, R will print some of the dataset out to the screen:
+If you just run the dataset name (`HELPrct`) as a command, R will print some (or all - egad!) of the dataset out to the screen! (So don't...)
 
-```{r}
-library(mosaic)
-HELPrct
-```
-
-**That's not really useful**...how can we extract selected, useful information about a dataset?
+**But**...how can we extract selected, useful information about a dataset?
 
 
 ### Gathering information about a dataset
@@ -465,7 +473,7 @@ MI_lead <- read_csv(file = 'https://sldr.netlify.app/data/MI_lead.csv')
 ### The most common mistakes
 The code below contains several of the **most common mistakes** students make when they try to read in a data file. See if you can find and correct them **all**!
 
-The code below - if corrected - *should* run without an error and read in some baseball statistics from the file <https://sldr.netlify.app/data/baseball.csv>.
+The code below - if corrected - *would* (on our server or in standalone R) run without an error and read in some baseball statistics from the file <https://sldr.netlify.app/data/baseball.csv>. Here in this tutorial, it will give the error: `! curl package not installed, falling back to using url()` -- there's not a straightforward fix, sorry,  but try it on the server if you want to prove to yourself that it works!
 
 ```{webr}
 #| exercise: baseball-mistakes
@@ -475,6 +483,7 @@ read_csv(https://sldr.netlify.app/data/seball)
 
 ::: { .hint exercise="baseball-mistakes"}
 :::: { .callout-note collapse="true"}
+
 ## Hints
 
 Think about:
@@ -555,7 +564,7 @@ How many rows are in the dataset? How many variables (columns)?
 
 What are the variables named, and what are their values like?
 
-*Remember, `?` won't work on MI_lead because it's not a built-in R dataset.*
+*Remember, `?` won't work on MI_lead because it's not a built-in R dataset. The dataset MI_lead is already read in for you, here...so you don't need to use `read_csv()`.*
 
 ```{webr}
 #| exercise: look-at-MI_lead
