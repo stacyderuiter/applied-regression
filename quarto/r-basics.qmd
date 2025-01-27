@@ -463,6 +463,9 @@ For example, if you want to know about the function `nrow()`:
 For this class, you will often be asked to analyze data that is stored in files that are available online - usually in csv format. It's simple to read them into R. For example, we can read in the file MI_lead.csv, which is stored at <https://sldr.netlify.app/data/MI_lead.csv> using the function `read_csv()` (from package `readr` or super-package `tidyverse`):
 
 ```{r}
+#| echo: true
+#| eval: false
+
 library(readr) # the readr package contains the read_csv() function
 MI_lead <- read_csv(file = 'https://sldr.netlify.app/data/MI_lead.csv')
 ```
@@ -522,6 +525,9 @@ The input argument we provided to R is the URL (in quotes -- either single or do
 This is not *required* - the command works fine without it:
 
 ```{r}
+#| echo: true
+#| eval: false
+
 MI_lead <- read_csv('https://sldr.netlify.app/data/MI_lead.csv')
 ```
 
@@ -563,7 +569,7 @@ How many rows are in the dataset? How many variables (columns)?
 
 What are the variables named, and what are their values like?
 
-*Remember, `?` won't work on MI_lead because it's not a built-in R dataset. The dataset MI_lead is already read in for you, here...so you don't need to use `read_csv()`.*
+*Remember, `?` won't work on MI_lead because it's not a built-in R dataset. Also, the dataset MI_lead is already read in for you, here...so you don't need to use `read_csv()`.*
 
 ```{webr}
 #| exercise: look-at-MI_lead
