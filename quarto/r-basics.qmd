@@ -9,10 +9,6 @@ webr:
     - tidyr
     - readr
     - stringr
-    - ggplot2
-    - ggformula
-    - mosaic
-    - mosaicData
     - skimr
     - gt
     - pander
@@ -39,10 +35,11 @@ toc: true
 #|   - get-help
 #|   - baseball-mistakes
 #|   - look-at-MI_lead
-#|   
+#|   - rename-MI_lead
 
 library(readr)
 library(tidyr)
+library(dplyr)
 library(ggformula)
 library(mosaic)
 library(mosaicData)
@@ -473,11 +470,13 @@ MI_lead <- read_csv(file = 'https://sldr.netlify.app/data/MI_lead.csv')
 ### The most common mistakes
 The code below contains several of the **most common mistakes** students make when they try to read in a data file. See if you can find and correct them **all**!
 
-The code below - if corrected - *would* (on our server or in standalone R) run without an error and read in some baseball statistics from the file <https://sldr.netlify.app/data/baseball.csv>. Here in this tutorial, it will give the error: `! curl package not installed, falling back to using url()` -- there's not a straightforward fix, sorry,  but try it on the server if you want to prove to yourself that it works!
+The code below - if corrected - *would* (on our server or in standalone R) run without an error and read in some baseball statistics from the file <http://stacyderuiter.github.io/teachingdata/data-raw/baseball.csv>. 
+
+Here in this tutorial, it may give the error: `! curl package not installed, falling back to using url()` -- there's not a straightforward fix, sorry,  but try it on the server if you want to prove to yourself that it works!
 
 ```{webr}
 #| exercise: baseball-mistakes
-read_csv(https://sldr.netlify.app/data/seball)
+read_csv(http://stacyderuiter.github.io/teachingdata/data-raw/base)
 ```
 
 
@@ -502,7 +501,7 @@ Think about:
 ## Solution
 
 ```r
-baseball_data <- read_csv(file = 'https://sldr.netlify.app/data/baseball.csv')
+baseball_data <- read_csv(file = 'http://stacyderuiter.github.io/teachingdata/data-raw/baseball.csv')
 ```
 
 ::::
@@ -538,7 +537,7 @@ If we wanted to use a clearer (though longer) variable name, we might prefer "pr
 
 We use the code:
 
-```{r, rename-MI_lead, echo=TRUE}
+```{r, rename-MI_lead, echo=TRUE, eval = FALSE}
 MI_lead <- MI_lead |>
   rename(prop_elevated_lead_2005 = ELL2005)
 
