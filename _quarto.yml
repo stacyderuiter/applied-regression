@@ -29,6 +29,16 @@ website:
             text: "Choosing a Graph Type"
           - href: quarto/graphics-code.qmd
             text: "Code Examples"
+      - section: Linear Models
+        contents: 
+          - href: quarto/lm-plan.qmd
+            text: "Model Planning for Inference"
+          - href: quarto/lm-fit.qmd
+            text: "Model Fitting and Equation"
+          - href: quarto/lm-assess.qmd
+            text: "Model Assessment"
+          - href: quarto/lm-interp.qmd
+            text: "Interpretation and Inference"
   navbar:
     search: true
     left:
