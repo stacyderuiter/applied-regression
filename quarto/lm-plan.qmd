@@ -18,8 +18,6 @@ webr:
     - ggplot2
     - ggformula
     - ggforce
-    - dagitty
-    - V8
   cell-options:
     autorun: false
 engine: "knitr"
@@ -34,7 +32,6 @@ toc: true
 
 library(webexercises)
 library(tidyverse)
-library(dagitty)
 
 theme_set(theme_bw(base_size=16))
 
@@ -44,27 +41,13 @@ knitr::opts_chunk$set(
   fig.width = 6, fig.height = 2.5)
 ```
 
-```{webr}
-#| setup: true
-#| include: false
-#| exercise:
-#|   - dag-1
-#|   - dag-precision
-#|   - dag-mediator
-#|   - dag-confounder
-#|   - dag-confounder-alt
-#|   - dag-collider
-#|   - dag-collider-alt
-
-```
-
 ## Preface: What's a Model?
 We will spend most of this course learning to fit different kinds of *regression models*. What are they?
 
 We will learn as we go. But as a starting point...
 
 - In a regression model, we have one main **response** or **outcome** variable of interest
-- We want to assess whether our response variable is or isn't associated with (some of) a suite of possible **predictor** variables, also sometimes known as *covariates* (but we'll avoid the word "covariates" because it sometimes means slightly different things in different disciplines).
+- We want to assess whether our response variable is or isn't associated with (some of) a suite of possible **predictor** variables (also sometimes known as *covariates* but we'll avoid the word "covariates" because it sometimes means slightly different things in different disciplines).
 
 Essentially, we are looking to quantify relationships between our response and predictor(s) -- accompanied by appropriate measures of the uncertainty of our estimates.
 
@@ -247,15 +230,19 @@ For linear regression, Harrell (2015, Chapter 4.6) offers a rule of thumb: the n
 
 This "n/15 rule" is a very rough rule of thumb - sometimes it seems you can get away with estimating a few more parameters than it says, and sometimes fewer (particularly in the case of categorical predictors where the observations are not evenly distributed across combinations of categories). But it gives us a reality check and a starting point for planning. 
 
+Remember, n/15 is a *ceiling* -- and upper limit on the number of parameters you could estimate. It's not a goal! You may have less.
+
 ## Causation Revisited
 
 In most intro stat courses, students learn to repeat statements like: "Correlation doesn't imply causation, and only randomized experimental studies can draw causal conclusions."
 
 *Well...kind of.*
 
-In data science, big observational datasets (collected in the absense of a structured study design) are really common. There are also *many* scenarios of interest where randomized experiments are just not possible on practical and ethical grounds.  Some blatant examples: experiments in which people were randomly assigned to dislocate their shoulders to investigate factors influencing recovery, or start smoking to see if they get cancer, or expose themselves to someone with a contagious disease to see if they become ill.  In many situations, observational work is the *only* real option. What's a researcher to do?  
+In data science, big observational datasets (collected in the absense of a structured study design) are really common. There are also *many* scenarios of interest where randomized experiments are just not possible on practical and ethical grounds.  
 
-In recent decades the field of *causal inference* has made great strides in thinking intelligently about how best to make the most reliable conclusions possible about cause and effect, when observational data is all you have.  To begin to understand, we have to define a few terms: **direct causation** vs. **indirect causation,** and three alternative situations: **confounders,** **mediators,** and **colliders**. This field is new and technical, but the next video is the most concise and clear primer I know of (with concrete examples).
+Some blatant examples: experiments in which people were randomly assigned to dislocate their shoulders to investigate factors influencing recovery, or start smoking to see if they get cancer, or expose themselves to someone with a contagious disease to see if they become ill.  In many situations, observational work is the *only* real option. What's a researcher to do?  
+
+In recent decades the field of *causal inference* has made great strides in thinking intelligently about how best to make the most reliable conclusions possible about cause and effect, when observational data is all you have.  To begin to understand, we have to define a few terms: **direct causation** vs. **indirect causation,** and three alternative situations: **confounders,** **mediators,** and **colliders**. This field is new and technical, but the next video is about the most concise and clear primer I know of (with concrete examples).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Ak0SLQOAu-o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -274,44 +261,46 @@ There are two other variable types it may be useful to name, too:
 
 A **causal diagram** is a picture mapping the causal relationships between key variables. They are used when researchers are interested in quantifying *causal* relationships between variables -- not just, "is *X* associated with a change in *Y*?" but "does *X* *cause* a change in *Y*?"
 
-To make causal conclusions with confidence outside the context of a randomized, controlled experimental study is a big challenge, and mapping out starting assumptions about relationships between variables is a key first step.
+To make causal conclusions with confidence outside the context of a randomized, controlled experimental study is a big challenge, and mapping out starting assumptions about relationships between variables is just the first part.
 
-Even if you are not necessarily trying to make strong causal conclusions, when you model relationships of several variables, a causal diagram helps you make *smart, thoughtful* choices about the ones you *include in* your model and the ones you *leave out*. The diagram surfaces your starting assumptions about relationships between variables. It makes your assumptions transparent (to others and to you!) and guides choices about what to include/exclude from a model.
+Even if we are not necessarily trying to make causal conclusions (*we* won't be here, with observational data), when you model relationships of several variables, a causal diagram helps you make *smart, thoughtful* choices about the ones you *include in* your model and the ones you *leave out*. 
+
+The diagram surfaces your starting assumptions about relationships between variables. It makes your assumptions transparent (to others and to you!) and guides choices about what to include/exclude from a model.
 
 People also call causal diagrams **DAG**s (for **Directed Acyclic Graphs**) since they are a specific application of that [broader] type of mathematical graph. So, every causal diagram is a DAG, but in math there can be DAGs that are not statistical causal diagrams.
 
-In a causal diagram each box is a variable, and arrow connect causes to effects (with the arrowhead pointing from the cause to the effect).
+In a causal diagram each box is a variable, and arrows connect causes to effects (with the arrowhead pointing from the cause to the effect).
 
-## Drawing Causal Diagrams in R
+<!-- ## Drawing Causal Diagrams in R -->
 
-To draw causal diagrams in R, we will use the package `dagitty` so make sure you have a `library()` calls for it before you start.
+<!-- To draw causal diagrams in R, we will use the package `dagitty` so make sure you have a `library()` calls for it before you start. -->
 
-Run the R code provided and examine the results to get a sense for how `dagitty()` works.
+<!-- Run the R code provided and examine the results to get a sense for how `dagitty()` works. -->
 
-```{r, echo = TRUE, eval = FALSE}
-library(dagitty)
-```
+<!-- ```{r, echo = TRUE, eval = FALSE} -->
+<!-- library(dagitty) -->
+<!-- ``` -->
 
-<!-- note: works on server only, some make/js stuff needed on laptop -->
+<!-- <!-- note: works on server only, some make/js stuff needed on laptop --> -->
 
-```{webr}
-#| exercise: dag-1
+<!-- ```{r} -->
+<!-- #| exercise: dag-1 -->
 
-# create the DAG object
-causal_diagram_1 <- dagitty('dag{
-  A -> B;
-  B -> C;
-  C -> D
-}')
-# plot it
-plot(causal_diagram_1)
-```
+<!-- # create the DAG object -->
+<!-- causal_diagram_1 <- dagitty('dag{ -->
+<!--   A -> B; -->
+<!--   B -> C; -->
+<!--   C -> D -->
+<!-- }') -->
+<!-- # plot it -->
+<!-- plot(causal_diagram_1) -->
+<!-- ``` -->
 
-Things to try:
+<!-- Things to try: -->
 
-- What kind of more-informative names can you use other than just A, B, C, etc? Are words okay? Spaces? (Hint: )
-- How do the -> relate to the arrows in the plot?
-- What happens if you add or remove a line inside the `dag{}` specification?
+<!-- - What kind of more-informative names can you use other than just A, B, C, etc? Are words okay? Spaces? (Hint: ) -->
+<!-- - How do the -> relate to the arrows in the plot? -->
+<!-- - What happens if you add or remove a line inside the `dag{}` specification? -->
 
 ## Variable Types
 
@@ -319,25 +308,23 @@ In a multi-variable analysis, there is often one key variable of interest (measu
 
 But there are generally other variables in the mix that are somehow relevant to understanding the predictor -- response relationship. How can we classify (and diagram) them?
 
-<!-- In all examples below, **X** is the predictor of greatest interest and **Y** is the response. (**A** is the other variable.) The definitions below all depend on a specific **X** and **Y** having been choseh: the other variable types are defined *relative* to the X-Y relationship. -->
+In all examples below, **X** is the predictor of greatest interest and **Y** is the response. (**A** is the other variable.) The definitions below all depend on a specific **X** and **Y** having been chosen: the other variable types are defined *relative* to the X-Y relationship.
 
 ### Precision Covariate
 
-Here's an example of **A** acting as a **precision covariate**. Precision covariates are also known as **competing exposures**. Based on the diagram (and the code), explain in words what a **precision covariate** is.
+Here's an example of **A** acting as a **precision covariate**. Precision covariates are also known as **competing exposures**. 
 
-*Notice how the `plot()` inputs `size` and `highlight` affect the diagram!*
-
-```{webr}
-#| exercise: dag-precision
-
-precision_ex <- dagitty('dag{
-  X -> Y
-  A -> Y
-}')
-plot(precision_ex,
-       size = 20,
-       highlight = 'A')
+```{r, echo = FALSE}
+knitr::include_graphics('images/dag-precision-1.png')
 ```
+
+Based on the diagram, can you explain in words what a **precision covariate** is?
+
+`r hide("Click for one definition...")`
+
+A precision covariate affects only the response variable.
+
+`r unhide()`
 
 Best practice is to *include* precision covariates in a model trying to measure the size of the effect of  X on Y, to get the most *precise* estimates possible...but if you don't, it won't bias your estimate of the size of X's influence on Y. Can you explain why?
 
@@ -345,92 +332,73 @@ Best practice is to *include* precision covariates in a model trying to measure 
 
 Here are two (slightly different) examples of **A** acting as a mediator. Based on the diagram (and the code), explain in words what a **mediator** is.
 
-```{webr}
-#| exercise: dag-mediator
-
-mediation_ex <- dagitty('dag{
-  X -> A
-  A -> Y
-}')
-plot(mediation_ex,
-       size = 20,
-       highlight = 'A')
-
-mediation_ex2 <- dagitty('dag{
-  X -> A
-  A -> Y
-  X -> Y
-}')
-plot(mediation_ex2,
-       size = 20,
-       highlight = 'A')
+```{r, echo = FALSE}
+knitr::include_graphics('images/dag-mediator-1.png')
 ```
+
+```{r, echo = FALSE}
+knitr::include_graphics('images/dag-mediator-2.png')
+```
+
+Based on the diagrams, can you explain in words what a **mediator** is?
+
+`r hide("Click for one definition...")`
+
+A mediator is part of a chain of causes and effects, between the main predictor of interest and the response.
+
+(You may also see mediation chains elsewhere in a diagram/scenario...for example, a chain of three causes/effects that together act as a precision covariate.)
+
+`r unhide()`
+
 
 How is this *different* from a precision covariate?
 
-In modeling, you might choose to estimate the **total relationship** of X and Y by omitting mediator A from your model; or, you might include both, to tease apart influences of X on Y via A, and not via A. Both can be valid. Researchers have to choose which they *want* to do.
+`r hide("Hmm, not sure -- show me how it's different!")`
+
+A mediator is part of a chain of causes and effects, between the main predictor of interest and the response.
+
+It affects the response, but unlike a precision covariate, it's also affected *by* the predictor of interest.
+
+`r unhide()`
+
+If you have a situation like the first picture above, where there are no branches/only one single path from your predictor to the response, include only your predictor and that's it.
+
+**BUT** if there are mediator(s) and if there *are* branches in the path(s), like the second picture above that's when you have options. 
+
+If you want to estimate the *total effect* of the upstream predictor of interest, *exclude* the mediator(s). If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then include one variable along each branch whose influence you want to measure.
+
+Both can be valid. Researchers have to choose which they *want* to do.
 
 ### Confounder
 
-Both code examples below produce the same causal diagram, in which A is a **confounder**. Can you define "confounder" in words?
+Below is another causal diagram, in which A is a **confounder**. 
 
-```{webr}
-#| exercise: dag-confounder
-
-confound_ex <- dagitty('dag{
-  A -> X
-  A -> Y
-}')
-plot(confound_ex,
-       size = 20,
-       highlight = 'A')
+```{r, echo = FALSE}
+knitr::include_graphics('images/dag-confounder-1.png')
 ```
 
-We can make the same picture another way; there's a nifty trick for `dagitty()` when one variable has causal links to more than one other variable:
 
-```{webr}
-#| exercise: dag-confounder-alt
+Can you define "confounder" in words?
 
-# (same picture results)
-confound_ex2 <- dagitty('dag{
-  A -> {X Y}
-}')
-plot(confound_ex2,
-       size = 20,
-       highlight = 'A')
-```
+`r hide("Click for one definition...")`
 
-If there is a **confounder** present and you *do not* include it in your model, then you may *wrongly conclude X causes Y*. So best practice is to *include* all confounders in a model.
+A confounder affects *both* the predictor and the response.
+
+`r unhide()`
+
+If there is a **confounder** present and you *do not* include it in your model, then you may *wrongly conclude X causes Y*. 
+
+So best practice is to *include* all confounders in a model.
 
 ### Collider
 
 **Collider** bias caused by collider variable A looks like:
 
-```{webr}
-#| exercise: dag-collider
-
-collide_ex <- dagitty('dag{
-  X -> A
-  Y -> A
-}')
-plot(collide_ex,
-       size = 20,
-       highlight = 'A')
+```{r, echo = FALSE}
+knitr::include_graphics('images/dag-collider-1.png')
 ```
 
-Again, there's a nice shorthand syntax to make that same graph:
-
-```{webr}
-#| exercise: dag-collider-alt
-
-# or another (shorthand) way to write  it:
-collide_ex2 <- dagitty('dag{
-  {X Y} -> A
-}')
-plot(collide_ex2,
-       size = 20,
-       highlight = 'A')
-```
+A collider is *affected by* both the predictor and response. (Their influence arrows "collide" at the collider...)
 
 Including a **collider** in a model designed to measure association between X and Y *can induce association where there is actually none* so best practice is to make sure you **do not include colliders in models.**
 
@@ -440,13 +408,13 @@ A variable that *moderates* (increases or decreases the size of) the causal link
 
 (If you have studied *interactions* before in the context of regression models, a cause and a moderator *interact* to influence the effect.)
 
-Unfortunately *our software currently doesn't have an adequate way to draw moderators* -- for [good reasons](https://academic.oup.com/ije/article/51/4/1047/6607680) -- but here's a diagram (from [Yoon 2020](https://link.springer.com/article/10.1007/s40815-020-00848-3)) to help get a sense of the situation:
+Unfortunately *in our diagrams there is not really an adequate way to draw moderators* -- for [good reasons](https://academic.oup.com/ije/article/51/4/1047/6607680) -- but here's a diagram (from [Yoon 2020](https://link.springer.com/article/10.1007/s40815-020-00848-3)) to help get a sense of the situation:
 
 ```{r, echo = FALSE, out.width='80%'}
 knitr::include_graphics('https://media.springernature.com/full/springer-static/image/art%3A10.1007%2Fs40815-020-00848-3/MediaObjects/40815_2020_848_Fig1_HTML.png')
 ```
 
-If you think you have a moderator variable, best practice is to *include* it in your model *interacting* with **X**. (We will return to interactions in much more detail later in the course.)
+If you think you have a moderator variable, best practice is to *include* it in your model *interacting* with **X**. (We will return to interactions in much more detail later on.)
 
 ### More
 There are more details and more complicated scenarios, of course. This is all you need to master  to start  with. If you want to explore  more, check out <https://cran.r-project.org/web/packages/ggdag/vignettes/bias-structures.html>
@@ -462,7 +430,9 @@ Check out the materials and interactive questions at: <http://dagitty.net/learn/
 Soooo....what?  How will this affect our work?  Well, we will often be interested in the *association* or relationship between two key variables, a potential cause or "predictor" **x** and a potential effect or "response" **y**.  Unless we have data from a randomized experimental study, we need to be clever about which *other* variables to include in our analysis to get the best, most accurate estimate of the **x** - **y** relationship:
 
 - If there are any *confounders* we should *include* them in our models and analysis. This is often called **controlling for** the confounders' effects.
-- If there is a *mediator*, you have a choice. If you want to estimate the *total effect* of the upstream predictor of interest, *exclude* the mediator. If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then perhaps include it.
+- If there is a *mediator*, you may have a choice. 
+  - If there are no branches/only one single path from your predictor to the response, include only your predictor and that's it.
+  - If there *are* branches in the path, that's when you have options. If you want to estimate the *total effect* of the upstream predictor of interest, *exclude* the mediator(s). If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then include one variable along each branch whose influence you want to measure.
 - If there are any *colliders* they should *not* be included in our models and analysis - including them would actually *reduce* the accuracy of our assessment of the **x** - **y** relationship
 
 Seems simple enough, right?  There's a catch. To decide whether something might be a collider or a confounder, you have to rely on your knowledge or belief about what causes what. Even experts don't always agree. There *is not* usually a definite right answer that is easy to agree on. This is one thing that makes causal inference with observational data so hard, and contentious!

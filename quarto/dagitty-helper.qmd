@@ -1,0 +1,81 @@
+---
+title: "Dagitty Helper"
+format: html
+editor: source
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(dagitty)
+library(CalvinBayes)
+
+theme_set(theme_bw(base_size=16))
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  fig.align = "center",
+  fig.width = 6, fig.height = 2.5,
+  fig.path = 'images/',
+  dev = 'png', dpi = 300)
+```
+
+```{r}
+#| label: dag-precision
+
+precision_ex <- dagitty('dag{
+  X -> Y
+  A -> Y
+}')
+gg_dag(precision_ex,
+       size = 20,
+       highlight = 'A')
+```
+
+```{r}
+#| label: dag-mediator
+
+mediation_ex <- dagitty('dag{
+  X -> A
+  A -> Y
+}')
+gg_dag(mediation_ex,
+       size = 20,
+       highlight = 'A')
+
+mediation_ex2 <- dagitty('dag{
+  X -> A
+  A -> Y
+  X -> Y
+}')
+gg_dag(mediation_ex2,
+       size = 20,
+       highlight = 'A')
+```
+
+```{r}
+#| label: dag-confounder
+
+confound_ex <- dagitty('dag{
+  A -> X
+  A -> Y
+}')
+gg_dag(confound_ex,
+       size = 20,
+       highlight = 'A')
+```
+
+```{r}
+#| label: dag-collider
+
+collide_ex <- dagitty('dag{
+  X -> A
+  Y -> A
+}')
+gg_dag(collide_ex,
+       size = 20,
+       highlight = 'A')
+```
+

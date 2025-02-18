@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -329,7 +295,6 @@ window.Quarto = {
   <li><a href="#mediators-moderators-precision-covariates" id="toc-mediators-moderators-precision-covariates" class="nav-link" data-scroll-target="#mediators-moderators-precision-covariates">Mediators, Moderators, Precision Covariates</a></li>
   </ul></li>
   <li><a href="#whats-a-causal-diagram" id="toc-whats-a-causal-diagram" class="nav-link" data-scroll-target="#whats-a-causal-diagram">What’s a Causal Diagram?</a></li>
-  <li><a href="#drawing-causal-diagrams-in-r" id="toc-drawing-causal-diagrams-in-r" class="nav-link" data-scroll-target="#drawing-causal-diagrams-in-r">Drawing Causal Diagrams in R</a></li>
   <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">Variable Types</a>
   <ul class="collapse">
   <li><a href="#precision-covariate" id="toc-precision-covariate" class="nav-link" data-scroll-target="#precision-covariate">Precision Covariate</a></li>
@@ -378,36 +343,13 @@ window.Quarto = {
 </header>
 
 
-<div class="cell" data-layout-align="center" data-setup="true" data-exercise="[&quot;dag-1&quot;,&quot;dag-precision&quot;,&quot;dag-mediator&quot;,&quot;dag-confounder&quot;,&quot;dag-confounder-alt&quot;,&quot;dag-collider&quot;,&quot;dag-collider-alt&quot;]">
-<script type="exercise-setup-dag-1-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6WyJkYWctMSIsImRhZy1wcmVjaXNpb24iLCJkYWctbWVkaWF0b3IiLCJkYWctY29uZm91bmRlciIsImRhZy1jb25mb3VuZGVyLWFsdCIsImRhZy1jb2xsaWRlciIsImRhZy1jb2xsaWRlci1hbHQiXSwiZWRpdCI6ZmFsc2UsImVjaG8iOmZhbHNlLCJzZXR1cCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2V9LCJjb2RlIjoiIn0=
-</script>
-<script type="exercise-setup-dag-precision-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6WyJkYWctMSIsImRhZy1wcmVjaXNpb24iLCJkYWctbWVkaWF0b3IiLCJkYWctY29uZm91bmRlciIsImRhZy1jb25mb3VuZGVyLWFsdCIsImRhZy1jb2xsaWRlciIsImRhZy1jb2xsaWRlci1hbHQiXSwiZWRpdCI6ZmFsc2UsImVjaG8iOmZhbHNlLCJzZXR1cCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2V9LCJjb2RlIjoiIn0=
-</script>
-<script type="exercise-setup-dag-mediator-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6WyJkYWctMSIsImRhZy1wcmVjaXNpb24iLCJkYWctbWVkaWF0b3IiLCJkYWctY29uZm91bmRlciIsImRhZy1jb25mb3VuZGVyLWFsdCIsImRhZy1jb2xsaWRlciIsImRhZy1jb2xsaWRlci1hbHQiXSwiZWRpdCI6ZmFsc2UsImVjaG8iOmZhbHNlLCJzZXR1cCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2V9LCJjb2RlIjoiIn0=
-</script>
-<script type="exercise-setup-dag-confounder-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6WyJkYWctMSIsImRhZy1wcmVjaXNpb24iLCJkYWctbWVkaWF0b3IiLCJkYWctY29uZm91bmRlciIsImRhZy1jb25mb3VuZGVyLWFsdCIsImRhZy1jb2xsaWRlciIsImRhZy1jb2xsaWRlci1hbHQiXSwiZWRpdCI6ZmFsc2UsImVjaG8iOmZhbHNlLCJzZXR1cCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2V9LCJjb2RlIjoiIn0=
-</script>
-<script type="exercise-setup-dag-confounder-alt-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6WyJkYWctMSIsImRhZy1wcmVjaXNpb24iLCJkYWctbWVkaWF0b3IiLCJkYWctY29uZm91bmRlciIsImRhZy1jb25mb3VuZGVyLWFsdCIsImRhZy1jb2xsaWRlciIsImRhZy1jb2xsaWRlci1hbHQiXSwiZWRpdCI6ZmFsc2UsImVjaG8iOmZhbHNlLCJzZXR1cCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2V9LCJjb2RlIjoiIn0=
-</script>
-<script type="exercise-setup-dag-collider-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6WyJkYWctMSIsImRhZy1wcmVjaXNpb24iLCJkYWctbWVkaWF0b3IiLCJkYWctY29uZm91bmRlciIsImRhZy1jb25mb3VuZGVyLWFsdCIsImRhZy1jb2xsaWRlciIsImRhZy1jb2xsaWRlci1hbHQiXSwiZWRpdCI6ZmFsc2UsImVjaG8iOmZhbHNlLCJzZXR1cCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2V9LCJjb2RlIjoiIn0=
-</script>
-<script type="exercise-setup-dag-collider-alt-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6WyJkYWctMSIsImRhZy1wcmVjaXNpb24iLCJkYWctbWVkaWF0b3IiLCJkYWctY29uZm91bmRlciIsImRhZy1jb25mb3VuZGVyLWFsdCIsImRhZy1jb2xsaWRlciIsImRhZy1jb2xsaWRlci1hbHQiXSwiZWRpdCI6ZmFsc2UsImVjaG8iOmZhbHNlLCJzZXR1cCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2V9LCJjb2RlIjoiIn0=
-</script>
-</div>
 <section id="preface-whats-a-model" class="level2">
 <h2 class="anchored" data-anchor-id="preface-whats-a-model">Preface: What’s a Model?</h2>
 <p>We will spend most of this course learning to fit different kinds of <em>regression models</em>. What are they?</p>
 <p>We will learn as we go. But as a starting point…</p>
 <ul>
 <li>In a regression model, we have one main <strong>response</strong> or <strong>outcome</strong> variable of interest</li>
-<li>We want to assess whether our response variable is or isn’t associated with (some of) a suite of possible <strong>predictor</strong> variables, also sometimes known as <em>covariates</em> (but we’ll avoid the word “covariates” because it sometimes means slightly different things in different disciplines).</li>
+<li>We want to assess whether our response variable is or isn’t associated with (some of) a suite of possible <strong>predictor</strong> variables (also sometimes known as <em>covariates</em> but we’ll avoid the word “covariates” because it sometimes means slightly different things in different disciplines).</li>
 </ul>
 <p>Essentially, we are looking to quantify relationships between our response and predictor(s) – accompanied by appropriate measures of the uncertainty of our estimates.</p>
 </section>
@@ -517,8 +459,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJvdXRwdXQiOmZhbHNlLCJldmFsIjp0cnVlLCJleGVyY2lz
 <div class="webex-check webex-box">
 <div class="cell" data-layout-align="center">
 What is the difference between random sampling and randomization?
-<div id="radio_GZHABPGEGI" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_GZHABPGEGI" value="answer"> <span>Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_GZHABPGEGI" value=""> <span>It depends on the context; they are very similar</span></label><label><input type="radio" autocomplete="off" name="radio_GZHABPGEGI" value=""> <span>Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label>
+<div id="radio_QFQXXCUPAP" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_QFQXXCUPAP" value=""> <span>It depends on the context; they are very similar</span></label><label><input type="radio" autocomplete="off" name="radio_QFQXXCUPAP" value="answer"> <span>Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_QFQXXCUPAP" value=""> <span>Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label>
 </div>
 </div>
 </div>
@@ -585,13 +527,15 @@ Click for explanations of solution above.
 <p>And if you try to fit too many, the chances of <em>overfitting</em> increase. <em>Overfitting</em> is when you model noise as well as signal, capturing in your model apparent relationships that actually exist only in the current dataset, not in reality.</p>
 <p>For linear regression, Harrell (2015, Chapter 4.6) offers a rule of thumb: the number of parameters being estimated, <span class="math inline">\(p\)</span>, should be less than <span class="math inline">\(\frac{n}{10}\)</span> or <span class="math inline">\(\frac{n}{20}\)</span>. To give just one standard rule of thumb, we should aim for <span class="math inline">\(p &lt; \frac{n}{15}\)</span>. <span class="math inline">\(n\)</span> is the sample size (number of rows in the dataset).</p>
 <p>This “n/15 rule” is a very rough rule of thumb - sometimes it seems you can get away with estimating a few more parameters than it says, and sometimes fewer (particularly in the case of categorical predictors where the observations are not evenly distributed across combinations of categories). But it gives us a reality check and a starting point for planning.</p>
+<p>Remember, n/15 is a <em>ceiling</em> – and upper limit on the number of parameters you could estimate. It’s not a goal! You may have less.</p>
 </section>
 <section id="causation-revisited" class="level2">
 <h2 class="anchored" data-anchor-id="causation-revisited">Causation Revisited</h2>
 <p>In most intro stat courses, students learn to repeat statements like: “Correlation doesn’t imply causation, and only randomized experimental studies can draw causal conclusions.”</p>
 <p><em>Well…kind of.</em></p>
-<p>In data science, big observational datasets (collected in the absense of a structured study design) are really common. There are also <em>many</em> scenarios of interest where randomized experiments are just not possible on practical and ethical grounds. Some blatant examples: experiments in which people were randomly assigned to dislocate their shoulders to investigate factors influencing recovery, or start smoking to see if they get cancer, or expose themselves to someone with a contagious disease to see if they become ill.&nbsp;In many situations, observational work is the <em>only</em> real option. What’s a researcher to do?</p>
-<p>In recent decades the field of <em>causal inference</em> has made great strides in thinking intelligently about how best to make the most reliable conclusions possible about cause and effect, when observational data is all you have. To begin to understand, we have to define a few terms: <strong>direct causation</strong> vs.&nbsp;<strong>indirect causation,</strong> and three alternative situations: <strong>confounders,</strong> <strong>mediators,</strong> and <strong>colliders</strong>. This field is new and technical, but the next video is the most concise and clear primer I know of (with concrete examples).</p>
+<p>In data science, big observational datasets (collected in the absense of a structured study design) are really common. There are also <em>many</em> scenarios of interest where randomized experiments are just not possible on practical and ethical grounds.</p>
+<p>Some blatant examples: experiments in which people were randomly assigned to dislocate their shoulders to investigate factors influencing recovery, or start smoking to see if they get cancer, or expose themselves to someone with a contagious disease to see if they become ill.&nbsp;In many situations, observational work is the <em>only</em> real option. What’s a researcher to do?</p>
+<p>In recent decades the field of <em>causal inference</em> has made great strides in thinking intelligently about how best to make the most reliable conclusions possible about cause and effect, when observational data is all you have. To begin to understand, we have to define a few terms: <strong>direct causation</strong> vs.&nbsp;<strong>indirect causation,</strong> and three alternative situations: <strong>confounders,</strong> <strong>mediators,</strong> and <strong>colliders</strong>. This field is new and technical, but the next video is about the most concise and clear primer I know of (with concrete examples).</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Ak0SLQOAu-o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
 <p><em>You may also <a href="https://www.youtube.com/watch?v=Ak0SLQOAu-o">watch it outside this tutorial.</a></em></p>
@@ -608,130 +552,142 @@ Click for explanations of solution above.
 <section id="whats-a-causal-diagram" class="level2">
 <h2 class="anchored" data-anchor-id="whats-a-causal-diagram">What’s a Causal Diagram?</h2>
 <p>A <strong>causal diagram</strong> is a picture mapping the causal relationships between key variables. They are used when researchers are interested in quantifying <em>causal</em> relationships between variables – not just, “is <em>X</em> associated with a change in <em>Y</em>?” but “does <em>X</em> <em>cause</em> a change in <em>Y</em>?”</p>
-<p>To make causal conclusions with confidence outside the context of a randomized, controlled experimental study is a big challenge, and mapping out starting assumptions about relationships between variables is a key first step.</p>
-<p>Even if you are not necessarily trying to make strong causal conclusions, when you model relationships of several variables, a causal diagram helps you make <em>smart, thoughtful</em> choices about the ones you <em>include in</em> your model and the ones you <em>leave out</em>. The diagram surfaces your starting assumptions about relationships between variables. It makes your assumptions transparent (to others and to you!) and guides choices about what to include/exclude from a model.</p>
+<p>To make causal conclusions with confidence outside the context of a randomized, controlled experimental study is a big challenge, and mapping out starting assumptions about relationships between variables is just the first part.</p>
+<p>Even if we are not necessarily trying to make causal conclusions (<em>we</em> won’t be here, with observational data), when you model relationships of several variables, a causal diagram helps you make <em>smart, thoughtful</em> choices about the ones you <em>include in</em> your model and the ones you <em>leave out</em>.</p>
+<p>The diagram surfaces your starting assumptions about relationships between variables. It makes your assumptions transparent (to others and to you!) and guides choices about what to include/exclude from a model.</p>
 <p>People also call causal diagrams <strong>DAG</strong>s (for <strong>Directed Acyclic Graphs</strong>) since they are a specific application of that [broader] type of mathematical graph. So, every causal diagram is a DAG, but in math there can be DAGs that are not statistical causal diagrams.</p>
-<p>In a causal diagram each box is a variable, and arrow connect causes to effects (with the arrowhead pointing from the cause to the effect).</p>
-</section>
-<section id="drawing-causal-diagrams-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="drawing-causal-diagrams-in-r">Drawing Causal Diagrams in R</h2>
-<p>To draw causal diagrams in R, we will use the package <code>dagitty</code> so make sure you have a <code>library()</code> calls for it before you start.</p>
-<p>Run the R code provided and examine the results to get a sense for how <code>dagitty()</code> works.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<!-- note: works on server only, some make/js stuff needed on laptop -->
-<div class="cell" data-layout-align="center" data-exercise="dag-1">
-<div>
-<div id="webr-2" class="exercise-cell">
-
-</div>
-<script type="webr-2-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImRhZy0xIn0sImNvZGUiOiJcbiMgY3JlYXRlIHRoZSBEQUcgb2JqZWN0XG5jYXVzYWxfZGlhZ3JhbV8xIDwtIGRhZ2l0dHkoJ2RhZ3tcbiAgQSAtPiBCO1xuICBCIC0+IEM7XG4gIEMgLT4gRFxufScpXG4jIHBsb3QgaXRcbnBsb3QoY2F1c2FsX2RpYWdyYW1fMSkifQ==
-</script>
-</div>
-</div>
-<p>Things to try:</p>
-<ul>
-<li>What kind of more-informative names can you use other than just A, B, C, etc? Are words okay? Spaces? (Hint: )</li>
-<li>How do the -&gt; relate to the arrows in the plot?</li>
-<li>What happens if you add or remove a line inside the <code>dag{}</code> specification?</li>
-</ul>
+<p>In a causal diagram each box is a variable, and arrows connect causes to effects (with the arrowhead pointing from the cause to the effect).</p>
+<!-- ## Drawing Causal Diagrams in R -->
+<!-- To draw causal diagrams in R, we will use the package `dagitty` so make sure you have a `library()` calls for it before you start. -->
+<!-- Run the R code provided and examine the results to get a sense for how `dagitty()` works. -->
+<!-- ```{r, echo = TRUE, eval = FALSE} -->
+<!-- library(dagitty) -->
+<!-- ``` -->
+<!-- <!-- note: works on server only, some make/js stuff needed on laptop -->
+<p>–&gt;</p>
+<!-- ```{r} -->
+<!-- #| exercise: dag-1 -->
+<!-- # create the DAG object -->
+<!-- causal_diagram_1 <- dagitty('dag{ -->
+<!--   A -> B; -->
+<!--   B -> C; -->
+<!--   C -> D -->
+<!-- }') -->
+<!-- # plot it -->
+<!-- plot(causal_diagram_1) -->
+<!-- ``` -->
+<!-- Things to try: -->
+<!-- - What kind of more-informative names can you use other than just A, B, C, etc? Are words okay? Spaces? (Hint: ) -->
+<!-- - How do the -> relate to the arrows in the plot? -->
+<!-- - What happens if you add or remove a line inside the `dag{}` specification? -->
 </section>
 <section id="variable-types" class="level2">
 <h2 class="anchored" data-anchor-id="variable-types">Variable Types</h2>
 <p>In a multi-variable analysis, there is often one key variable of interest (measuring “response” or “outcome” or “effect”) and another one which may influence it, and is the focus of greatest research interest (a key “predictor” or “cause”).</p>
 <p>But there are generally other variables in the mix that are somehow relevant to understanding the predictor – response relationship. How can we classify (and diagram) them?</p>
-<!-- In all examples below, **X** is the predictor of greatest interest and **Y** is the response. (**A** is the other variable.) The definitions below all depend on a specific **X** and **Y** having been choseh: the other variable types are defined *relative* to the X-Y relationship. -->
+<p>In all examples below, <strong>X</strong> is the predictor of greatest interest and <strong>Y</strong> is the response. (<strong>A</strong> is the other variable.) The definitions below all depend on a specific <strong>X</strong> and <strong>Y</strong> having been chosen: the other variable types are defined <em>relative</em> to the X-Y relationship.</p>
 <section id="precision-covariate" class="level3">
 <h3 class="anchored" data-anchor-id="precision-covariate">Precision Covariate</h3>
-<p>Here’s an example of <strong>A</strong> acting as a <strong>precision covariate</strong>. Precision covariates are also known as <strong>competing exposures</strong>. Based on the diagram (and the code), explain in words what a <strong>precision covariate</strong> is.</p>
-<p><em>Notice how the <code>plot()</code> inputs <code>size</code> and <code>highlight</code> affect the diagram!</em></p>
-<div class="cell" data-layout-align="center" data-exercise="dag-precision">
-<div>
-<div id="webr-3" class="exercise-cell">
-
+<p>Here’s an example of <strong>A</strong> acting as a <strong>precision covariate</strong>. Precision covariates are also known as <strong>competing exposures</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dag-precision-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1800"></p>
+</figure>
 </div>
-<script type="webr-3-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImRhZy1wcmVjaXNpb24ifSwiY29kZSI6IlxucHJlY2lzaW9uX2V4IDwtIGRhZ2l0dHkoJ2RhZ3tcbiAgWCAtPiBZXG4gIEEgLT4gWVxufScpXG5wbG90KHByZWNpc2lvbl9leCxcbiAgICAgICBzaXplID0gMjAsXG4gICAgICAgaGlnaGxpZ2h0ID0gJ0EnKSJ9
-</script>
 </div>
+</div>
+<p>Based on the diagram, can you explain in words what a <strong>precision covariate</strong> is?</p>
+<div class="webex-solution">
+<button>
+Click for one definition…
+</button>
+<p>A precision covariate affects only the response variable.</p>
 </div>
 <p>Best practice is to <em>include</em> precision covariates in a model trying to measure the size of the effect of X on Y, to get the most <em>precise</em> estimates possible…but if you don’t, it won’t bias your estimate of the size of X’s influence on Y. Can you explain why?</p>
 </section>
 <section id="mediator" class="level3">
 <h3 class="anchored" data-anchor-id="mediator">Mediator</h3>
 <p>Here are two (slightly different) examples of <strong>A</strong> acting as a mediator. Based on the diagram (and the code), explain in words what a <strong>mediator</strong> is.</p>
-<div class="cell" data-layout-align="center" data-exercise="dag-mediator">
-<div>
-<div id="webr-4" class="exercise-cell">
-
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dag-mediator-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1800"></p>
+</figure>
 </div>
-<script type="webr-4-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImRhZy1tZWRpYXRvciJ9LCJjb2RlIjoiXG5tZWRpYXRpb25fZXggPC0gZGFnaXR0eSgnZGFne1xuICBYIC0+IEFcbiAgQSAtPiBZXG59JylcbnBsb3QobWVkaWF0aW9uX2V4LFxuICAgICAgIHNpemUgPSAyMCxcbiAgICAgICBoaWdobGlnaHQgPSAnQScpXG5cbm1lZGlhdGlvbl9leDIgPC0gZGFnaXR0eSgnZGFne1xuICBYIC0+IEFcbiAgQSAtPiBZXG4gIFggLT4gWVxufScpXG5wbG90KG1lZGlhdGlvbl9leDIsXG4gICAgICAgc2l6ZSA9IDIwLFxuICAgICAgIGhpZ2hsaWdodCA9ICdBJykifQ==
-</script>
 </div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dag-mediator-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1800"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on the diagram, can you explain in words what a <strong>mediator</strong> is?</p>
+<div class="webex-solution">
+<button>
+Click for one definition…
+</button>
+<p>A mediator is part of a chain of causes and effects, between the main predictor of interest and the response.</p>
+<p>(You may also see mediation chains elsewhere in a diagram/scenario…for example, a chain of three causes/effects that together act as a precision covariate.)</p>
 </div>
 <p>How is this <em>different</em> from a precision covariate?</p>
+<div class="webex-solution">
+<button>
+Hmm, not sure – show me how it’s different!
+</button>
+<p>A mediator is part of a chain of causes and effects, between the main predictor of interest and the response.</p>
+<p>It affects the response, but unlike a precision covariate, it’s also affected <em>by</em> the predictor of interest.</p>
+</div>
 <p>In modeling, you might choose to estimate the <strong>total relationship</strong> of X and Y by omitting mediator A from your model; or, you might include both, to tease apart influences of X on Y via A, and not via A. Both can be valid. Researchers have to choose which they <em>want</em> to do.</p>
 </section>
 <section id="confounder" class="level3">
 <h3 class="anchored" data-anchor-id="confounder">Confounder</h3>
-<p>Both code examples below produce the same causal diagram, in which A is a <strong>confounder</strong>. Can you define “confounder” in words?</p>
-<div class="cell" data-layout-align="center" data-exercise="dag-confounder">
-<div>
-<div id="webr-5" class="exercise-cell">
-
-</div>
-<script type="webr-5-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImRhZy1jb25mb3VuZGVyIn0sImNvZGUiOiJcbmNvbmZvdW5kX2V4IDwtIGRhZ2l0dHkoJ2RhZ3tcbiAgQSAtPiBYXG4gIEEgLT4gWVxufScpXG5wbG90KGNvbmZvdW5kX2V4LFxuICAgICAgIHNpemUgPSAyMCxcbiAgICAgICBoaWdobGlnaHQgPSAnQScpIn0=
-</script>
+<p>Below is another causal diagram, in which A is a <strong>confounder</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dag-confounder-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1800"></p>
+</figure>
 </div>
 </div>
-<p>We can make the same picture another way; there’s a nifty trick for <code>dagitty()</code> when one variable has causal links to more than one other variable:</p>
-<div class="cell" data-layout-align="center" data-exercise="dag-confounder-alt">
-<div>
-<div id="webr-6" class="exercise-cell">
-
 </div>
-<script type="webr-6-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImRhZy1jb25mb3VuZGVyLWFsdCJ9LCJjb2RlIjoiXG4jIChzYW1lIHBpY3R1cmUgcmVzdWx0cylcbmNvbmZvdW5kX2V4MiA8LSBkYWdpdHR5KCdkYWd7XG4gIEEgLT4ge1ggWX1cbn0nKVxucGxvdChjb25mb3VuZF9leDIsXG4gICAgICAgc2l6ZSA9IDIwLFxuICAgICAgIGhpZ2hsaWdodCA9ICdBJykifQ==
-</script>
+<p>Can you define “confounder” in words?</p>
+<div class="webex-solution">
+<button>
+Click for one definition…
+</button>
+<p>A confounder affects <em>both</em> the predictor and the response.</p>
 </div>
-</div>
-<p>If there is a <strong>confounder</strong> present and you <em>do not</em> include it in your model, then you may <em>wrongly conclude X causes Y</em>. So best practice is to <em>include</em> all confounders in a model.</p>
+<p>If there is a <strong>confounder</strong> present and you <em>do not</em> include it in your model, then you may <em>wrongly conclude X causes Y</em>.</p>
+<p>So best practice is to <em>include</em> all confounders in a model.</p>
 </section>
 <section id="collider" class="level3">
 <h3 class="anchored" data-anchor-id="collider">Collider</h3>
 <p><strong>Collider</strong> bias caused by collider variable A looks like:</p>
-<div class="cell" data-layout-align="center" data-exercise="dag-collider">
-<div>
-<div id="webr-7" class="exercise-cell">
-
-</div>
-<script type="webr-7-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImRhZy1jb2xsaWRlciJ9LCJjb2RlIjoiXG5jb2xsaWRlX2V4IDwtIGRhZ2l0dHkoJ2RhZ3tcbiAgWCAtPiBBXG4gIFkgLT4gQVxufScpXG5wbG90KGNvbGxpZGVfZXgsXG4gICAgICAgc2l6ZSA9IDIwLFxuICAgICAgIGhpZ2hsaWdodCA9ICdBJykifQ==
-</script>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dag-collider-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1800"></p>
+</figure>
 </div>
 </div>
-<p>Again, there’s a nice shorthand syntax to make that same graph:</p>
-<div class="cell" data-layout-align="center" data-exercise="dag-collider-alt">
-<div>
-<div id="webr-8" class="exercise-cell">
-
 </div>
-<script type="webr-8-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImRhZy1jb2xsaWRlci1hbHQifSwiY29kZSI6IlxuIyBvciBhbm90aGVyIChzaG9ydGhhbmQpIHdheSB0byB3cml0ZSAgaXQ6XG5jb2xsaWRlX2V4MiA8LSBkYWdpdHR5KCdkYWd7XG4gIHtYIFl9IC0+IEFcbn0nKVxucGxvdChjb2xsaWRlX2V4MixcbiAgICAgICBzaXplID0gMjAsXG4gICAgICAgaGlnaGxpZ2h0ID0gJ0EnKSJ9
-</script>
-</div>
-</div>
+<p>A collider is <em>affected by</em> both the predictor and response. (Their influence arrows “collide” at the collider…)</p>
 <p>Including a <strong>collider</strong> in a model designed to measure association between X and Y <em>can induce association where there is actually none</em> so best practice is to make sure you <strong>do not include colliders in models.</strong></p>
 </section>
 <section id="moderator" class="level3">
 <h3 class="anchored" data-anchor-id="moderator">Moderator</h3>
 <p>A variable that <em>moderates</em> (increases or decreases the size of) the causal link between two other variables is a <strong>Moderator.</strong></p>
 <p>(If you have studied <em>interactions</em> before in the context of regression models, a cause and a moderator <em>interact</em> to influence the effect.)</p>
-<p>Unfortunately <em>our software currently doesn’t have an adequate way to draw moderators</em> – for <a href="https://academic.oup.com/ije/article/51/4/1047/6607680">good reasons</a> – but here’s a diagram (from <a href="https://link.springer.com/article/10.1007/s40815-020-00848-3">Yoon 2020</a>) to help get a sense of the situation:</p>
+<p>Unfortunately <em>in our diagrams there is not really an adequate way to draw moderators</em> – for <a href="https://academic.oup.com/ije/article/51/4/1047/6607680">good reasons</a> – but here’s a diagram (from <a href="https://link.springer.com/article/10.1007/s40815-020-00848-3">Yoon 2020</a>) to help get a sense of the situation:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -741,7 +697,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6
 </div>
 </div>
 </div>
-<p>If you think you have a moderator variable, best practice is to <em>include</em> it in your model <em>interacting</em> with <strong>X</strong>. (We will return to interactions in much more detail later in the course.)</p>
+<p>If you think you have a moderator variable, best practice is to <em>include</em> it in your model <em>interacting</em> with <strong>X</strong>. (We will return to interactions in much more detail later on.)</p>
 </section>
 <section id="more" class="level3">
 <h3 class="anchored" data-anchor-id="more">More</h3>
@@ -765,11 +721,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6
 <p>My personal advice is: if in doubt, and if the data allow it, control for all the potentially important variables you can. The exception, of course, if is you are sure or quite sure the variable is a collider - in that case you definitely MUST exclude it.</p>
 
 
-<script type="webr-data">
-eyJyZW5kZXJfZGYiOiJkZWZhdWx0Iiwib3B0aW9ucyI6eyJiYXNlVXJsIjoiaHR0cHM6Ly93ZWJyLnItd2FzbS5vcmcvdjAuNC4yLyJ9LCJwYWNrYWdlcyI6eyJyZXBvcyI6W10sInBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImRwbHlyIiwidGlkeXIiLCJyZWFkciIsInN0cmluZ3IiLCJnZ3Bsb3QyIiwiZ2dmb3JtdWxhIiwiZ2dmb3JjZSIsImRhZ2l0dHkiLCJWOCJdfX0=
-</script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3siaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV84O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC04In0seyJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTgtY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV84ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl84LCB7fSk7XG5fd2Vicl9mZWVkYmFja184ID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV84LmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiIsImNlbGxOYW1lIjoid2Vici04In0seyJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4iLCJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTcifSx7ImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzcgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItNy1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzcgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzcuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLTcifSx7ImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiIsImNlbGxOYW1lIjoid2Vici13aWRnZXQtNiJ9LHsiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNiA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici02LWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNiwge30pO1xuX3dlYnJfZmVlZGJhY2tfNiA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfNi5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4iLCJjZWxsTmFtZSI6IndlYnItNiJ9LHsiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV81O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC01In0seyJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTUtY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV81ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl81LCB7fSk7XG5fd2Vicl9mZWVkYmFja181ID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV81LmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiIsImNlbGxOYW1lIjoid2Vici01In0seyJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4iLCJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQifSx7ImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzQgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItNC1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzQgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzQuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLTQifSx7ImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMztcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiIsImNlbGxOYW1lIjoid2Vici13aWRnZXQtMyJ9LHsiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici0zLWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMywge30pO1xuX3dlYnJfZmVlZGJhY2tfMyA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfMy5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4iLCJjZWxsTmFtZSI6IndlYnItMyJ9LHsiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8yO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yIn0seyJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTItY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV8yID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8yLCB7fSk7XG5fd2Vicl9mZWVkYmFja18yID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV8yLmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiIsImNlbGxOYW1lIjoid2Vici0yIn0seyJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gVXNlIFBvc3RNZXNzYWdlIGNoYW5uZWwgZm9yIGFzeW5jIGNvbW11bmljYXRpb25cbiAgLy8gV2UgZG8gbm90IGV4cGVjdCB0byB0YWtlIG5lc3RlZCBwcm9tcHQgaW5wdXQgaW4gUXVhcnRvIExpdmUgY2VsbHNcbiAgZGF0YS5vcHRpb25zLmNoYW5uZWxUeXBlID0gQ2hhbm5lbFR5cGUuUG9zdE1lc3NhZ2U7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICB0cnkge1xuICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICBpZiAoIWUubWVzc2FnZS5pbmNsdWRlcyhcIkZTIGVycm9yXCIpKSB7XG4gICAgICAgICAgICB0aHJvdyBlO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUifV19
+eyJjb250ZW50cyI6W119
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">
