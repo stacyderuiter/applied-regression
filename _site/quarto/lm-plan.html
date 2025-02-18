@@ -32,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../quarto/lm-fit.qmd" rel="next">
+<link href="../quarto/lm-fit.html" rel="next">
 <link href="../quarto/graphics-code.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -243,7 +243,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto/lm-fit.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../quarto/lm-fit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model Fitting and Equation</span></a>
   </div>
 </li>
@@ -459,8 +459,8 @@ window.Quarto = {
 <div class="webex-check webex-box">
 <div class="cell" data-layout-align="center">
 What is the difference between random sampling and randomization?
-<div id="radio_QFQXXCUPAP" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_QFQXXCUPAP" value=""> <span>It depends on the context; they are very similar</span></label><label><input type="radio" autocomplete="off" name="radio_QFQXXCUPAP" value="answer"> <span>Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_QFQXXCUPAP" value=""> <span>Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label>
+<div id="radio_ZJVCVDIXDH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZJVCVDIXDH" value=""> <span>Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_ZJVCVDIXDH" value="answer"> <span>Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_ZJVCVDIXDH" value=""> <span>It depends on the context; they are very similar</span></label>
 </div>
 </div>
 </div>
@@ -628,7 +628,7 @@ Click for one definition…
 </div>
 </div>
 </div>
-<p>Based on the diagram, can you explain in words what a <strong>mediator</strong> is?</p>
+<p>Based on the diagrams, can you explain in words what a <strong>mediator</strong> is?</p>
 <div class="webex-solution">
 <button>
 Click for one definition…
@@ -644,7 +644,10 @@ Hmm, not sure – show me how it’s different!
 <p>A mediator is part of a chain of causes and effects, between the main predictor of interest and the response.</p>
 <p>It affects the response, but unlike a precision covariate, it’s also affected <em>by</em> the predictor of interest.</p>
 </div>
-<p>In modeling, you might choose to estimate the <strong>total relationship</strong> of X and Y by omitting mediator A from your model; or, you might include both, to tease apart influences of X on Y via A, and not via A. Both can be valid. Researchers have to choose which they <em>want</em> to do.</p>
+<p>If you have a situation like the first picture above, where there are no branches/only one single path from your predictor to the response, include only your predictor and that’s it.</p>
+<p><strong>BUT</strong> if there are mediator(s) and if there <em>are</em> branches in the path(s), like the second picture above that’s when you have options.</p>
+<p>If you want to estimate the <em>total effect</em> of the upstream predictor of interest, <em>exclude</em> the mediator(s). If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then include one variable along each branch whose influence you want to measure.</p>
+<p>Both can be valid. Researchers have to choose which they <em>want</em> to do.</p>
 </section>
 <section id="confounder" class="level3">
 <h3 class="anchored" data-anchor-id="confounder">Confounder</h3>
@@ -713,7 +716,11 @@ Click for one definition…
 <p>Soooo….what? How will this affect our work? Well, we will often be interested in the <em>association</em> or relationship between two key variables, a potential cause or “predictor” <strong>x</strong> and a potential effect or “response” <strong>y</strong>. Unless we have data from a randomized experimental study, we need to be clever about which <em>other</em> variables to include in our analysis to get the best, most accurate estimate of the <strong>x</strong> - <strong>y</strong> relationship:</p>
 <ul>
 <li>If there are any <em>confounders</em> we should <em>include</em> them in our models and analysis. This is often called <strong>controlling for</strong> the confounders’ effects.</li>
-<li>If there is a <em>mediator</em>, you have a choice. If you want to estimate the <em>total effect</em> of the upstream predictor of interest, <em>exclude</em> the mediator. If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then perhaps include it.</li>
+<li>If there is a <em>mediator</em>, you may have a choice.
+<ul>
+<li>If there are no branches/only one single path from your predictor to the response, include only your predictor and that’s it.</li>
+<li>If there <em>are</em> branches in the path, that’s when you have options. If you want to estimate the <em>total effect</em> of the upstream predictor of interest, <em>exclude</em> the mediator(s). If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then include one variable along each branch whose influence you want to measure.</li>
+</ul></li>
 <li>If there are any <em>colliders</em> they should <em>not</em> be included in our models and analysis - including them would actually <em>reduce</em> the accuracy of our assessment of the <strong>x</strong> - <strong>y</strong> relationship</li>
 </ul>
 <p>Seems simple enough, right? There’s a catch. To decide whether something might be a collider or a confounder, you have to rely on your knowledge or belief about what causes what. Even experts don’t always agree. There <em>is not</em> usually a definite right answer that is easy to agree on. This is one thing that makes causal inference with observational data so hard, and contentious!</p>
@@ -733,7 +740,7 @@ eyJjb250ZW50cyI6W119
 </div>
 </div>
 <script type="vfs-file">
-WyJkYXRhL01hbW1hbE1ldGFib2xpY1JhdGVzLmNzdiIsImRhdGEvdW5pdmVyc2l0eV90ZWFjaGVycy5jc3YiXQ==
+WyJkYXRhL2hlaWdodHMuZHRhIiwiZGF0YS9NYW1tYWxNZXRhYm9saWNSYXRlcy5jc3YiLCJkYXRhL2VsZXBoYW50U3VydmV5LmNzdiIsImRhdGEvdW5pdmVyc2l0eV90ZWFjaGVycy5jc3YiLCJkYXRhL0hhRGl2ZVBhcmFtZXRlcnMuY3N2IiwiZGF0YS9nYXBtaW5kZXJfY2xlYW4uY3N2Il0=
 </script>
 </section>
 
@@ -1382,7 +1389,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../quarto/lm-fit.qmd" class="pagination-link" aria-label="Model Fitting and Equation">
+      <a href="../quarto/lm-fit.html" class="pagination-link" aria-label="Model Fitting and Equation">
         <span class="nav-page-text">Model Fitting and Equation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

@@ -1487,7 +1487,7 @@
     "href": "quarto/lm-plan.html#study-design-optional",
     "title": "Model Planning for Inference",
     "section": "Study Design (optional)",
-    "text": "Study Design (optional)\nA crucial distinction is between two broad classes of research studies: observational studies and experimental studies.\nSide note: many students in the sciences find that the statistical definition of an “experimental study” doesn’t mesh perfectly with the definition of an “experiment” that they learn in science courses. If it helps, you can think of “experiment” keeping the colloquial meaning it has in your field, and think of “experimental study” as a technical statistical descriptor of a study (as we will learn it today).\nYou probably have prior knowledge or a good intuitive guess as to the difference between studies that are observational and experimental. We’ll review key concepts more later on, but to start, take a chance to assess your existing hunches. Study the infographic below with this distinction in mind: Does the infographic confirm, modify, or add nuance to your initial idea of how “observational” and “experimental” studies differ? As a bonus, the image also details a few kinds of studies within each broad class, and orders them in terms of the strength of evidence they can provide.\n\n\n\n\n\n\n\n\n\n\nAn Alternative\nYou may spend less time with this one - but here’s an alternative infographic covering much of the same information. It’s organized differently, but consistent - dive in if you’d like to review again!\n\n\n\n\n\n\n\n\n\nOne thing to notice in this version is the emphasis on randomized experimental studies like clinical trials as a source of possible causal conclusions – the NIH notes that a randomized experiment has the best chance of allowing researchers to conclude that one thing causes another, while that is difficult to impossible in observational work. Why?\n\n\nWhy Randomization?\nRandomization is a key tactic for ensuring the results of an experimental study are reliable, and providing a strong basis for concluding that a particular treatment or intervention causes a certain outcome or result.\nRandomization means participants are assigned randomly to different “treatments;” they are randomly chosen to receive different assigned values of the key variable(s) that researchers are controlling or manipulating. If this procedure is not followed, then the different treatment groups may differ systematically in some important feature (like gender, motivation, initial health status - anything that might influence the outcome). Here’s one more video that explains the issue quite clearly, in the context of human randomized controlled trials:\n\n\nYou can also watch it outside the tutorial.\n\n\nRandom SAMPLE vs RANDOMIZATION\nCareful! Many students confuse random sampling with randomization, or use one term when they mean the other. Check your understanding: which is which?\n\n\nWhat is the difference between random sampling and randomization?\n\n It depends on the context; they are very similar Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups. Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups.\n\n\n\n\n\nClick for explanations of solution above.\n\nThe words seem similar, but are distinct technical terms!\nRandomization has to do with how values of a “treatment” variable of special interest are assigned: randomly!\nRandom sampling means that the individuals (whether they are people, places, or things…) in the study were selected from the population at random.",
+    "text": "Study Design (optional)\nA crucial distinction is between two broad classes of research studies: observational studies and experimental studies.\nSide note: many students in the sciences find that the statistical definition of an “experimental study” doesn’t mesh perfectly with the definition of an “experiment” that they learn in science courses. If it helps, you can think of “experiment” keeping the colloquial meaning it has in your field, and think of “experimental study” as a technical statistical descriptor of a study (as we will learn it today).\nYou probably have prior knowledge or a good intuitive guess as to the difference between studies that are observational and experimental. We’ll review key concepts more later on, but to start, take a chance to assess your existing hunches. Study the infographic below with this distinction in mind: Does the infographic confirm, modify, or add nuance to your initial idea of how “observational” and “experimental” studies differ? As a bonus, the image also details a few kinds of studies within each broad class, and orders them in terms of the strength of evidence they can provide.\n\n\n\n\n\n\n\n\n\n\nAn Alternative\nYou may spend less time with this one - but here’s an alternative infographic covering much of the same information. It’s organized differently, but consistent - dive in if you’d like to review again!\n\n\n\n\n\n\n\n\n\nOne thing to notice in this version is the emphasis on randomized experimental studies like clinical trials as a source of possible causal conclusions – the NIH notes that a randomized experiment has the best chance of allowing researchers to conclude that one thing causes another, while that is difficult to impossible in observational work. Why?\n\n\nWhy Randomization?\nRandomization is a key tactic for ensuring the results of an experimental study are reliable, and providing a strong basis for concluding that a particular treatment or intervention causes a certain outcome or result.\nRandomization means participants are assigned randomly to different “treatments;” they are randomly chosen to receive different assigned values of the key variable(s) that researchers are controlling or manipulating. If this procedure is not followed, then the different treatment groups may differ systematically in some important feature (like gender, motivation, initial health status - anything that might influence the outcome). Here’s one more video that explains the issue quite clearly, in the context of human randomized controlled trials:\n\n\nYou can also watch it outside the tutorial.\n\n\nRandom SAMPLE vs RANDOMIZATION\nCareful! Many students confuse random sampling with randomization, or use one term when they mean the other. Check your understanding: which is which?\n\n\nWhat is the difference between random sampling and randomization?\n\n Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups. Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups. It depends on the context; they are very similar\n\n\n\n\n\nClick for explanations of solution above.\n\nThe words seem similar, but are distinct technical terms!\nRandomization has to do with how values of a “treatment” variable of special interest are assigned: randomly!\nRandom sampling means that the individuals (whether they are people, places, or things…) in the study were selected from the population at random.",
     "crumbs": [
       "Home",
       "Linear Models",
@@ -1595,7 +1595,7 @@
     "href": "quarto/lm-plan.html#variable-types",
     "title": "Model Planning for Inference",
     "section": "Variable Types",
-    "text": "Variable Types\nIn a multi-variable analysis, there is often one key variable of interest (measuring “response” or “outcome” or “effect”) and another one which may influence it, and is the focus of greatest research interest (a key “predictor” or “cause”).\nBut there are generally other variables in the mix that are somehow relevant to understanding the predictor – response relationship. How can we classify (and diagram) them?\nIn all examples below, X is the predictor of greatest interest and Y is the response. (A is the other variable.) The definitions below all depend on a specific X and Y having been chosen: the other variable types are defined relative to the X-Y relationship.\n\nPrecision Covariate\nHere’s an example of A acting as a precision covariate. Precision covariates are also known as competing exposures.\n\n\n\n\n\n\n\n\n\nBased on the diagram, can you explain in words what a precision covariate is?\n\n\nClick for one definition…\n\nA precision covariate affects only the response variable.\n\nBest practice is to include precision covariates in a model trying to measure the size of the effect of X on Y, to get the most precise estimates possible…but if you don’t, it won’t bias your estimate of the size of X’s influence on Y. Can you explain why?\n\n\nMediator\nHere are two (slightly different) examples of A acting as a mediator. Based on the diagram (and the code), explain in words what a mediator is.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBased on the diagram, can you explain in words what a mediator is?\n\n\nClick for one definition…\n\nA mediator is part of a chain of causes and effects, between the main predictor of interest and the response.\n(You may also see mediation chains elsewhere in a diagram/scenario…for example, a chain of three causes/effects that together act as a precision covariate.)\n\nHow is this different from a precision covariate?\n\n\nHmm, not sure – show me how it’s different!\n\nA mediator is part of a chain of causes and effects, between the main predictor of interest and the response.\nIt affects the response, but unlike a precision covariate, it’s also affected by the predictor of interest.\n\nIn modeling, you might choose to estimate the total relationship of X and Y by omitting mediator A from your model; or, you might include both, to tease apart influences of X on Y via A, and not via A. Both can be valid. Researchers have to choose which they want to do.\n\n\nConfounder\nBelow is another causal diagram, in which A is a confounder.\n\n\n\n\n\n\n\n\n\nCan you define “confounder” in words?\n\n\nClick for one definition…\n\nA confounder affects both the predictor and the response.\n\nIf there is a confounder present and you do not include it in your model, then you may wrongly conclude X causes Y.\nSo best practice is to include all confounders in a model.\n\n\nCollider\nCollider bias caused by collider variable A looks like:\n\n\n\n\n\n\n\n\n\nA collider is affected by both the predictor and response. (Their influence arrows “collide” at the collider…)\nIncluding a collider in a model designed to measure association between X and Y can induce association where there is actually none so best practice is to make sure you do not include colliders in models.\n\n\nModerator\nA variable that moderates (increases or decreases the size of) the causal link between two other variables is a Moderator.\n(If you have studied interactions before in the context of regression models, a cause and a moderator interact to influence the effect.)\nUnfortunately in our diagrams there is not really an adequate way to draw moderators – for good reasons – but here’s a diagram (from Yoon 2020) to help get a sense of the situation:\n\n\n\n\n\n\n\n\n\nIf you think you have a moderator variable, best practice is to include it in your model interacting with X. (We will return to interactions in much more detail later on.)\n\n\nMore\nThere are more details and more complicated scenarios, of course. This is all you need to master to start with. If you want to explore more, check out https://cran.r-project.org/web/packages/ggdag/vignettes/bias-structures.html",
+    "text": "Variable Types\nIn a multi-variable analysis, there is often one key variable of interest (measuring “response” or “outcome” or “effect”) and another one which may influence it, and is the focus of greatest research interest (a key “predictor” or “cause”).\nBut there are generally other variables in the mix that are somehow relevant to understanding the predictor – response relationship. How can we classify (and diagram) them?\nIn all examples below, X is the predictor of greatest interest and Y is the response. (A is the other variable.) The definitions below all depend on a specific X and Y having been chosen: the other variable types are defined relative to the X-Y relationship.\n\nPrecision Covariate\nHere’s an example of A acting as a precision covariate. Precision covariates are also known as competing exposures.\n\n\n\n\n\n\n\n\n\nBased on the diagram, can you explain in words what a precision covariate is?\n\n\nClick for one definition…\n\nA precision covariate affects only the response variable.\n\nBest practice is to include precision covariates in a model trying to measure the size of the effect of X on Y, to get the most precise estimates possible…but if you don’t, it won’t bias your estimate of the size of X’s influence on Y. Can you explain why?\n\n\nMediator\nHere are two (slightly different) examples of A acting as a mediator. Based on the diagram (and the code), explain in words what a mediator is.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBased on the diagrams, can you explain in words what a mediator is?\n\n\nClick for one definition…\n\nA mediator is part of a chain of causes and effects, between the main predictor of interest and the response.\n(You may also see mediation chains elsewhere in a diagram/scenario…for example, a chain of three causes/effects that together act as a precision covariate.)\n\nHow is this different from a precision covariate?\n\n\nHmm, not sure – show me how it’s different!\n\nA mediator is part of a chain of causes and effects, between the main predictor of interest and the response.\nIt affects the response, but unlike a precision covariate, it’s also affected by the predictor of interest.\n\nIf you have a situation like the first picture above, where there are no branches/only one single path from your predictor to the response, include only your predictor and that’s it.\nBUT if there are mediator(s) and if there are branches in the path(s), like the second picture above that’s when you have options.\nIf you want to estimate the total effect of the upstream predictor of interest, exclude the mediator(s). If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then include one variable along each branch whose influence you want to measure.\nBoth can be valid. Researchers have to choose which they want to do.\n\n\nConfounder\nBelow is another causal diagram, in which A is a confounder.\n\n\n\n\n\n\n\n\n\nCan you define “confounder” in words?\n\n\nClick for one definition…\n\nA confounder affects both the predictor and the response.\n\nIf there is a confounder present and you do not include it in your model, then you may wrongly conclude X causes Y.\nSo best practice is to include all confounders in a model.\n\n\nCollider\nCollider bias caused by collider variable A looks like:\n\n\n\n\n\n\n\n\n\nA collider is affected by both the predictor and response. (Their influence arrows “collide” at the collider…)\nIncluding a collider in a model designed to measure association between X and Y can induce association where there is actually none so best practice is to make sure you do not include colliders in models.\n\n\nModerator\nA variable that moderates (increases or decreases the size of) the causal link between two other variables is a Moderator.\n(If you have studied interactions before in the context of regression models, a cause and a moderator interact to influence the effect.)\nUnfortunately in our diagrams there is not really an adequate way to draw moderators – for good reasons – but here’s a diagram (from Yoon 2020) to help get a sense of the situation:\n\n\n\n\n\n\n\n\n\nIf you think you have a moderator variable, best practice is to include it in your model interacting with X. (We will return to interactions in much more detail later on.)\n\n\nMore\nThere are more details and more complicated scenarios, of course. This is all you need to master to start with. If you want to explore more, check out https://cran.r-project.org/web/packages/ggdag/vignettes/bias-structures.html",
     "crumbs": [
       "Home",
       "Linear Models",
@@ -1619,7 +1619,7 @@
     "href": "quarto/lm-plan.html#summary-causal-diagrams",
     "title": "Model Planning for Inference",
     "section": "Summary: Causal Diagrams",
-    "text": "Summary: Causal Diagrams\nSoooo….what? How will this affect our work? Well, we will often be interested in the association or relationship between two key variables, a potential cause or “predictor” x and a potential effect or “response” y. Unless we have data from a randomized experimental study, we need to be clever about which other variables to include in our analysis to get the best, most accurate estimate of the x - y relationship:\n\nIf there are any confounders we should include them in our models and analysis. This is often called controlling for the confounders’ effects.\nIf there is a mediator, you have a choice. If you want to estimate the total effect of the upstream predictor of interest, exclude the mediator. If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then perhaps include it.\nIf there are any colliders they should not be included in our models and analysis - including them would actually reduce the accuracy of our assessment of the x - y relationship\n\nSeems simple enough, right? There’s a catch. To decide whether something might be a collider or a confounder, you have to rely on your knowledge or belief about what causes what. Even experts don’t always agree. There is not usually a definite right answer that is easy to agree on. This is one thing that makes causal inference with observational data so hard, and contentious!\nBut closing your eyes to the issue and skipping the step of making a causal diagram doesn’t solve anything at all. Whatever model you fit is consistent with some causal diagrams, and not others. So by drawing the diagram as best you can, and designing your model accordingly, you are being transparent and explicit about your assumptions instead of keeping yourself and your audience ignorant that those assumptions exist, and have consequences.\nMy personal advice is: if in doubt, and if the data allow it, control for all the potentially important variables you can. The exception, of course, if is you are sure or quite sure the variable is a collider - in that case you definitely MUST exclude it.",
+    "text": "Summary: Causal Diagrams\nSoooo….what? How will this affect our work? Well, we will often be interested in the association or relationship between two key variables, a potential cause or “predictor” x and a potential effect or “response” y. Unless we have data from a randomized experimental study, we need to be clever about which other variables to include in our analysis to get the best, most accurate estimate of the x - y relationship:\n\nIf there are any confounders we should include them in our models and analysis. This is often called controlling for the confounders’ effects.\nIf there is a mediator, you may have a choice.\n\nIf there are no branches/only one single path from your predictor to the response, include only your predictor and that’s it.\nIf there are branches in the path, that’s when you have options. If you want to estimate the total effect of the upstream predictor of interest, exclude the mediator(s). If you want to distinguish and quantify effects along several pathways (via the mediator in question, and another way), then include one variable along each branch whose influence you want to measure.\n\nIf there are any colliders they should not be included in our models and analysis - including them would actually reduce the accuracy of our assessment of the x - y relationship\n\nSeems simple enough, right? There’s a catch. To decide whether something might be a collider or a confounder, you have to rely on your knowledge or belief about what causes what. Even experts don’t always agree. There is not usually a definite right answer that is easy to agree on. This is one thing that makes causal inference with observational data so hard, and contentious!\nBut closing your eyes to the issue and skipping the step of making a causal diagram doesn’t solve anything at all. Whatever model you fit is consistent with some causal diagrams, and not others. So by drawing the diagram as best you can, and designing your model accordingly, you are being transparent and explicit about your assumptions instead of keeping yourself and your audience ignorant that those assumptions exist, and have consequences.\nMy personal advice is: if in doubt, and if the data allow it, control for all the potentially important variables you can. The exception, of course, if is you are sure or quite sure the variable is a collider - in that case you definitely MUST exclude it.",
     "crumbs": [
       "Home",
       "Linear Models",
@@ -1656,5 +1656,377 @@
     "title": "Dagitty Helper",
     "section": "",
     "text": "Plot coordinates for graph not supplied! Generating coordinates, see ?coordinates for how to set your own."
+  },
+  {
+    "objectID": "quarto/lm-fit.html#learning-outcomes",
+    "href": "quarto/lm-fit.html#learning-outcomes",
+    "title": "Fitting Linear Models in R",
+    "section": "Learning Outcomes",
+    "text": "Learning Outcomes\nThis section, we’ve already considered strategies for planning a regression model - how many variables, and which ones, should be included as predictors? How does an analyst decide?\nNow, here, we will also learn to fit the models in R and examine the results.\nBy the end of the section you will:\n\nFit a multiple linear regression to a dataset in R, using multiple quantitative and/or categorical predictors\nState the equation of a linear regression model, based on a model description or an R model summary",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#text-reference",
+    "href": "quarto/lm-fit.html#text-reference",
+    "title": "Fitting Linear Models in R",
+    "section": "Text Reference",
+    "text": "Text Reference\nRecommended reading for the materials covered in this tutorial can be found in:\n\nBeyond Multiple Linear Regression Chapter 1.4-1.6\nCourse Notes Chapter 1\nIntro to Modern Statistics Chapter 3*\nEcological Models & Data in R Chapter 9\nStatistical Modeling: A Fresh Approach Chapters 6-8",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#quick-review-of-lines",
+    "href": "quarto/lm-fit.html#quick-review-of-lines",
+    "title": "Fitting Linear Models in R",
+    "section": "Quick review of lines",
+    "text": "Quick review of lines\nConsider the line below.\n\n\n\n\n\n\n\n\n\nYou may remember that lines have equations that look like\n\\[y = mx + b\\]\nwhere \\(m\\) is the slope and \\(b\\) is the \\(y\\)-intercept (the value of \\(y\\) when \\(x = 0\\)). So we can read off an equation for our line by figuring out the slope and the intercept.\n\nIntercept and Slope\nWhen \\(x = 0\\) on the line we just looked at, \\(y = 2\\), so the intercept is \\(2\\). It’s indicated by the red dot below:\n\n\n\n\n\n\n\n\n\nThe slope is computed as “rise over run”. We can compute this by comparing the red and blue dots and doing a little arithmetic.\n\n\n\n\n\n\n\n\nAny two points on the line give the same slope. Chose two different points on the line and recompute the rise and the run. You should get the same slope.\nSo the equation for our line is\n\\[y = 4x + 2\\]\nStatisticians like to write this a different way (with the intercept first and with different letters):\n\\[ y = \\beta_0 + \\beta_1 x\\]\n\\[y = 2 + 4x\\]\nSo \\(\\beta_0\\) (read “beta zero”) is the intercept and \\(\\beta_1\\) (read “beta one”) is the slope.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#simple-linear-regression-equation",
+    "href": "quarto/lm-fit.html#simple-linear-regression-equation",
+    "title": "Fitting Linear Models in R",
+    "section": "Simple Linear Regression Equation",
+    "text": "Simple Linear Regression Equation\nIn your intro stat course (whenever that was!) you likely learned to fit simple linear regression models, and hopefully also to check the conditions that must hold for such models to give reliable results. (If you didn’t learn that condition-checking, known as model assessment, don’t worry - stay tuned for next week!) Some of the material early in our course may be review for some, but we will build on it rapidly too.\nHere, we start with a reminder of the form of the linear regression equation, which is a small elaboration of the equation of a line we just saw:\n\\[ y = \\beta_0 + \\beta_1 x + \\epsilon, \\epsilon \\sim \\text{Norm}(0, \\sigma)\\]\n\n\\(y\\) is the response variable\n\\(x\\) is the predictor (or explanatory) variable\n\\(\\beta_0\\) is the intercept. To fit the model to a specific dataset, we have to estimate the numeric value of this parameter.\n\\(\\beta_1\\) is the slope. To fit the model to a specific dataset, we have to estimate the numeric value of this parameter.\n\\(\\epsilon\\) are the residuals (or errors).\n\nThey measure the vertical distance between an observed data point (\\(y_i\\) is the \\(i\\)th one) and the predicted (or fitted) value on the line for the same predictor variable value (\\(\\hat{y}_i\\)). Much more about residuals later one!\nResiduals have a normal distribution with mean 0 and standard deviation \\(\\sigma\\) (some value that we can estimate once we have the slope and intercept: we compute the fitted values \\(\\beta_0 + \\beta_1x\\) and subtract from the observed response variable values to get the residuals, then estimate their standard deviation \\(\\sigma\\).)",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#multiple-predictors",
+    "href": "quarto/lm-fit.html#multiple-predictors",
+    "title": "Fitting Linear Models in R",
+    "section": "Multiple Predictors",
+    "text": "Multiple Predictors\nOften, statisticians consider more than one \\(x\\) variable. Why? Well, most response variables we are interested are associated with not just one but many different variables – in the language we just learned, many variables could be potential causes, confounders, mediators, or moderators (but not colliders…because we would not put those in the model).\nWith multiple predictors, the linear regression equation looks more like\n\\[ Y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots \\beta_p x_p + \\varepsilon\\] \\[\\varepsilon \\sim \\text{Norm}(0, \\sigma)\\]\nwhere\n\n\\(\\mathbf{Y}\\) is the response variable value,\nthe \\(\\beta_0\\) is the intercept,\n\\(\\beta_1, \\dots \\beta_p\\) are the \\(p\\) “slopes”,\n\\(x\\)s are the \\(p\\) predictor variable values, and\n\\(\\varepsilon\\) are the “errors” (since real data doesn’t all fall exactly on a line).\n\nWhen we use data to estimate the \\(\\beta_i\\)’s, we may write it this way:\n\\[ \\hat Y = \\hat{\\beta}_0 + \\hat{\\beta}_1 x_1 + \\hat{\\beta}_2 x_2 + \\dots \\hat{\\beta}_p x_p\\]\n\nThe hats on top of the the \\(\\beta\\)s and \\(Y\\) indicate that they are being estimated from data (they are statistics or estimates rather than parameters now!)\nNote that the error term is gone now: we know exactly what our estimate \\(\\hat Y\\) is, with no error.\n\nBut \\(\\hat Y\\) isn’t (usually) identical to \\(Y\\). The difference is our friend the residual:\n\n\\[\n\\begin{align*}\n\\mbox{residual} = \\hat\\varepsilon & = Y - \\hat Y \\\\\n& = \\mbox{observed reponse} - \\mbox{model response}\n\\end{align*}\n\\]\nAgain, the hats indicate that we are making estimates using data (hats basically always mean this in statistics). Those “beta hat” and “Y hat” values come from our fitted model. The \\(\\hat \\beta\\)s are called the coefficients (or, more precisely, the estimated coefficients) or the “beta hats”.\n\nYou will sometimes encounter slightly different notation for linear models. Two common things are:\n\nThe use of \\(b_0, b_1, \\dots, b_p\\) instead of \\(\\hat \\beta_0, \\hat \\beta_1, \\dots \\hat \\beta_p\\).\nDropping of hats. In particular, the hat is often left off of the response variable when the model is presented with the numerical coefficient estimates plugged in.\n\nAnd the models themselves go by different names: regression model, least squares model, least squares regression model, etc.\nDon’t let these little differences distract you. If you focus on the important concepts, you should be able to navigate the notation, whichever way someone does it.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#matrix-formulation",
+    "href": "quarto/lm-fit.html#matrix-formulation",
+    "title": "Fitting Linear Models in R",
+    "section": "Matrix Formulation",
+    "text": "Matrix Formulation\nThe form we just saw for the simple linear regression equation can be pretty simply and intuitively extended to the case of more than one predictor:\n\\[ Y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots \\beta_p x_p + \\epsilon\\]\nwhere \\(\\mathbf{Y}\\) are the response variable values, the \\(\\beta\\)s are the \\(p + 1\\) intercept and slopes, \\(x\\)s are the \\(p\\) predictor variable values, and \\(\\epsilon\\) are the errors or residuals.\n\nA problem\nBut…this form of the regression equation doesn’t keep track of the individual data points. The \\(\\mathbf{Y}\\) up there (capitalized because it’s a random variable) is a vector, not a scalar – it’s a list of \\(n\\) response variable values. Same for the data. So maybe we could say something like:\n\\[\\mathbf{Y}_i = \\beta_0 + \\beta_1 x_{i1} + \\beta_2 x_{i2} + \\dots \\beta_p x_{ip} + e_i \\]\nbut…OH, those double subscripts are already getting cumbersome!\n\n\nA solution\nWe can fix that by writing our regression equation as a matrix equation. Let \\(\\mathbf{i} = &lt;1, 2, 3, \\dots n&gt;\\) be the indices identifying each observation in the data, and \\(\\mathbf{j} = &lt;0, 1, 2, 3, \\dots p&gt;\\) the indices identifying the different (intercept and) slope values.\nNow let \\(\\mathbf{Y}\\) be a length \\(n\\) column vector of response variable values, and \\(\\mathbf{\\beta}\\) a length \\(p\\) column vector of parameter values.\n\\(\\mathbf{X}\\) is a \\(n\\) by \\((p+1)\\) matrix, whose first column is a length \\(n\\) vector of ones, and whose other columns are length \\(n\\) vectors of values of the \\(jth\\) predictor variable. \\(\\mathbf{X}\\) is often called the model matrix.\nWe then have the equation:\n\\[ \\mathbf{Y} = \\mathbf{X} \\mathbf{\\beta} + \\mathbf{\\epsilon}\\]\n(the same as before, but using vectors and a matrix to avoid all those pesky subscripts).\n\n\nComprehension Check: Model Matrix Size\n\n\nConsider a regression model with 4 predictor variables being fitted to a dataset with 46 observations. What will be the size of the model matrix X?\n\n 46 x 5 4 x 47 46 x 4 46 x 3 4 x 46\n\n\n\n\n\nClick for explanations of solution above.\n\nIf you said…\n\n46 x 3, Think about what each column represents.\n46 x 4, Do not forget the intercept!\n4 x 46 or 4 x 47, It is one row per datapoint and one column per beta…",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#toy-dataset-pigeons",
+    "href": "quarto/lm-fit.html#toy-dataset-pigeons",
+    "title": "Fitting Linear Models in R",
+    "section": "Toy Dataset: Pigeons",
+    "text": "Toy Dataset: Pigeons\nFor the next few examples, we’ll consider a very small dataset on racing pigeons from Michigan. Their unirate scores measure their racing performance (smaller is better).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUnirate\nOwnerName\nSex\nAge\n\n\n\n\n2.864\nKENNIER PALMIRA\nH\n1.9\n\n\n2.965\nTOM RICHARDS\nH\n1.5\n\n\n4.304\nKENNIER PALMIRA\nH\n2.3\n\n\n5.027\nTOM RICHARDS\nC\n2.2\n\n\n9.189\nTOM KUIPER\nC\n2.8",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#fitting-a-normal-distribution",
+    "href": "quarto/lm-fit.html#fitting-a-normal-distribution",
+    "title": "Fitting Linear Models in R",
+    "section": "Fitting a normal distribution",
+    "text": "Fitting a normal distribution\nLet’s try to reformulate a familiar exercise – fitting a normal distribution to a dataset – as a linear regression problem.\nWe might want to consider a model where the pigeon Unirate scores are \\(iid\\) (independent, identically distributed) samples from a \\(N(\\mu, \\sigma)\\) distribution.\n\n\nHow could we reformulate that model as a linear regression?\n\n Two 4 x 46 One 4 x 47 None\n\n\n\n\n\nClick for explanations of solution above.\n\nWhat predictor(s) does the unirate score depend on in this model? Well…none, in fact!\n\n\nA no-predictor model\nIt can make sense to think of the residuals \\(\\mathbf{\\epsilon}\\) of a linear regression having a \\(N(0, \\sigma)\\) distribution – they are normally distributed, and the model is right on average, but not spot on for every data observation. This gives us the “intercept-only” regression model:\n\\[ \\mathbf{Y} = \\mu \\mathbf{1} + \\epsilon,\\]\n\\[\\epsilon \\stackrel{iid}{\\sim} N(0, \\sigma)\\]\nHere \\(\\mathbf{X}\\) is just a column vector of ones, since there are no predictors, and the intercept \\(\\beta_0\\) is \\(\\mu\\), the mean Unirate score.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#one-predictor",
+    "href": "quarto/lm-fit.html#one-predictor",
+    "title": "Fitting Linear Models in R",
+    "section": "One Predictor",
+    "text": "One Predictor\nOf course, we can also fit models with one or more predictor variables.\nA model matrix is shown below.\n\\[\\begin{bmatrix}\n1 & 1.9 \\\\\n1 & 1.5 \\\\\n1 & 2.3 \\\\\n1 & 2.2 \\\\\n1 & 2.8 \\\\\n\\end{bmatrix}\\]\nfor the pigeon data:\n\n\n\n\n\n\n\n\n\n\n\nUnirate\nOwnerName\nSex\nAge\n\n\n\n\n2.864\nKENNIER PALMIRA\nH\n1.9\n\n\n2.965\nTOM RICHARDS\nH\n1.5\n\n\n4.304\nKENNIER PALMIRA\nH\n2.3\n\n\n5.027\nTOM RICHARDS\nC\n2.2\n\n\n9.189\nTOM KUIPER\nC\n2.8\n\n\n\n\n\n\n\nWhat is the regression model corresponding to the model matrix above?\n\n A regression in which age predicts unirate score A different model with no predictors, but Gamma distributed errors A regression where the response variable is the pigeon age instead of unirate score\n\n\n\n\n\nClick for a hint…\n\nThink: which variable(s) are represented in the model matrix?",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#categorical-predictors-2-categories",
+    "href": "quarto/lm-fit.html#categorical-predictors-2-categories",
+    "title": "Fitting Linear Models in R",
+    "section": "Categorical Predictors (2 categories)",
+    "text": "Categorical Predictors (2 categories)\nLet’s consider another model: one where both Age and Sex (“H” for hen and “C” for cock) predict Unirate score.\nHow can we formulate a model matrix now?\nTake a moment to brainstorm before you reveal the answer. A hint (especially for data science or computer science types): some people call this trick “one hot encoding.”\n\nAnother hint\nAnother hint, if you haven’t gotten it yet: Think of a way to encode the information from the Sex variable numerically by changing it from a categorical variable to a logical one.\n\n\nThe solution\nThe idea is to convert our categorical variable into an indicator variable that is 1 if an observation fits in a certain category, and 0 otherwise (i.e., 0 if the observation is in the other category).\n\n\n\n\n\n\n\n\n\n\n\nUnirate\nOwnerName\nSex\nAge\n\n\n\n\n2.864\nKENNIER PALMIRA\nH\n1.9\n\n\n2.965\nTOM RICHARDS\nH\n1.5\n\n\n4.304\nKENNIER PALMIRA\nH\n2.3\n\n\n5.027\nTOM RICHARDS\nC\n2.2\n\n\n9.189\nTOM KUIPER\nC\n2.8\n\n\n\n\n\nOur model for Unirate score as a function of Age and Sex would have the model matrix:\n\\[\\begin{bmatrix}\n1 & 1.9 & 1 \\\\\n1 & 1.5 & 1\\\\\n1 & 2.3 & 1\\\\\n1 & 2.2 & 0\\\\\n1 & 2.8 & 0\\\\\n\\end{bmatrix}\\]\n\n\nWhat would be the best name for this new numeric variable indicating sex?\n\n Cock Hen\n\n\n\n\n\nClick for an explanation of the answer above.\n\nSince “H” is encoded as 1, that would be a better name.\nCocks are encoded as 0s, which usually corresponds to “FALSE.” Best to name the variable after the value that 1 (or TRUE) stands for.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#categorical-predictors-with-more-categories",
+    "href": "quarto/lm-fit.html#categorical-predictors-with-more-categories",
+    "title": "Fitting Linear Models in R",
+    "section": "Categorical Predictors with More Categories",
+    "text": "Categorical Predictors with More Categories\nWhat if we have a categorical predictor with more than two categories?\nNo problem – we just need more than one indicator variables!\n\n\nHow many indicator variables would be needed to construct the model matrix for a regression with one predictor, which is a categorical variable with 5 categories?\n\n 4 3 5\n\n\n\n\n\nClick for an explanation of the answer above.\n\nIf we have indicator variables for 4 of the 5 categories and they are all 0, then the observation must be from the fifth category. Another way of saying this is that one of the categories is “included in the intercept”.\n\nThe category that is included in the intercept value is often called the “base” level.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#finding-the-betas",
+    "href": "quarto/lm-fit.html#finding-the-betas",
+    "title": "Fitting Linear Models in R",
+    "section": "Finding the Betas",
+    "text": "Finding the Betas\nOK, we are now quite familiar with the regression equation and the corresponding model matrix, but how do we go from a model plan and dataset to an actual fitted model? In other words, how do we estimate the \\(\\beta\\)s and find the best-fitting regression model?\nTo find the “best-fitting” regression model for a dataset, we need to first define a metric to measure how “well” a line fits, and then find the \\(\\beta\\)s (intercept and slope(s)) that maximize it. (Actually, we’ll come up with a way to measure the mismatch between a line and the data, and find the \\(\\beta\\)s that minimize it - but it’s the same idea.)\nIn other words, our goal at the moment is to figure out how to estimate the \\(\\beta\\)s.\nSide note: If you already know about maximum likelihood estimation, you may wonder at this point, “Wouldn’t using maximum likelihood estimation be a great idea to fit this model to data?” Well…sure. But we’re going to first consider another route to the exact same solution, which may be more intuitive - at least for those with less expertise in MLE.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#least-squares-visually",
+    "href": "quarto/lm-fit.html#least-squares-visually",
+    "title": "Fitting Linear Models in R",
+    "section": "Least Squares (visually)",
+    "text": "Least Squares (visually)\nOne idea is to choose the “best-fit” line as the one that minimizes the sum of squared residuals.\nThis method is often called Least Squares Estimation (or Ordinary Least Squares).\nFirst, check out Ordinary Least Squares Estimation (explained visually). Be sure to take advantage of the interactive elements to play around!)",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#least-squares-practically",
+    "href": "quarto/lm-fit.html#least-squares-practically",
+    "title": "Fitting Linear Models in R",
+    "section": "Least Squares (practically)",
+    "text": "Least Squares (practically)\nNext, try your hand at off-the-cuff least squares estimation. Visit the PhET interactive simulator and:\n\nPick an example from the central upper pull-down menu (or create your own dataset) and:\n\nChoose your best-guess slope and intercept (menu on the right)\nCompare your result with the best-fit line (menu on the left). How close were you? Why/how do you think you went wrong?\nView the residuals, and the squared residuals, for the best-fit line.\nVerify that you understand exactly what the residuals and the SSE = RSE = sum of squared residuals are measuring. In what sense does the minimal-SSE line come “closest” to the data points?\n\nRepeat the exercise for at least one more example.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#least-squares-explained",
+    "href": "quarto/lm-fit.html#least-squares-explained",
+    "title": "Fitting Linear Models in R",
+    "section": "Least Squares (explained)",
+    "text": "Least Squares (explained)\nThis task is optional.\nIf you would like one more presentation of the idea of least squares fitting, watch the (slightly boring but very clear) StatQuest video explanation:\n\n\n(You can also watch directly on YouTube if you prefer.)",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#in-r-lm",
+    "href": "quarto/lm-fit.html#in-r-lm",
+    "title": "Fitting Linear Models in R",
+    "section": "In R: lm()",
+    "text": "In R: lm()\nSo, now we understand the principle of least squares estimation. But we certainly won’t employ it via guess-and-check to actually fit models to real data!\nIn fact, either via calculus or linear algebra, it’s possible to obtain formulas for the slope and intercept that minimize the SSE for a given dataset. (And, of course, software knows how to use them.)\nThe function we’ll use to fit a linear regression model in R is lm().\nThe first input to lm() (and basically all other R functions that fit regression models) is a model formula of the form:\n \n\n\nlm ( &yy ~ &xx , data = mydata )\n\n\n \nHow do we fill in the empty boxes?\n\nModel Formula: Left Hand Side\nThe left hand side of the formula is simplest: we just need to provide the name of the response variable that we want to model.\n \n\n\nlm (  Y  ~ &xx , data = mydata )\n\n\n \nFor example, if we use dataset MI_lead and our response variable is ELL2012, the skeleton of our formula would look like:\n\nmy_model &lt;- lm( ELL2012 ~ _______, data = MI_lead)\n\nDataset note: The MI_lead dataset stores CDC-provided data on Michigan kids’ blood lead levels, by county, from 2005 and 2012. The dataset is at https://sldr.netlify.app/data/MI_lead.csv and also provides:\n\nCounty name\nProportion kids with elevated blood lead levels, ELL in years 2005 and 2012\nthe Difference in proportion kids with high lead levels between the two years (2012-2005)\nThe proportion of houses in the county that were built before 1950 (and thus more likely have lead paint), PropPre1950\nWhich Peninsula of MI the county is in\n\n\n\nModel Formula: Right Hand Side\nOn the other side of the formula (after the tilde symbol \\(\\sim\\)), we need to specify the name of the predictor variable(s).\nWhile this initial example is a simple linear regression (“simple” means just one predictor), it’s possible to have multiple ones, separated by +.\n\nmy_model &lt;- lm(ELL2012 ~ ELL2005 + Peninsula, \n               data = MI_lead)\nsummary(my_model)\n\n\nCall:\nlm(formula = ELL2012 ~ ELL2005 + Peninsula, data = MI_lead)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-0.0048244 -0.0013235 -0.0006547  0.0012533  0.0072038 \n\nCoefficients:\n                 Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)     0.0012767  0.0003786   3.372  0.00116 ** \nELL2005         0.1576778  0.0311305   5.065 2.67e-06 ***\nPeninsulaUpper -0.0006220  0.0008028  -0.775  0.44083    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.002407 on 78 degrees of freedom\n  (2 observations deleted due to missingness)\nMultiple R-squared:  0.2758,    Adjusted R-squared:  0.2573 \nF-statistic: 14.86 on 2 and 78 DF,  p-value: 3.417e-06\n\n\n\n\nPractice\nYour turn: fit a few linear regression models of your own. You can use the MI_lead data, or use one of the other suggested datasets (already read in for you here):\n\nelephantSurvey\ngapminder_clean\nHaDiveParameters\n\nEach time, consider:\n\nHow do you choose a response and a predictor variable?\n\nUsually the response is the main variable of interest, that you would like to predict or understand.\nThe predictor might cause, or be associated with, changes in the response; it might be easier to measure. Or, we might want to test whether it is associated with changes in the response or not.\n\nSee if you can express a scientific question which can be answered by your linear regression model.\n\nFor example, a model with formula ELL2012 ~ ELL2005 would answer, “Does the proportion of kids with elevated lead levels in a county in 2005 predict the proportion in 2012? (Do the same locations have high/low levels in the two years?)”\n\nDon’t forget to consider causal relationships between variables of interest in planning your model - draw a causal diagram to help you decide which predictors should be included.\n\n\n\n\n\n\n\n\n\n\n\nIntercepts\nA (potentially non-zero) intercept is always included in all lm() models, by default.\nIf you wish, you can specifically tell R to include it (which doesn’t change the default behavior, but just makes it explicit). You do this by using a right-hand-side formula like 1 + predictor:\n\nmy_model &lt;- lm(ELL2012 ~ 1 + ELL2005, data = MI_lead)\n\n\n\nOmitting the Intercept\nYou can omit estimation of an intercept by replacing that 1 with a 0 or a -1. This will force the intercept to be 0 (line goes through the origin).\nThe 0 makes sense to me, because it’s like you’re forcing the first column of the model matrix to contain zeros instead of ones, multiplying the intercept by 0 to force it to be 0.\n(I’m not sure of the logic of the -1.)\nFor example,\n\nmy_model &lt;- lm(ELL2012 ~ 0 + ELL2005 + Peninsula,\n               data = MI_lead)\n\nBut usually, we want to estimate an intercept and we don’t need this code.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#interpreting-summarylm...",
+    "href": "quarto/lm-fit.html#interpreting-summarylm...",
+    "title": "Fitting Linear Models in R",
+    "section": "Interpreting summary(lm(...))",
+    "text": "Interpreting summary(lm(...))\nOnce you’ve fitted an lm() in R, how can you view and interpret the results? You may have already noticed the use above of the R function summary(). Let’s consider in more detail…\n\n\n(You can also watch directly on YouTube if you prefer.)",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#model-equation-practice",
+    "href": "quarto/lm-fit.html#model-equation-practice",
+    "title": "Fitting Linear Models in R",
+    "section": "Model Equation Practice",
+    "text": "Model Equation Practice\nYou should be able to use lm() to fit a linear model, and then use summary() output to fill in numerical parameter estimates \\(\\hat{\\beta}_0\\), \\(\\hat{\\beta}_1\\), \\(\\hat{\\beta}_2\\), \\(\\hat{\\beta}_3\\), \\(\\hat{\\beta}_n\\), and \\(\\hat{\\sigma}\\) in the regression equation:\n\\[ y_i = \\beta_0 + \\beta_1x_i + \\epsilon, \\epsilon \\sim \\text{Norm}(0, \\sigma)\\]\n\nAn example model\nTo practice, let’s fit a simple linear regression model in R. For data, let’s consider a dataset containing scores of 542 people who chose to take an online nerdiness quiz. Higher scores mean more nerdiness. The participants also provided their ages. Variables in the data include score and age. Does someone’s age predict their nerdiness score?\nPlot the data and use lm() to fit a simple linear regression model (just one predictor) to explore this question. The code to read in the dataset is provided for you.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\nnerds &lt;- read.csv('https://sldr.netlify.app/data/nerds.csv')\ngf_point(_____ ~ _____, data = ______)\n\n\n\n\n\n\n\n\n\n\n\nSolution:\n\n\n\n\n\nnerds &lt;- read.csv('https://sldr.netlify.app/data/nerds.csv')\ngf_point(score ~ age, data = nerds)\nnerd_model &lt;- lm(score ~ age, data = nerds)\nsummary(nerd_model)\n\n\n\n\n\n\nWhat is beta0 for the model you just fitted?\n\n -0.061 0.00092 95.8 0.22 15.81\n\nWhat is beta1 for the model you just fitted?\n\n 15.81 95.8 -0.061 0.00092 0.22\n\nWhat is sigma, the standard deviation of the residuals, for the model you just fitted?\n\n 0.00092 15.81 95.8 -0.061 0.22",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#another-categorical-example",
+    "href": "quarto/lm-fit.html#another-categorical-example",
+    "title": "Fitting Linear Models in R",
+    "section": "Another Categorical Example",
+    "text": "Another Categorical Example",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-fit.html#linear-regression-conditions",
+    "href": "quarto/lm-fit.html#linear-regression-conditions",
+    "title": "Fitting Linear Models in R",
+    "section": "Linear Regression Conditions",
+    "text": "Linear Regression Conditions\nWhat’s next? Before we interpret the results of a model, we have to be confident that we trust the model is appropriate enough for the data, and fits well enough, to produce results that will be reliable.\nSo, next module, we’ll learn to do model assessment (checking that conditions are met to verify that a model is appropriate for a particular dataset).\nWe will also go into much more detail about how to interpret our fitted model!",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Fitting and Equation"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#section-learning-outcomes",
+    "href": "quarto/lm-assess.html#section-learning-outcomes",
+    "title": "Fitting Linear Models in R",
+    "section": "Section Learning Outcomes",
+    "text": "Section Learning Outcomes\nKnowing how to plan and fit a model isn’t the end of the process (at all). What’s next? This time, we explore how to assess whether a model really is appropriate for a particular dataset, and thus reliable. This section focuses very specifically on that important task.\n(After this, with the question of model assessment settled favorably, we can finally turn to model interpretation - what do the results mean, and how can we communicate the insights the model provides via words and visualizations?)\nBy the end of this section you will:\n\nList conditions under which linear regression is appropriate, and check whether they hold for a specific dataset and model",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#text-reference",
+    "href": "quarto/lm-assess.html#text-reference",
+    "title": "Fitting Linear Models in R",
+    "section": "Text Reference",
+    "text": "Text Reference\nRecommended reading for the materials covered in this tutorial can be found in:\n\nBeyond Multiple Linear Regression Chapter 1.3\nRegression Modeling Strategies Chapter 2.7\nCourse Notes Chapter 2",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#linear-regression-conditions",
+    "href": "quarto/lm-assess.html#linear-regression-conditions",
+    "title": "Fitting Linear Models in R",
+    "section": "Linear Regression Conditions",
+    "text": "Linear Regression Conditions\nBefore making any statistical inferences with our regression model, we should verify that all necessary conditions for its use are met. Otherwise, we risk presenting and interpreting inaccurate estimates and un-trustworthy conclusions!\nIn this case, there are 5 conditions:\n\nRepresentative sample: the sample data must be representative of the population of interest (as for any statistical inference).\n\n4 more conditions are more specific to linear regression:\n\nLinearity of the predictor-response relationship: there is not a clear non-linear trend in a scatter plot of the response vs. the predictor.\nIndependence of residuals: Knowing the value of one residual doesn’t help you predict the others; there are no lurking variables that affect the accuracy of the model predictions.\nNormality of residuals: The residuals should follow a normal distribution with mean 0.\nError variance is constant: The variance (spread) of the residuals does not change with predictor variable value, or with fitted (on-the-line) value. Other words for this are constant variance of residuals, or homoscedasticity.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#example-model",
+    "href": "quarto/lm-assess.html#example-model",
+    "title": "Fitting Linear Models in R",
+    "section": "Example Model",
+    "text": "Example Model\nLet’s review and practice in the context of a specific example with a particular dataset and model.\nTo begin, we need to fit a linear regression model in R, using the function lm(). We’ll use the lead dataset from https://sldr.netlify.app/data/FlintWaterTestJanMar2016.csv.\nThis dataset contains water quality test results from a sample of households in Flint, Michigan. Water samples were collected between Jan. 30, 2016 - May 6, 2016. More details about the data collection can be found on the US EPA website.\nHere are the first few rows of the dataset:\n\n\n\n\n\n\nThe first input to lm is a formula of the form \\(y \\sim x_1 + x_2 + ...\\), where y is the name of the response variable, and \\(x_1\\), \\(x_2\\), … \\(x_n\\) are the predictor or explanatory variables. The second input to lm is data, the name of your dataset.\nAs an example, we’ll fit a model with response variable Lead and predictors Fluoride, Water_Filter, and Month. Correct the code below accordingly:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution:\n\n\n\n\n\nlead_model &lt;- lm(Lead ~ Fluoride + Water_Filter + Month, data = lead)\n\n\n\n\nThe R code above fits a linear regression model of the form:\n\\[ y = \\beta_0 + \\beta_1*x_1 + \\beta_2*x_2 + \\epsilon,\\] where \\(\\epsilon \\sim N(0, \\sigma)\\). (The residuals \\(\\epsilon\\) follow a normal distribution with mean 0 and some standard deviation \\(\\sigma\\).)",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#model-summary-and-coefficients",
+    "href": "quarto/lm-assess.html#model-summary-and-coefficients",
+    "title": "Fitting Linear Models in R",
+    "section": "Model Summary and Coefficients",
+    "text": "Model Summary and Coefficients\nTo extract just the coefficient or parameter values (the “\\(\\beta\\)s”) from the fitted model object lead_model, we can use coef():\n\n\n\n\n\n\n\n\nTo get a full summary, use summary():\n\n\n\n\n\n\n\n\nNotes (Reminders!) about the summary:\n\nThe fitted model parameters are in the “Estimate” column of the coefficient table.\nThe last column of the coefficient table contains p-values. The first row is the p-value for a test of the null hypothesis that the true intercept, \\(\\beta_0\\), is 0 (this is not usually of much interest). The second row is the p-value for a test of the hypothesis that \\(\\beta_1\\), the slope for the first predictor variable, is 0. This is usually of interest, because it tells us whether there is a “real” linear relationship between the two variables.\n\\(\\hat{\\sigma}\\) (an estimate of the standard deviation of the residuals from the data) is near the bottom of the output, called “Residual standard error.”",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#regression-conditions-again",
+    "href": "quarto/lm-assess.html#regression-conditions-again",
+    "title": "Fitting Linear Models in R",
+    "section": "Regression conditions (again)",
+    "text": "Regression conditions (again)\nFor a linear regression model to be appropriate for a dataset, the conditions that must be met are:\n\nThe data are a representative sample of the population of interest.\nLinear relationship between each predictor and the response variable (or at least no apparent non-linear relationship).\nIndependence of residuals\nNormality of residuals\nError (residuals) variance is constant\n\nBut what do each of those (pretty technical) statements mean, and how can we check them?",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#checking-linearity",
+    "href": "quarto/lm-assess.html#checking-linearity",
+    "title": "Fitting Linear Models in R",
+    "section": "Checking linearity",
+    "text": "Checking linearity\nTo verify that the relationship between our predictor variable(s) and our response variable is linear, we can examine a few plots.\nDATA SCATTER PLOT(S)\nFirst, we can make scatter plots of the data - specifically, the response variable as a function of each predictor variable. We want to verify that there are no apparent non-linear trends in the plot.\n\n\n\n\n\n\n\n\nRESIDUALS VS. FITTED PLOT\nNext, we can plot the residuals from the fitted model as functions of:\n\nThe fitted values (predicted values \\(\\hat{y}\\) for each data point in the dataset)\n(Optionally) Each predictor\n\nIn these plots, we should see no trends – linear or nonlinear. They should look like relatively random scatter.\nWe can use the R function resid() to get the residuals from the fitted model object, and fitted() to get the predictions.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#checking-independence",
+    "href": "quarto/lm-assess.html#checking-independence",
+    "title": "Fitting Linear Models in R",
+    "section": "Checking Independence",
+    "text": "Checking Independence\nIndependence of residuals means that knowing the value of one residual does not help you to predict the value of the next residual.\nWhen data are collected over time and space, sometimes the residuals are not independent over time (or space) – for example, maybe series of positive residuals tend to occur together, or series of negative residuals together. How can we detect this kind of non-independence?\nFirst, make sure that your dataset is sorted in order of time (if you are worried about non-independence over time) or space (if you are worried about possible non-independence over space). (The lead dataset is already sorted in temporal order - you can verify this by looking at the variable Decimal_Date.)\nThe autocorrelation function will help us.\nThis function computes a value akin to a correlation coefficient for the dataset, indicating how much it is correlated with itself at different “lags”. What does this mean?\nLag 0 is the correlation of the data with itself.\n\n\n\n\n\n\n\n\n\nOf course the correlation at lag 0 is ALWAYS 1: the dataset is identical with itself.\nWhat about larger lags?\nTo compute the ACF at lag 1, we slide one copy of the dataset forward one observation, and compute the correlation again:\n\n\n\n\n\n\n\n\n\nThis tells us how well we can predict one observation in the data, based on the preceding observation.\nLag 2 scoots the data one more position:\n\n\n\n\n\n\n\n\n\n…And so on.\nOutside this website, you can plot the ACF for many lags using the function s245::gf_acf(~fitted_model). (Here we have used acf(), but it will make a non-ggplot/non-ggformula type plot that is a little less pretty.)\n\n\n\n\n\n\n\n\nThe horizontal dotted lines are approximate 95% confidence boundaries for how large the ACF values (for lags greater than 0) should be, if the data are really independent.\nIn general, to verify the independence condition of linear regression, we want to confirm that not many of the ACF values for lags greater than 0 exceed those horizontal “fences” by very much. (One or two ACF values that just barely “poke above the fence” is not a major violation, especially as it is known that the method used to determine the “fences” is known to be a bit too conservative – even independent data will have ACF values that pass them more than 5% of the time.)\nIn the plot above, all the “spikes” are within the “fences”, so there is no indication of non-independence in the residuals (given the current sort order of the data).",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#checking-normality-of-residuals",
+    "href": "quarto/lm-assess.html#checking-normality-of-residuals",
+    "title": "Fitting Linear Models in R",
+    "section": "Checking Normality of Residuals",
+    "text": "Checking Normality of Residuals\nTo check whether the residuals look like a sample from a normal distribution, look at a histogram:\n\n\n\n\n\n\n\n\nNote: The distribution doesn’t have to look perfectly normal – it has to look like it might reasonably be a sample from a normal distribution. A consequence of that is that as sample size gets smaller, even less-normal-looking residual distributions are quite commonly observed, and we can be even more generous in judging this condition.\nWhatever the sample size, look for very notable skew and/or outliers in the residual distribution. If the residual distribution is unimodal and reasonably symmetric, it is probably okay.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#checking-error-variance",
+    "href": "quarto/lm-assess.html#checking-error-variance",
+    "title": "Fitting Linear Models in R",
+    "section": "Checking Error Variance",
+    "text": "Checking Error Variance\nFor linear regression to be appropriate for data, there should be homoscedasticity, or constant variance of the residuals. This means that the spread of the data points around the best-fit line should be constant - the width of the point cloud around the line should not be less in some places, and more in others.\nOr, alternatively (and easier to see visually), the spread of the residuals around a horizontal line at y = 0 on a residuals vs fitted plot should be constant.\n\n\n\n\n\n\n\n\nIf this condition does not hold, the most common pattern to see is a “trumpet” shape like the one above, where the residuals become more spread out for larger fitted values. However, any non-constant spread is a cause for concern.\n\nVariable by Variable\nIt is also a good idea to plot residuals as a function of each predictor. Constant variance should hold here just as it does when plotting as a function of fitted value.",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
+  },
+  {
+    "objectID": "quarto/lm-assess.html#model-assessment-checking-conditions",
+    "href": "quarto/lm-assess.html#model-assessment-checking-conditions",
+    "title": "Fitting Linear Models in R",
+    "section": "Model Assessment: Checking Conditions",
+    "text": "Model Assessment: Checking Conditions\n\nTo review and practice, consider these more detailed explanations of each condition, accompanied by details about which plots to use to check each one and how to interpret them:\n\n\n(You can also watch directly on YouTube if you prefer.)",
+    "crumbs": [
+      "Home",
+      "Linear Models",
+      "Model Assessment"
+    ]
   }
 ]
