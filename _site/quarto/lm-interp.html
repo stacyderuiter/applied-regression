@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stacy DeRuiter">
+<meta name="dcterms.date" content="2025-02-18">
+
+<title>Interpretation and Inference for Regression Models – Applied Regression with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../quarto/lm-assess.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="include/webex.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Regression with R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/lm-plan.html">Linear Models</a></li><li class="breadcrumb-item"><a href="../quarto/lm-interp.html">Interpretation and Inference</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applied Regression in R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">R Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/r-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/how-to-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/math-notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mathematical Notation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/r-results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Results in Text</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Designing Data Visualizations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-choose.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choosing a Graph Type</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/graphics-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code Examples</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Linear Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/lm-plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model Planning for Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/lm-fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model Fitting and Equation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/lm-assess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model Assessment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/lm-interp.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Interpretation and Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section-learning-outcomes" id="toc-section-learning-outcomes" class="nav-link active" data-scroll-target="#section-learning-outcomes">Section Learning Outcomes</a></li>
+  <li><a href="#text-reference" id="toc-text-reference" class="nav-link" data-scroll-target="#text-reference">Text Reference</a></li>
+  <li><a href="#prediction-plots" id="toc-prediction-plots" class="nav-link" data-scroll-target="#prediction-plots">Prediction Plots</a></li>
+  <li><a href="#cis-and-pis" id="toc-cis-and-pis" class="nav-link" data-scroll-target="#cis-and-pis">CIs and PIs</a></li>
+  <li><a href="#prediction-vs-inference" id="toc-prediction-vs-inference" class="nav-link" data-scroll-target="#prediction-vs-inference">Prediction vs Inference</a></li>
+  <li><a href="#inference-tldr" id="toc-inference-tldr" class="nav-link" data-scroll-target="#inference-tldr">Inference, TL;DR</a>
+  <ul class="collapse">
+  <li><a href="#ooh-slow-down" id="toc-ooh-slow-down" class="nav-link" data-scroll-target="#ooh-slow-down">Ooh, Slow down…</a></li>
+  </ul></li>
+  <li><a href="#opt-inference" id="toc-opt-inference" class="nav-link" data-scroll-target="#opt-inference"><em>(opt)</em> Inference</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
+  <li><a href="#se-of-sampling-distributions" id="toc-se-of-sampling-distributions" class="nav-link" data-scroll-target="#se-of-sampling-distributions">SE of Sampling Distributions</a></li>
+  <li><a href="#ci-for-the-slope" id="toc-ci-for-the-slope" class="nav-link" data-scroll-target="#ci-for-the-slope">CI for the slope</a></li>
+  <li><a href="#test-for-a-slope" id="toc-test-for-a-slope" class="nav-link" data-scroll-target="#test-for-a-slope">Test for a slope</a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA??</a></li>
+  </ul></li>
+  <li><a href="#case-study-gratitude" id="toc-case-study-gratitude" class="nav-link" data-scroll-target="#case-study-gratitude">Case Study: Gratitude</a>
+  <ul class="collapse">
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a></li>
+  <li><a href="#can-we-induce-gratitude" id="toc-can-we-induce-gratitude" class="nav-link" data-scroll-target="#can-we-induce-gratitude">Can We Induce Gratitude?</a></li>
+  <li><a href="#more-design-details" id="toc-more-design-details" class="nav-link" data-scroll-target="#more-design-details">More Design Details</a></li>
+  <li><a href="#pulling-out-gratitude" id="toc-pulling-out-gratitude" class="nav-link" data-scroll-target="#pulling-out-gratitude">Pulling out Gratitude</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a></li>
+  <li><a href="#our-questions" id="toc-our-questions" class="nav-link" data-scroll-target="#our-questions">Our Questions</a></li>
+  </ul></li>
+  <li><a href="#opt-comparing-2-means-lm-way" id="toc-opt-comparing-2-means-lm-way" class="nav-link" data-scroll-target="#opt-comparing-2-means-lm-way"><em>(opt)</em> Comparing 2 Means: <code>lm()</code> Way</a>
+  <ul class="collapse">
+  <li><a href="#review-quantitative-predictors" id="toc-review-quantitative-predictors" class="nav-link" data-scroll-target="#review-quantitative-predictors">Review: Quantitative Predictors</a></li>
+  <li><a href="#review-ci-for-slope" id="toc-review-ci-for-slope" class="nav-link" data-scroll-target="#review-ci-for-slope">Review: CI for Slope</a></li>
+  <li><a href="#review-test-for-slope" id="toc-review-test-for-slope" class="nav-link" data-scroll-target="#review-test-for-slope">Review: Test for Slope</a></li>
+  <li><a href="#categorical" id="toc-categorical" class="nav-link" data-scroll-target="#categorical">Categorical?</a></li>
+  <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
+  </ul></li>
+  <li><a href="#hypotheses-for-anova" id="toc-hypotheses-for-anova" class="nav-link" data-scroll-target="#hypotheses-for-anova">Hypotheses for ANOVA</a></li>
+  <li><a href="#test-stat-for-anova-f-ratio" id="toc-test-stat-for-anova-f-ratio" class="nav-link" data-scroll-target="#test-stat-for-anova-f-ratio">Test Stat for ANOVA: F-ratio</a>
+  <ul class="collapse">
+  <li><a href="#part-1-what-we-need-to-measure" id="toc-part-1-what-we-need-to-measure" class="nav-link" data-scroll-target="#part-1-what-we-need-to-measure">Part 1: What we need to measure</a></li>
+  <li><a href="#part-2-how-we-measure-it" id="toc-part-2-how-we-measure-it" class="nav-link" data-scroll-target="#part-2-how-we-measure-it">Part 2: How we measure it</a></li>
+  <li><a href="#sampling-distribution-of-f-simulated" id="toc-sampling-distribution-of-f-simulated" class="nav-link" data-scroll-target="#sampling-distribution-of-f-simulated">Sampling Distribution of F, Simulated</a></li>
+  <li><a href="#sampling-distribution-of-f-analytically" id="toc-sampling-distribution-of-f-analytically" class="nav-link" data-scroll-target="#sampling-distribution-of-f-analytically">Sampling Distribution of F, Analytically</a></li>
+  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value">P-value!</a></li>
+  <li><a href="#letting-r-do-all-the-work" id="toc-letting-r-do-all-the-work" class="nav-link" data-scroll-target="#letting-r-do-all-the-work">Letting R do all the work</a></li>
+  </ul></li>
+  <li><a href="#devotion-break" id="toc-devotion-break" class="nav-link" data-scroll-target="#devotion-break">Devotion Break</a></li>
+  <li><a href="#anova-for-multiple-regression" id="toc-anova-for-multiple-regression" class="nav-link" data-scroll-target="#anova-for-multiple-regression">ANOVA for Multiple Regression</a>
+  <ul class="collapse">
+  <li><a href="#practical-examples-of-anova-for-regression" id="toc-practical-examples-of-anova-for-regression" class="nav-link" data-scroll-target="#practical-examples-of-anova-for-regression">Practical Examples of ANOVA for Regression</a></li>
+  </ul></li>
+  <li><a href="#another-angle-r2" id="toc-another-angle-r2" class="nav-link" data-scroll-target="#another-angle-r2">Another angle: <span class="math inline">\(R^2\)</span></a>
+  <ul class="collapse">
+  <li><a href="#bigger-is-better" id="toc-bigger-is-better" class="nav-link" data-scroll-target="#bigger-is-better">Bigger is Better</a></li>
+  <li><a href="#adjusted-r2" id="toc-adjusted-r2" class="nav-link" data-scroll-target="#adjusted-r2">Adjusted <span class="math inline">\(r^2\)</span></a></li>
+  <li><a href="#computing-r2-values" id="toc-computing-r2-values" class="nav-link" data-scroll-target="#computing-r2-values">Computing <span class="math inline">\(r^2\)</span> values</a></li>
+  <li><a href="#using-r2" id="toc-using-r2" class="nav-link" data-scroll-target="#using-r2">Using <span class="math inline">\(r^2\)</span></a></li>
+  </ul></li>
+  <li><a href="#opt-information-entropy" id="toc-opt-information-entropy" class="nav-link" data-scroll-target="#opt-information-entropy"><em>(opt)</em> Information Entropy</a></li>
+  <li><a href="#akaikes-information-criterion" id="toc-akaikes-information-criterion" class="nav-link" data-scroll-target="#akaikes-information-criterion">Akaike’s Information Criterion</a>
+  <ul class="collapse">
+  <li><a href="#pause-for-reflection" id="toc-pause-for-reflection" class="nav-link" data-scroll-target="#pause-for-reflection">Pause for Reflection</a></li>
+  </ul></li>
+  <li><a href="#aic-definition" id="toc-aic-definition" class="nav-link" data-scroll-target="#aic-definition">AIC Definition</a></li>
+  <li><a href="#aic-practice" id="toc-aic-practice" class="nav-link" data-scroll-target="#aic-practice">AIC Practice</a></li>
+  <li><a href="#ic-how-big-a-difference" id="toc-ic-how-big-a-difference" class="nav-link" data-scroll-target="#ic-how-big-a-difference">IC, How big a difference?</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/lm-interp.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/lm-plan.html">Linear Models</a></li><li class="breadcrumb-item"><a href="../quarto/lm-interp.html">Interpretation and Inference</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Interpretation and Inference for Regression Models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Stacy DeRuiter </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 18, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-layout-align="center" data-setup="true" data-exercise="[&quot;bonobo-lm&quot;,&quot;bonobo-ci-fun&quot;,&quot;bonobo-ci-fun-2&quot;,&quot;bonobo-test&quot;,&quot;life-model-CI&quot;,&quot;two-group-lm&quot;]">
+<script type="exercise-setup-bonobo-lm-contents">
+eyJjb2RlIjoiXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdkYXRhL2dyYXRpdHVkZS1leHBlcmltZW50LmNzdicpIFxuXG5ncmF0ZWZ1bDIgPC0gZ3JhdGVmdWwgfD5cbiAgZmlsdGVyKGdyb3VwICE9ICdldmVudHMnKSB8PlxuICBtdXRhdGUoZ3JvdXAgPSBmYWN0b3IoZ3JvdXApKVxuXG5ib25vYm9zIDwtIHJlYWQuY3N2KCdkYXRhL2Jvbm9ib19mYWNlcy5jc3YnKSB8PiBuYS5vbWl0KCkiLCJhdHRyIjp7ImV4ZXJjaXNlIjpbImJvbm9iby1sbSIsImJvbm9iby1jaS1mdW4iLCJib25vYm8tY2ktZnVuLTIiLCJib25vYm8tdGVzdCIsImxpZmUtbW9kZWwtQ0kiLCJ0d28tZ3JvdXAtbG0iXSwiYXV0b3J1biI6ZmFsc2UsInNldHVwIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwib3V0cHV0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZWNobyI6ZmFsc2UsImVkaXQiOmZhbHNlfX0=
+</script>
+<script type="exercise-setup-bonobo-ci-fun-contents">
+eyJjb2RlIjoiXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdkYXRhL2dyYXRpdHVkZS1leHBlcmltZW50LmNzdicpIFxuXG5ncmF0ZWZ1bDIgPC0gZ3JhdGVmdWwgfD5cbiAgZmlsdGVyKGdyb3VwICE9ICdldmVudHMnKSB8PlxuICBtdXRhdGUoZ3JvdXAgPSBmYWN0b3IoZ3JvdXApKVxuXG5ib25vYm9zIDwtIHJlYWQuY3N2KCdkYXRhL2Jvbm9ib19mYWNlcy5jc3YnKSB8PiBuYS5vbWl0KCkiLCJhdHRyIjp7ImV4ZXJjaXNlIjpbImJvbm9iby1sbSIsImJvbm9iby1jaS1mdW4iLCJib25vYm8tY2ktZnVuLTIiLCJib25vYm8tdGVzdCIsImxpZmUtbW9kZWwtQ0kiLCJ0d28tZ3JvdXAtbG0iXSwiYXV0b3J1biI6ZmFsc2UsInNldHVwIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwib3V0cHV0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZWNobyI6ZmFsc2UsImVkaXQiOmZhbHNlfX0=
+</script>
+<script type="exercise-setup-bonobo-ci-fun-2-contents">
+eyJjb2RlIjoiXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdkYXRhL2dyYXRpdHVkZS1leHBlcmltZW50LmNzdicpIFxuXG5ncmF0ZWZ1bDIgPC0gZ3JhdGVmdWwgfD5cbiAgZmlsdGVyKGdyb3VwICE9ICdldmVudHMnKSB8PlxuICBtdXRhdGUoZ3JvdXAgPSBmYWN0b3IoZ3JvdXApKVxuXG5ib25vYm9zIDwtIHJlYWQuY3N2KCdkYXRhL2Jvbm9ib19mYWNlcy5jc3YnKSB8PiBuYS5vbWl0KCkiLCJhdHRyIjp7ImV4ZXJjaXNlIjpbImJvbm9iby1sbSIsImJvbm9iby1jaS1mdW4iLCJib25vYm8tY2ktZnVuLTIiLCJib25vYm8tdGVzdCIsImxpZmUtbW9kZWwtQ0kiLCJ0d28tZ3JvdXAtbG0iXSwiYXV0b3J1biI6ZmFsc2UsInNldHVwIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwib3V0cHV0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZWNobyI6ZmFsc2UsImVkaXQiOmZhbHNlfX0=
+</script>
+<script type="exercise-setup-bonobo-test-contents">
+eyJjb2RlIjoiXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdkYXRhL2dyYXRpdHVkZS1leHBlcmltZW50LmNzdicpIFxuXG5ncmF0ZWZ1bDIgPC0gZ3JhdGVmdWwgfD5cbiAgZmlsdGVyKGdyb3VwICE9ICdldmVudHMnKSB8PlxuICBtdXRhdGUoZ3JvdXAgPSBmYWN0b3IoZ3JvdXApKVxuXG5ib25vYm9zIDwtIHJlYWQuY3N2KCdkYXRhL2Jvbm9ib19mYWNlcy5jc3YnKSB8PiBuYS5vbWl0KCkiLCJhdHRyIjp7ImV4ZXJjaXNlIjpbImJvbm9iby1sbSIsImJvbm9iby1jaS1mdW4iLCJib25vYm8tY2ktZnVuLTIiLCJib25vYm8tdGVzdCIsImxpZmUtbW9kZWwtQ0kiLCJ0d28tZ3JvdXAtbG0iXSwiYXV0b3J1biI6ZmFsc2UsInNldHVwIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwib3V0cHV0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZWNobyI6ZmFsc2UsImVkaXQiOmZhbHNlfX0=
+</script>
+<script type="exercise-setup-life-model-CI-contents">
+eyJjb2RlIjoiXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdkYXRhL2dyYXRpdHVkZS1leHBlcmltZW50LmNzdicpIFxuXG5ncmF0ZWZ1bDIgPC0gZ3JhdGVmdWwgfD5cbiAgZmlsdGVyKGdyb3VwICE9ICdldmVudHMnKSB8PlxuICBtdXRhdGUoZ3JvdXAgPSBmYWN0b3IoZ3JvdXApKVxuXG5ib25vYm9zIDwtIHJlYWQuY3N2KCdkYXRhL2Jvbm9ib19mYWNlcy5jc3YnKSB8PiBuYS5vbWl0KCkiLCJhdHRyIjp7ImV4ZXJjaXNlIjpbImJvbm9iby1sbSIsImJvbm9iby1jaS1mdW4iLCJib25vYm8tY2ktZnVuLTIiLCJib25vYm8tdGVzdCIsImxpZmUtbW9kZWwtQ0kiLCJ0d28tZ3JvdXAtbG0iXSwiYXV0b3J1biI6ZmFsc2UsInNldHVwIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwib3V0cHV0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZWNobyI6ZmFsc2UsImVkaXQiOmZhbHNlfX0=
+</script>
+<script type="exercise-setup-two-group-lm-contents">
+eyJjb2RlIjoiXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdkYXRhL2dyYXRpdHVkZS1leHBlcmltZW50LmNzdicpIFxuXG5ncmF0ZWZ1bDIgPC0gZ3JhdGVmdWwgfD5cbiAgZmlsdGVyKGdyb3VwICE9ICdldmVudHMnKSB8PlxuICBtdXRhdGUoZ3JvdXAgPSBmYWN0b3IoZ3JvdXApKVxuXG5ib25vYm9zIDwtIHJlYWQuY3N2KCdkYXRhL2Jvbm9ib19mYWNlcy5jc3YnKSB8PiBuYS5vbWl0KCkiLCJhdHRyIjp7ImV4ZXJjaXNlIjpbImJvbm9iby1sbSIsImJvbm9iby1jaS1mdW4iLCJib25vYm8tY2ktZnVuLTIiLCJib25vYm8tdGVzdCIsImxpZmUtbW9kZWwtQ0kiLCJ0d28tZ3JvdXAtbG0iXSwiYXV0b3J1biI6ZmFsc2UsInNldHVwIjp0cnVlLCJpbmNsdWRlIjpmYWxzZSwib3V0cHV0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiZWNobyI6ZmFsc2UsImVkaXQiOmZhbHNlfX0=
+</script>
+</div>
+<section id="section-learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="section-learning-outcomes">Section Learning Outcomes</h2>
+<p>Knowing how to plan and fit a model isn’t the end of the process (at all). What’s next? This section we’ve explored how to assess whether a model really is appropriate for a particular dataset, and thus reliable.</p>
+<p><strong>Remember that if a model doesn’t pass assessment - if</strong> <em>any</em> <strong>of the conditions go unmet - then the model can’t be trusted to provide reliable results at all.</strong></p>
+<p>But if a model <em>does</em> pass assessment, we can finally turn to model <strong>interpretation</strong> - what do the results mean, and how can we communicate the insights the model provides via words and visualizations?</p>
+<p>Also part of this topic is something commonly called <em>model selection.</em> That term is a bit confusing given the approach taught in our course, as we won’t actually <em>select</em> certain variables to include/exclude from a model at this stage.</p>
+<p>Rather, we are deciding whether and in what way each candidate predictor relates to the response variable. So for us, “model selection” is all about interpreting and understanding the model results, including using inferential statistics.</p>
+<p>By the end of the section you will:</p>
+<ol type="1">
+<li>Create and interpret prediction plots for multiple linear regression models</li>
+<li>Interpret confidence intervals for linear regression coefficients and in prediction plots</li>
+<li>Articulate how different modeling goals (prediction vs inference) influence how an analyst engages in the modeling process</li>
+<li>Interpret p-values or information criteria to do model selection for linear regression models</li>
+</ol>
+</section>
+<section id="text-reference" class="level2">
+<h2 class="anchored" data-anchor-id="text-reference">Text Reference</h2>
+<p>Recommended reading for the materials covered in this section can be found in:</p>
+<ul>
+<li><a href="https://bookdown.org/roback/bookdown-BeyondMLR/ch-MLRreview.html#multreg" target="_blank"><em>Beyond Multiple Linear Regression</em> Chapter 1.6</a></li>
+<li><em>Regression Modeling Strategies</em> Chapters 2.3, 4, and 5.1</li>
+<li>Course Notes <a href="https://stacyderuiter.github.io/regression/lm1.html#predictions-from-the-model" target="_blank">Chapter 1.8-1.11</a> and <a href="https://stacyderuiter.github.io/regression/IC-based-selection.html" target="_blank">Chapter 3</a></li>
+</ul>
+</section>
+<section id="prediction-plots" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-plots">Prediction Plots</h2>
+<p>Once we have fitted a regression model and it passes assessment checks, how can we use it to draw conclusions?</p>
+<p>One of the most useful tools we can have is a <em>picture</em> of what the model tells us about the relationships between our response and predictor(s).</p>
+<p>How can we get one?</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ao822zkZCj8?si=ozCVWFhDgUT44aZF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+</section>
+<section id="cis-and-pis" class="level2">
+<h2 class="anchored" data-anchor-id="cis-and-pis">CIs and PIs</h2>
+<p>We have mentioned two different ways to conceptualize uncertainty in model predictions…</p>
+<ul>
+<li><p><strong>A confidence interval:</strong> We could find an interval that gives plausible values for “where the line is located”, taking into account uncertainty in the intercept and slope estimates. Another way of thinking about this is that it gives a plausible range of values for the <em>expected value</em> (mean) of the response variable for <strong>all hypothetical new observations with a certain predictor-variable value</strong>.</p></li>
+<li><p><strong>A prediction interval:</strong> We could find an interval that gives plausible values for “the point cloud” of possible new observations, taking into account uncertainty in the slope and intercept, plus the residual variance. Another way of thinking about this is that it gives a <strong>plausible range of values for the response for one new datapoint with a certain predictor-variable value</strong>. Note that we’ve coined the new name <em>prediction interval</em> to differentiate it from the other one, this is really also a CI (just for a very specific scenario).</p></li>
+</ul>
+<p>Let’s hear that explained:</p>
+<div class="quarto-video"><iframe data-external="1" src="https://www.youtube.com/embed/qVCQi0KPR0s" width="560" height="315" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>(You can also <a href="https://www.youtube.com/watch?v=qVCQi0KPR0s">watch directly on YouTube</a> if you prefer.</p>
+<p>We will generally default to showing prediction plots with confidence intervals in this course…but it’s nice to know the difference in interpretation between CIs and PIs (and we’ll talk more about related matters in a later section on hierarchical models).</p>
+</section>
+<section id="prediction-vs-inference" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-vs-inference">Prediction vs Inference</h2>
+<p>In this course we will focus on modeling for statistical inference, rather than for the purpose of making predictions for new scenarios based on our fitted model. Why? And why does the distinction matter? Before we dive into <em>how</em> to do inference, let’s discuss.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YOE5UK0gxjE?si=LgPqpsAqcvoQ6EJx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+</section>
+<section id="inference-tldr" class="level2">
+<h2 class="anchored" data-anchor-id="inference-tldr">Inference, TL;DR</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8cHtbU42DAY?si=EyZYL1iBpzwcf2FN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+<section id="ooh-slow-down" class="level3">
+<h3 class="anchored" data-anchor-id="ooh-slow-down">Ooh, Slow down…</h3>
+<p><em>Much</em> of the rest of this section fills in <em>a lot</em> of details that were skimmed over in the very brief overview in that video. Focus first on understanding and applying what was in that video - the rest is elaboration.</p>
+<p><strong>Items that provide additional details and context but are note utterly required for practical applications are marked with</strong> <em>(opt)</em>.</p>
+</section>
+</section>
+<section id="opt-inference" class="level2">
+<h2 class="anchored" data-anchor-id="opt-inference"><em>(opt)</em> Inference</h2>
+<!-- *Text book reference: [IMS Chapter 8](https://openintro-ims.netlify.app/inference-reg.html#inference-reg)* -->
+<p>Our goal: establish a method to generate confidence intervals and carry out tests for linear models, especially <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_i\)</span>, the intercept and slope(s). In fact, we focus almost entirely on the slopes, but the exact same methods work for the intercept too (it’s just that the slope is almost always of much more practical interest than the intercept).</p>
+<p>We want to be able to test:</p>
+<p><span class="math display">\[H_0: \beta_1 = 0\]</span></p>
+<p><span class="math display">\[H_A: \beta_1 \neq 0\]</span></p>
+<p>If the null hypothesis above is <em>true</em>, that means there is <em>no</em> linear association between the predictor and response variables – informally, it means <em>the predictor is useless at predicting the response</em>.</p>
+<p>If we reject the null, that suggests there <em>is</em> a real association between the two variables (and the predictor is “worthwhile” statistically to help predict the response).</p>
+<p>Before we carry out any tests, let’s establish an example model.</p>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>We will use the <code>bonobos</code> dataset as an example. You may recall the dataset from earlier examples. Briefly, the dataset is from a <a href="https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0232">2019 paper by J.S. Martin and colleagues on bonobo face measurements</a>. The authors worked with 117 bonobos in European zoos and recorded data including their <code>Sex</code>, <code>Age</code> in years, <code>weight</code>, and some measurements about their face:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bonobo-face-measures.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="350"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, they also measured each bonobo’s assertiveness score (<code>AssR</code>) and dominance score (<code>normDS</code>).</p>
+<p>The dataset is at <a href="https://sldr.netlify.app/data/bonobo_faces.csv">https://sldr.netlify.app/data/bonobo_faces.csv</a> and so you could read the dataset in to R by running:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bonobos <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'http://sldr.netlify.app/data/bonobo_faces.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="practice" class="level3">
+<h3 class="anchored" data-anchor-id="practice">Practice</h3>
+<p>We might wonder whether size (as measured by <code>weight</code>) is a good predictor of the dominance score, <code>normDS</code>. Graphically:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_point</span>(normDS <span class="sc">~</span> weight, <span class="at">data =</span> bonobos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Fit the corresponding regression model in R and view its <code>summary()</code>. Note, the dataset <code>bonobos</code> is already read in for you here:</p>
+<div class="cell" data-layout-align="center" data-exercise="bonobo-lm">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJjb2RlIjoiIiwiYXR0ciI6eyJleGVyY2lzZSI6ImJvbm9iby1sbSIsImV2YWwiOnRydWUsImVkaXQiOnRydWUsImF1dG9ydW4iOmZhbHNlfX0=
+</script>
+</div>
+</div>
+<div class="hint webr-ojs-exercise exercise-hint d-none" data-exercise="bonobo-lm">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Fill in the blanks with the right formula, dataset name, and fitted model object name!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="bonobo-lm">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bonobo_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(normDS <span class="sc">~</span> weight, <span class="at">data =</span> bonobos)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bonobo_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="webex-check webex-box">
+<div class="cell" data-layout-align="center">
+What is the intercept estimate for the model you just fitted?
+<div id="radio_HLYRHFZKNF" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_HLYRHFZKNF" value=""> <span>0.023</span></label><label><input type="radio" autocomplete="off" name="radio_HLYRHFZKNF" value=""> <span>0.011</span></label><label><input type="radio" autocomplete="off" name="radio_HLYRHFZKNF" value=""> <span>1.031</span></label><label><input type="radio" autocomplete="off" name="radio_HLYRHFZKNF" value=""> <span>0.926</span></label><label><input type="radio" autocomplete="off" name="radio_HLYRHFZKNF" value="answer"> <span>2.008</span></label>
+</div>
+What is the slope for the model you just fitted?
+<div id="radio_SNAEYEAXTE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_SNAEYEAXTE" value=""> <span>1.031</span></label><label><input type="radio" autocomplete="off" name="radio_SNAEYEAXTE" value=""> <span>2.008</span></label><label><input type="radio" autocomplete="off" name="radio_SNAEYEAXTE" value=""> <span>0.023</span></label><label><input type="radio" autocomplete="off" name="radio_SNAEYEAXTE" value="answer"> <span>0.011</span></label><label><input type="radio" autocomplete="off" name="radio_SNAEYEAXTE" value=""> <span>0.926</span></label>
+</div>
+What is sigma, the standard deviation of the residuals, for the model you just fitted?
+<div id="radio_ERSJFCPBCA" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ERSJFCPBCA" value=""> <span>0.023</span></label><label><input type="radio" autocomplete="off" name="radio_ERSJFCPBCA" value=""> <span>0.926</span></label><label><input type="radio" autocomplete="off" name="radio_ERSJFCPBCA" value=""> <span>0.011</span></label><label><input type="radio" autocomplete="off" name="radio_ERSJFCPBCA" value="answer"> <span>1.031</span></label><label><input type="radio" autocomplete="off" name="radio_ERSJFCPBCA" value=""> <span>2.008</span></label>
+</div>
+</div>
+</div>
+</section>
+<section id="se-of-sampling-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="se-of-sampling-distributions">SE of Sampling Distributions</h3>
+<!-- *Text book reference: [IMS Ch. 8.1.3](https://openintro-ims.netlify.app/inference-reg.html#variability-of-the-statistic-26)* -->
+<p>As you may have noticed, the <code>summary()</code> of an <code>lm()</code> (or <code>glmmTMB()</code>) regression model fit includes not only estimates of the parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, but also the <em>standard errors of the corresponding sampling distributions</em>! (Hooray.) These measure the standard deviation we’d expect to see in our parameter estimates from sample to sample, if we were somehow able to collect data many many times. They can be used to calibrate our uncertainty in our estimates of the <span class="math inline">\(\beta\)</span>s, and they are found in the coefficient table, labelled <code>"Std. Error"</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>normDS_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(normDS <span class="sc">~</span> weight, <span class="at">data =</span> bonobos)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(normDS_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = normDS ~ weight, data = bonobos)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3794 -0.8138 -0.2354  0.6043  2.0207 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  2.00774    0.92555   2.169   0.0337 *
+weight       0.01122    0.02334   0.481   0.6322  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.031 on 66 degrees of freedom
+Multiple R-squared:  0.003491,  Adjusted R-squared:  -0.01161 
+F-statistic: 0.2312 on 1 and 66 DF,  p-value: 0.6322</code></pre>
+</div>
+</div>
+<div class="webex-check webex-box">
+<div class="cell" data-layout-align="center">
+What is the SE for the slope, for the regression to predict normDS as a function of weight for our bonobo dataset?
+<div id="radio_KZRXFTYEBU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KZRXFTYEBU" value=""> <span>0.011</span></label><label><input type="radio" autocomplete="off" name="radio_KZRXFTYEBU" value=""> <span>0.926</span></label><label><input type="radio" autocomplete="off" name="radio_KZRXFTYEBU" value=""> <span>1.031</span></label><label><input type="radio" autocomplete="off" name="radio_KZRXFTYEBU" value="answer"> <span>0.023</span></label><label><input type="radio" autocomplete="off" name="radio_KZRXFTYEBU" value=""> <span>2.008</span></label>
+</div>
+</div>
+</div>
+</section>
+<section id="ci-for-the-slope" class="level3">
+<h3 class="anchored" data-anchor-id="ci-for-the-slope">CI for the slope</h3>
+<!-- *Text book reference: [IMS Chapter 8.1.3](https://openintro-ims.netlify.app/inference-reg.html#confidence-interval-for-a-coefficient)* -->
+<p>Although we won’t derive the reasons why in detail, the sampling distribution for the slope has <strong>a t distribution</strong> with <span class="math inline">\(n - 2\)</span> degrees of freedom (where <span class="math inline">\(n\)</span> is the number of rows in the dataset).</p>
+<p>So, after all that, we <em>could</em> find a CI for a regression slope according to:</p>
+<p><span class="math display">\[ \hat{\beta}_1 \pm t_*SE(\hat{\beta}_1)\]</span> Where <span class="math inline">\(t_*\)</span> is a critical value from a <span class="math inline">\(t(n-2)\)</span> distribution, and SE(<span class="math inline">\(\hat{\beta}_1\)</span>) is the standard error of the slope from the coefficient table in the model <code>summary()</code>.</p>
+<p>As an example, find a 95% CI for the slope of our <code>bonobo</code> regression model.</p>
+<p>We <em>can</em> do this somewhat manually:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bm <span class="ot">&lt;-</span> <span class="fu">lm</span>(normDS <span class="sc">~</span> weight, <span class="at">data=</span> bonobos)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = normDS ~ weight, data = bonobos)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3794 -0.8138 -0.2354  0.6043  2.0207 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  2.00774    0.92555   2.169   0.0337 *
+weight       0.01122    0.02334   0.481   0.6322  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.031 on 66 degrees of freedom
+Multiple R-squared:  0.003491,  Adjusted R-squared:  -0.01161 
+F-statistic: 0.2312 on 1 and 66 DF,  p-value: 0.6322</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>CI95 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.14278</span> <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="fu">nrow</span>(bonobos) <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fl">0.06668</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>CI95</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.275910915 -0.009649085</code></pre>
+</div>
+</div>
+<p>Or… we will generally take advantage of the fact that there’s a function for that:</p>
+<div class="cell" data-layout-align="center" data-exercise="bonobo-ci-fun">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJjb2RlIjoiIyBhIHNob3J0Y3V0Olxubm9ybURTX21vZGVsIDwtIGxtKG5vcm1EUyB+IHdlaWdodCwgZGF0YT0gYm9ub2JvcylcbmNvbmZpbnQobm9ybURTX21vZGVsLCBcIndlaWdodFwiLCBsZXZlbCA9IDAuOTUpIiwiYXR0ciI6eyJleGVyY2lzZSI6ImJvbm9iby1jaS1mdW4iLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJhdXRvcnVuIjpmYWxzZX19
+</script>
+</div>
+</div>
+<p><strong>Notice the shortcut – the R function <code>confint()</code> returns CIs (with a default confidence level of 95%).</strong></p>
+<p>We can also omit specifying which predictor(s) we want CIs for and <code>confint()</code> will return them all…</p>
+<div class="cell" data-layout-align="center" data-exercise="bonobo-ci-fun-2">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJjb2RlIjoibm9ybURTX21vZGVsIDwtIGxtKG5vcm1EUyB+IHdlaWdodCwgZGF0YT0gYm9ub2JvcylcbmNvbmZpbnQobm9ybURTX21vZGVsKSIsImF0dHIiOnsiZXhlcmNpc2UiOiJib25vYm8tY2ktZnVuLTIiLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJhdXRvcnVuIjpmYWxzZX19
+</script>
+</div>
+</div>
+</section>
+<section id="test-for-a-slope" class="level3">
+<h3 class="anchored" data-anchor-id="test-for-a-slope">Test for a slope</h3>
+<!-- *Text book reference: [IMS Chapter 8.1.3](https://openintro-ims.netlify.app/inference-reg.html#variability-of-the-statistic-26)* -->
+<p>We can also test the null hypothesis <span class="math inline">\(H_0: \beta_1 = \beta_{1\text{null}}\)</span> (where <span class="math inline">\(\beta_{1\text{null}}\)</span> is some hypothetical slope value of interest) using the standardized test statistic</p>
+<p><span class="math display">\[ t = \frac{\hat{\beta}_1 - \beta_{1\text{null}}}{SE(\hat{\beta}_1)}\]</span></p>
+<p>The most common value for <span class="math inline">\(\beta_{1\text{null}}\)</span> is <span class="math inline">\(0\)</span>, because if <span class="math inline">\(\beta_1 = 0\)</span> that means that there is <em>no</em> relationship between the predictor and response and the predictor is useless as a predictor. If we can reject that null hypothesis, we can conclude that the predictor <em>does</em> have some utility.</p>
+<p>To practice, you <em>could</em> carry out a two-sided test of <span class="math inline">\(H_0: \beta_1 = 0\)</span> for the <code>bonobo</code> regression as shown in the hints below (if you learned R in your intro stat course and remember your intro stat pretty well).</p>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="bonobo-test">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>normDS_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(normDS <span class="sc">~</span> weight, <span class="at">data=</span> bonobos)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(normDS_model)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="fl">0.14278</span> <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (<span class="fl">0.06668</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(t_stat, <span class="at">df =</span> <span class="fu">nrow</span>(bonobos) <span class="sc">-</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>ORRRR…A shortcut (which we will normally take!): Notice that this p-value is already in the model summary (in the last column of the coefficient table, labelled “Pr(<span class="math inline">\(&gt;\vert\)</span>t<span class="math inline">\(\vert\)</span>)”).</strong></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#shortcut: just use model summary</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>normDS_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(normDS <span class="sc">~</span> weight, <span class="at">data=</span> bonobos)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(normDS_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = normDS ~ weight, data = bonobos)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3794 -0.8138 -0.2354  0.6043  2.0207 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  2.00774    0.92555   2.169   0.0337 *
+weight       0.01122    0.02334   0.481   0.6322  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.031 on 66 degrees of freedom
+Multiple R-squared:  0.003491,  Adjusted R-squared:  -0.01161 
+F-statistic: 0.2312 on 1 and 66 DF,  p-value: 0.6322</code></pre>
+</div>
+</div>
+</section>
+<section id="anova" class="level3">
+<h3 class="anchored" data-anchor-id="anova">ANOVA??</h3>
+<p>Note that for simple linear regression, the p-value reported at the very end of the model summary <strong>is the same</strong> as the one for the slope in the coefficient table.</p>
+<p>This is <em>only</em> the case when there’s only one, quantitative predictor, since the test at the bottom is testing <span class="math inline">\(H_0: \text{all the slopes in the model are 0 for all predictors}\)</span>. But…it’s reported along with an F-statistic – which reminds us of the one-way ANOVA you may have encountered in a previous stats course – why is this??</p>
+</section>
+</section>
+<section id="case-study-gratitude" class="level2">
+<h2 class="anchored" data-anchor-id="case-study-gratitude">Case Study: Gratitude</h2>
+<p>A growing body of research has documented the effects that practicing gratitude can have on people – providing not just spiritual and mental-health benefits, but even improving physical health.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_sokh9e2WGc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset</h3>
+<p>We will dive further into this topic – learning about ANOVA and some other tests along the way – via a case study where researchers tried to collect data to answer:</p>
+<p><strong>“How does gratitude affect peoples’ mental and physical well-being?”</strong></p>
+<p>The data are simulated based on the results of a paper published in 2003:</p>
+<p><a href="https://stacyderuiter.github.io/data545/Counting_blessings_versus_burd.pdf"><img src="images/count-blessings.png" class="img-fluid" width="450"></a></p>
+<p><em>Click on the image above to get the full PDF. Reading it is</em> <strong>not</strong> <em>required, but it is interesting and accessible - check it out if you have time!</em></p>
+</section>
+<section id="can-we-induce-gratitude" class="level3">
+<h3 class="anchored" data-anchor-id="can-we-induce-gratitude">Can We Induce Gratitude?</h3>
+<p>To understand whether gratitude can <em>cause</em> improvements in mental and physical health and practices, the researchers needed to do a <strong>randomized</strong> study, in which they somehow controlled peoples’ gratitude levels. How did they do <em>that</em>?</p>
+<p>First, they recruited nearly 200 college students to participate in their study.</p>
+<p>They asked participants to complete a weekly journal, writing lists of things that they were grateful for. 1/3 of study participants were randomly assigned to this group - the <code>gratitude</code> group.</p>
+<p>Other participants were asked to write about things that <em>annoyed</em> them instead – this was the <code>hassles</code> group.</p>
+<p>Finally, a control group – the <code>events</code> group – just wrote about events in the past week that had affected them (could be either positive or negative).</p>
+<p>Before delving into any other questions, the researchers had to verify that the <code>gratitude</code> group <em>actually felt more grateful</em> than the other groups…</p>
+</section>
+<section id="more-design-details" class="level3">
+<h3 class="anchored" data-anchor-id="more-design-details">More Design Details</h3>
+<p>In addition to the journals, all the students had to complete weekly surveys about their behavior and state of mind.</p>
+<p>For example, they had to state how often (on a scale of 1 to 5) they experienced each of a set of feelings over the preceding week:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pulling-out-gratitude" class="level3">
+<h3 class="anchored" data-anchor-id="pulling-out-gratitude">Pulling out Gratitude</h3>
+<p>The researchers combined scores from the words <em>thankful</em>, <em>appreciative</em>, and <em>grateful</em> to assess participants’ gratitude. In our dataset, this value is called <code>gratitude_score</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-data">The Data</h3>
+<p>How do the data actually look?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It seems like perhaps the <code>gratitude_score</code> is higher for the <code>gratitude</code> group and lower for the others, but we really need hypothesis test results to have more confidence in our judgment of whether the difference is real or if the differences between groups could just be the result of random sampling variation.</p>
+</section>
+<section id="our-questions" class="level3">
+<h3 class="anchored" data-anchor-id="our-questions">Our Questions</h3>
+<p>As Emmons and McCullough did, our first job will be to test whether the mean <code>gratitude_score</code> is the same for the different groups in the study – the <code>gratitude</code> group, the <code>hassles</code> group, and the <code>events</code> group.</p>
+<p>First, we will consider a simplified case with only two groups: the <code>gratitude</code> and <code>hassles</code> groups.</p>
+<p>But, considering the full dataset, we have <em>more than</em> two groups to compare. We also have other potential quantitative predictors we could include in our models. This will allow us to look at a few other tests (to figure out whether it is worthwhile to include a multi-level categorical predictor, or even a quantitative one; or to compare pairs of models consisting of a larger model and a smaller one that is a submodel of the larger one).</p>
+</section>
+</section>
+<section id="opt-comparing-2-means-lm-way" class="level2">
+<h2 class="anchored" data-anchor-id="opt-comparing-2-means-lm-way"><em>(opt)</em> Comparing 2 Means: <code>lm()</code> Way</h2>
+<p>We have previously seen that we can use slope estimates from <code>lm()</code> and their standard errors with t-distributions to compute CIs or carry out hypothesis tests about the slope (often, testing <span class="math inline">\(H_0: \beta_1 = 0\)</span>).</p>
+<section id="review-quantitative-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="review-quantitative-predictors">Review: Quantitative Predictors</h3>
+<p>For example, we could consider a model to predict <code>gratitude_score</code> as a function of <code>life_rating</code> (a score measuring positivity about one’s life as a whole).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>life_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gratitude_score <span class="sc">~</span> life_rating, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> grateful)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(life_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = gratitude_score ~ life_rating, data = grateful)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-4.891 -1.466 -0.098  1.219  5.899 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   7.2008     0.8828   8.157 4.22e-14 ***
+life_rating   0.5295     0.1806   2.932  0.00377 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.98 on 194 degrees of freedom
+Multiple R-squared:  0.04243,   Adjusted R-squared:  0.03749 
+F-statistic: 8.596 on 1 and 194 DF,  p-value: 0.003775</code></pre>
+</div>
+</div>
+</section>
+<section id="review-ci-for-slope" class="level3">
+<h3 class="anchored" data-anchor-id="review-ci-for-slope">Review: CI for Slope</h3>
+<p>Find a 95% confidence interval for the slope coefficient of the <code>life_model</code>.</p>
+<div class="cell" data-layout-align="center" data-exercise="life-model-CI">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJjb2RlIjoibGlmZV9tb2RlbCA8LSBsbShncmF0aXR1ZGVfc2NvcmUgfiBsaWZlX3JhdGluZywgXG4gICAgICAgICAgICAgICAgIGRhdGEgPSBncmF0ZWZ1bCkiLCJhdHRyIjp7ImV4ZXJjaXNlIjoibGlmZS1tb2RlbC1DSSIsImV2YWwiOnRydWUsImVkaXQiOnRydWUsImF1dG9ydW4iOmZhbHNlfX0=
+</script>
+</div>
+</div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="life-model-CI">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>life_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gratitude_score <span class="sc">~</span> life_rating, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> grateful)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(life_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="review-test-for-slope" class="level3">
+<h3 class="anchored" data-anchor-id="review-test-for-slope">Review: Test for Slope</h3>
+<div class="webex-check webex-box">
+<div class="cell" data-layout-align="center">
+You test the hypothesis that the slope of the life_model is zero. What is the p-value of the test?
+<div id="radio_WYFPGGBDXL" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_WYFPGGBDXL" value=""> <span>0.0424</span></label><label><input type="radio" autocomplete="off" name="radio_WYFPGGBDXL" value=""> <span>Something else</span></label><label><input type="radio" autocomplete="off" name="radio_WYFPGGBDXL" value=""> <span>4.22e-14</span></label><label><input type="radio" autocomplete="off" name="radio_WYFPGGBDXL" value="answer"> <span>0.00377</span></label>
+</div>
+</div>
+</div>
+</section>
+<section id="categorical" class="level3">
+<h3 class="anchored" data-anchor-id="categorical">Categorical?</h3>
+<!-- *Text book reference: FAStR Chapter 6.7.1* -->
+<p>If we consider a categorical variable with <em>only two categories</em>, everything is exactly the same (except the interpretation of the slope coefficient, which now gives the difference in means between the two categories).</p>
+<p>For example, we can reduce the dataset to exclude the third <code>events</code> group, and then model <code>gratitude_score</code> as a function of <code>group</code> to see if the <code>gratitude</code> and <code>hassles</code> groups have different average gratitude scores.</p>
+<p><em>Of course we would never normally do this! But right now, for learning purposes, we could use a categorical variable with 2 categories…and ours has three. So don’t try this filtering/subsetting at home!</em></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>grateful2 <span class="ot">&lt;-</span> grateful <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">!=</span> <span class="st">'events'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_boxplot</span>(gratitude_score <span class="sc">~</span> group, <span class="at">data =</span> grateful2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="practice-1" class="level3">
+<h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
+<p>Fit the model and, just as in the previous example, find a 95% CI for <span class="math inline">\(\beta_1\)</span> and test <span class="math inline">\(H_0: \beta_1 = 0\)</span>.</p>
+<div class="cell" data-layout-align="center" data-exercise="two-group-lm">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJjb2RlIjoiIiwiYXR0ciI6eyJleGVyY2lzZSI6InR3by1ncm91cC1sbSIsImV2YWwiOnRydWUsImVkaXQiOnRydWUsImF1dG9ydW4iOmZhbHNlfX0=
+</script>
+</div>
+</div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="two-group-lm">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>two_group_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gratitude_score <span class="sc">~</span> group, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> grateful2)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(two_group_model)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># if you wanted to pull out just the p-value (advanced move)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(<span class="fu">summary</span>(two_group_model))[<span class="st">'grouphassles'</span>, <span class="st">'Pr(&gt;|t|)'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Easy peasy! As we mentioned before, the only real difference between this model and the one with a quantitative predictor is that we end up with an <em>indicator variable</em> instead of one with many different numeric values, so the interpretation of the slope coefficient <span class="math inline">\(\beta_1\)</span> is different.</p>
+<div class="webex-check webex-box">
+<div class="cell" data-layout-align="center">
+In our model to compare the gratitude and hassles groups, the grouphassles coefficient estimate is about -1.54. What does this mean?
+<div id="radio_ZYBESPBEGR" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZYBESPBEGR" value=""> <span>Something else</span></label><label><input type="radio" autocomplete="off" name="radio_ZYBESPBEGR" value=""> <span>When the amount of 'hassles' increases by one unit, the gratitude_score goes down by 1.54 units.</span></label><label><input type="radio" autocomplete="off" name="radio_ZYBESPBEGR" value=""> <span>The mean gratitude score is 1.54 units higher in the hassles group than in the gratitude group.</span></label><label><input type="radio" autocomplete="off" name="radio_ZYBESPBEGR" value=""> <span>The mean gratitude_score for people in the hassles group is -1.54.</span></label><label><input type="radio" autocomplete="off" name="radio_ZYBESPBEGR" value="answer"> <span>The mean gratitude_score is 1.54 units lower in the hassles group than in the gratitude group.</span></label>
+</div>
+</div>
+</div>
+<p><strong>But what if we have a categorical predictor with MORE THAN TWO categories? We need a test that incorporates differences between</strong> <em>all</em> <strong>the categories at once, so the tools we have so far aren’t enough.</strong></p>
+</section>
+</section>
+<section id="hypotheses-for-anova" class="level2">
+<h2 class="anchored" data-anchor-id="hypotheses-for-anova">Hypotheses for ANOVA</h2>
+<p>We want to test:</p>
+<p><span class="math display">\[H_0: \mu_{gratitude} = \mu_{events} = \mu_{hassles}\]</span></p>
+<p>In other words, our null hypothesis is that the means of <em>all groups</em> are the same. (The <span class="math inline">\(\mu\)</span>s are the true population means for each of the groups.)</p>
+<p>The alternate hypothesis is that <em>at least one pair of groups has different means</em>.</p>
+<p>How do we translate this set-up into a linear regression model? We’re considering the model in which we predict <code>gratitude_score</code> with <code>group</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>grat_by_group <span class="ot">&lt;-</span> <span class="fu">lm</span>(gratitude_score <span class="sc">~</span> group, <span class="at">data =</span> grateful)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(grat_by_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = gratitude_score ~ group, data = grateful)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-4.527 -1.208 -0.128  1.160  7.016 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      9.5317     0.2383  40.006  &lt; 2e-16 ***
+groupgratitude   1.1096     0.3369   3.293  0.00118 ** 
+grouphassles    -0.4280     0.3357  -1.275  0.20382    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.921 on 193 degrees of freedom
+Multiple R-squared:  0.1036,    Adjusted R-squared:  0.0943 
+F-statistic: 11.15 on 2 and 193 DF,  p-value: 2.612e-05</code></pre>
+</div>
+</div>
+<p>There are a few equivalent ways of setting this up (depending on which group is included in the intercept), but in R the code above will yield a model like:</p>
+<p><span class="math display">\[ y_i = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon\]</span></p>
+<p>where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are indicator variables for the <code>gratitude</code> and <code>hassles</code> groups:</p>
+<p><span class="math display">\[ x_1 = \begin{cases} 1 \text{,  if group is gratitude}\\ 0 \text{,  otherwise} \end{cases}\]</span></p>
+<p><span class="math display">\[ x_2 = \begin{cases} 1 \text{,  if group is hassles}\\ 0 \text{,  otherwise} \end{cases}\]</span></p>
+<p>In this framework, <span class="math inline">\(\beta_0\)</span> is the mean for the <code>events</code> group. <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> are the differences in means between groups (<code>gratitude</code> and <code>events</code>, and <code>hassles</code> and <code>events</code>). So our intention with this ANOVA is to test <span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span>. If this is true, then the intercept <span class="math inline">\(\beta_0\)</span> will be the overall mean <code>gratitude_score</code>.</p>
+</section>
+<section id="test-stat-for-anova-f-ratio" class="level2">
+<h2 class="anchored" data-anchor-id="test-stat-for-anova-f-ratio">Test Stat for ANOVA: F-ratio</h2>
+<p>The big challenge here is to come up with a <strong>test statistic</strong> – <em>one number</em> that measures evidence against the null hypothesis that all the group means are the same.</p>
+<p><strong>How can we define a good test statistic to measure how different</strong> <em>more than two</em> <strong>numbers are?</strong></p>
+<p>The video below will walk through the derivation of the F-ratio statistic.</p>
+<section id="part-1-what-we-need-to-measure" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-what-we-need-to-measure">Part 1: What we need to measure</h3>
+<p><em>Note: in this video, <span class="math inline">\(x\)</span> is used for the variable whose mean is being estimated; for us it would make more sense to use <span class="math inline">\(y\)</span> but I’m trusting you to make the translation…</em></p>
+<div class="quarto-video"><iframe data-external="1" src="https://www.youtube.com/embed/oM1lInZGs-g" width="400" height="300" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>(You can also <a href="https://youtu.be/oM1lInZGs-g">watch directly on YouTube</a> if you prefer.)</p>
+</section>
+<section id="part-2-how-we-measure-it" class="level3">
+<h3 class="anchored" data-anchor-id="part-2-how-we-measure-it">Part 2: How we measure it</h3>
+<p><em>Note: again in this video, <span class="math inline">\(x\)</span> is used for the variable whose mean is being estimated; for us it would make more sense to use <span class="math inline">\(y\)</span> but I’m trusting you to make the translation…</em></p>
+<div class="quarto-video"><iframe data-external="1" src="https://www.youtube.com/embed/ngh8at4ADog" width="400" height="300" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>(You can also <a href="https://youtu.be/ngh8at4ADog">watch directly on YouTube</a> if you prefer.)</p>
+</section>
+<section id="sampling-distribution-of-f-simulated" class="level3">
+<h3 class="anchored" data-anchor-id="sampling-distribution-of-f-simulated">Sampling Distribution of F, Simulated</h3>
+<p>All right, we can compute the F-ratio now. And we know that the bigger it is, the <em>stronger</em> the evidence we have <em>against</em> the idea that the categorical predictor is not associated with the response.</p>
+<p>But…how big will it be, even if there <em>is</em> no association?</p>
+<div class="webex-check webex-box">
+<div class="cell" data-layout-align="center">
+If the null hypothesis is true, what will the value of the F-ratio be?
+<div id="radio_HOOXOVPDWX" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_HOOXOVPDWX" value=""> <span>It depends…</span></label><label><input type="radio" autocomplete="off" name="radio_HOOXOVPDWX" value="answer"> <span>Close to 0</span></label><label><input type="radio" autocomplete="off" name="radio_HOOXOVPDWX" value=""> <span>Very Large</span></label><label><input type="radio" autocomplete="off" name="radio_HOOXOVPDWX" value=""> <span>Close to 1</span></label>
+</div>
+If the population group means are actually very different, with little variation within groups, what will the value of the F-ratio be?
+<div id="radio_AZZWYDTJLK" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AZZWYDTJLK" value=""> <span>It depends…</span></label><label><input type="radio" autocomplete="off" name="radio_AZZWYDTJLK" value=""> <span>Close to 0</span></label><label><input type="radio" autocomplete="off" name="radio_AZZWYDTJLK" value="answer"> <span>Very Large</span></label><label><input type="radio" autocomplete="off" name="radio_AZZWYDTJLK" value=""> <span>Close to 1</span></label>
+</div>
+</div>
+</div>
+<div class="webex-solution">
+<button>
+Click for more explanations…
+</button>
+<p>If H0 is true, then SSG will be ‘close to 0’ because the group means will be very close to the overall mean. So, MSG and the whole F-ratio will also be near 0 - but since it MSG is not exactly zero, it matters a lot what the corresponding value of MSE is…</p>
+<p>F will be close to 1 if the null is true and the sample sizes in the groups are equal. MSE and MSG will BOTH depend on the overall variance of the data. In terms of intuition about the F ratio, though, it can be more useful to think about what happens to MSG when H0 is true (it gets smaller, and so so does F…). Bigger F is more evidence against H0.</p>
+<p>If H0 is very wrong, then SSG will be relatively large because the group means will be quite different from the overall mean. And SSE will be relatively small, if there is little within-group variation. So the ratio will be (big / small) = VERY BIG, providing strong evidence against the null hypothesis and allowing us to conclude that the group means are NOT the same.</p>
+</div>
+<p>Again, we know that a <em>large</em> value of F will let us reject the null. But <em>how big is “large”?</em></p>
+<p>We need to know the sampling distribution of F (when <span class="math inline">\(H_0\)</span> is true) in order to judge.</p>
+<p>One way to get some understanding is to consider a simulation tailored to the case study we’re currently investigating. (You don’t need to be able to do this…just follow along.)</p>
+<section id="plan-of-attack-for-simulation" class="level4">
+<h4 class="anchored" data-anchor-id="plan-of-attack-for-simulation">Plan of Attack for Simulation</h4>
+<ul>
+<li>We will simulate dataset with <span class="math inline">\(n =\)</span> 196 and three groups</li>
+<li>In our simulations, <span class="math inline">\(H_0\)</span> is true, so all the groups actually have the same mean (let’s make it 10).</li>
+<li>We’ll draw simulated data points from a <span class="math inline">\(N(10,2)\)</span> distribution</li>
+<li>We will allocate them randomly to the three groups</li>
+<li>For each simulated sample, we will compute <span class="math inline">\(F\)</span></li>
+<li><strong>When we have many values of <span class="math inline">\(F\)</span> for many simulated datasets, we can plot the sampling distribution of <span class="math inline">\(F\)</span> under the null hypothesis and see what it looks like.</strong></li>
+</ul>
+</section>
+<section id="simulation-coderesults" class="level4">
+<h4 class="anchored" data-anchor-id="simulation-coderesults">Simulation Code/Results</h4>
+<p>If you are interested in details of how the simulation is coded, you’re welcome to check it out (but it’s hidden because you will not be asked to re-create something like this yourself).</p>
+<details>
+<summary>
+Show code
+</summary>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(grateful)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>F <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="at">length =</span> n_sim)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>n_sim)){</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  sim_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">gratitude_score =</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">group =</span> grateful<span class="sc">$</span>group)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  group_means <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="sc">~</span>gratitude_score <span class="sc">|</span> group, </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> sim_data)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  sim_data <span class="ot">&lt;-</span> sim_data <span class="sc">|&gt;</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">overall_mean =</span> <span class="fu">mean</span>(<span class="sc">~</span>gratitude_score, </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>                             <span class="at">data =</span> sim_data),</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">group_mean =</span> group_means[group])</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  F[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">~</span> ((group_mean <span class="sc">-</span> overall_mean)<span class="sc">^</span><span class="dv">2</span>), </span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> sim_data) <span class="sc">/</span> (<span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  ( <span class="fu">sum</span>(<span class="sc">~</span> (gratitude_score <span class="sc">-</span> group_mean)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> sim_data) <span class="sc">/</span> (<span class="fu">nrow</span>(sim_data) <span class="sc">-</span> <span class="dv">3</span>) )</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_density</span>(<span class="sc">~</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sampling-distribution-of-f-analytically" class="level3">
+<h3 class="anchored" data-anchor-id="sampling-distribution-of-f-analytically">Sampling Distribution of F, Analytically</h3>
+<ul>
+<li>It looks how we expected – bounded by 0 on the left, and right skewed.</li>
+<li>But…<em>what PDF looks like that</em>???</li>
+<li>It turns out that this is a well-known probability distribution, the F distribution. This means we could (and R definitely can) compute probabilities (aka p-values) based on it…</li>
+</ul>
+<p>You don’t need to be able to do this either, but a little graphical evidence that the simulated values match a theoretical F distribution pretty well: this is a density plot of the simulation results with the F distribution overlaid.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_density</span>(<span class="sc">~</span>F) <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_dist</span>(<span class="at">dist =</span> <span class="st">'f'</span>, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">params =</span> <span class="fu">c</span>(<span class="at">df1 =</span> <span class="dv">2</span>, <span class="at">df2 =</span> (<span class="fu">nrow</span>(grateful) <span class="sc">-</span> <span class="dv">3</span>))) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lm-interp_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>You may notice there’s a little mismatch between the simulated sampling distribution and the theoretical F distribution for very small F-values, but…where it counts, in the right tail, the match is very good. So our p-value estimates should be pretty good using this distribution (and for the record, you won’t see this issue so much with <span class="math inline">\(K &gt; 3\)</span>…)</em></p>
+</section>
+<section id="p-value" class="level3">
+<h3 class="anchored" data-anchor-id="p-value">P-value!</h3>
+<p>To get the p-value of our test, we just need to find the probability of getting an <span class="math inline">\(F\)</span> stat <em>at least as big as ours</em>, in a <span class="math inline">\(F_{2, 193}\)</span> distribution:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="fl">11.15</span>, <span class="at">df1 =</span> <span class="dv">2</span>, <span class="at">df2 =</span> <span class="dv">193</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.61536e-05</code></pre>
+</div>
+</div>
+<p>This is <em>very</em> small, so we reject <span class="math inline">\(H_0\)</span>: at least one of the pairs of groups in the study had different <code>gratitude_score</code>s.</p>
+</section>
+<section id="letting-r-do-all-the-work" class="level3">
+<h3 class="anchored" data-anchor-id="letting-r-do-all-the-work">Letting R do all the work</h3>
+<!-- *Text book reference: FAStR2 Chapter 7.3.2 - 7.3.3* -->
+<p>Of course, we won’t do all the calculations by hand each time; there’s an R function to automate it all.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table (Type II tests)
+
+Response: gratitude_score
+          Sum Sq  Df F value    Pr(&gt;F)    
+group      82.30   2  11.152 2.612e-05 ***
+Residuals 712.15 193                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>But <strong>notice</strong> – all the quantities that we used in our derivation of the F-statistic are <em>right there in the ANOVA output table</em>! (The numeric values also all match with the ones we’ve previously computed by hand.)</p>
+<ul>
+<li>The “group” row gives the SSG and its df (and the F stat and p-value)</li>
+<li>The “Residuals” row gives the SSE and its df. (<em>Residuals</em> is another statistical term for <em>errors</em>.)</li>
+<li>The “Sum Sq” column corresponds to “SS” terms (“MS” terms are not in the table, but can be computed from SSX and df from the table)</li>
+<li>The “F value” is the F-ratio (test statistic)</li>
+<li>The “Pr(&gt;F)” is the p-value of the test</li>
+</ul>
+<p>(A classic intro-stat textbook ANOVA problem is to give you a partially-filled-in ANOVA results table, and ask you to fill in the missing values.)</p>
+</section>
+</section>
+<section id="devotion-break" class="level2">
+<h2 class="anchored" data-anchor-id="devotion-break">Devotion Break</h2>
+<p>Colossians 3:12-17 reminds us:</p>
+<p><em>Therefore, as God’s chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience. Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you. And over all these virtues put on love, which binds them all together in perfect unity.</em></p>
+<p><em>Let the peace of Christ rule in your hearts, since as members of one body you were called to peace. And be thankful. Let the message of Christ dwell among you richly as you teach and admonish one another with all wisdom through psalms, hymns, and songs from the Spirit, singing to God with gratitude in your hearts. And whatever you do, whether in word or deed, do it all in the name of the Lord Jesus, giving thanks to God the Father through him.</em></p>
+<p>We <em>do know</em> that God expects our gratitude of us. The Heidelberg catechism is pretty clear on this requirement too (from Lord’s Day 45):</p>
+<p><strong>116. Why is prayer necessary for Christians?</strong></p>
+<p><em>Because it is the chief part of thankfulness which God requires of us (Psalm 50:14-15), and because God will give His grace and Holy Spirit only to those who earnestly and without ceasing ask them of Him, and render thanks unto Him for them (Matthew 7:7–8; Luke 11:9–10, 13; Matthew 13:12; Ephesians 6:18).</em></p>
+<p>But this can all begin to feel burdensome, being told repeatedly that we <em>should</em> be thankful. It seems so unlikely to be fruitful. Being forced to be grateful – what possible good could that do?</p>
+<p>Of course, we can consider that question theologically and get profound answers.</p>
+<p>But <em>data tells us too</em>. What happened to the students in the study? <em>Someone forced them to be grateful.</em> And actually, it did them a kind of startling amount of good. How wonderful, that what is <em>required</em> of us is so <em>good</em> for us.</p>
+<!-- ## *(opt)* ANOVA for Regression -->
+<!-- We can, if we wish, use ANOVA to measure the *model utility* of a simple linear regression with one quantitative predictor. *Model utility* means, basically, whether the model is any good -- is it better to include the predictor than to stick with a simple intercept-only model?  In the simple (one-predictor) linear regression case, the model utility test is basically the same as testing $H_0: \beta_1 = 0$. -->
+<!-- Before we examine the details, let's just try it and see what happens. As our example, we'll try to model `gratitude_score` as a function of `life_rating`, like we did at the beginning of the section. -->
+<!-- ```{r, echo = TRUE} -->
+<!-- Anova(lm(gratitude_score ~ life_rating, data = grateful)) -->
+<!-- ``` -->
+<!-- Comparing to our previous results with a t-test of $H_0: \beta_1 = 0$: -->
+<!-- ```{r, echo = TRUE} -->
+<!-- summary(lm(gratitude_score ~ life_rating, data = grateful)) -->
+<!-- ``` -->
+<!-- **We notice that the p-values for the ANOVA and the t-test are identical.** -->
+<!--   Clued in by the matching p-values, we can also note that the t-test statistic (2.9318) is related to the ANOVA F statistic (8.5956): $F = t^2$. -->
+<!-- ### Cool. But, does it make sense? -->
+<!-- So, the two tests are equivalent. But can we actually conceptualize the ANOVA with a quantitative predictor, analogous to the way we did for the case of the categorical predictor? Sure! -->
+<!-- Here, we usually change notation a little - instead of talking about SSG and MSG we use SSM and MSM (Sum of Squares for the **Model** and Mean Squares for the **Model**, since there's now a regression line instead of a set of group means). -->
+<!-- Otherwise, the approach is exactly the same, but still worth walking through: -->
+<!--   ![](https://www.youtube.com/watch?v=WWqE7YHR4Jc){ width=400px } -->
+<!-- (You can also [watch directly on YouTube](https://www.youtube.com/watch?v=WWqE7YHR4Jc) if you prefer.) -->
+</section>
+<section id="anova-for-multiple-regression" class="level2">
+<h2 class="anchored" data-anchor-id="anova-for-multiple-regression">ANOVA for Multiple Regression</h2>
+<!-- *Text book reference: FAStR2 Chapter 7.1.5* -->
+<p>We can also use ANOVA for multiple linear regression models (with several predictors, perhaps a mix of categorical and quantitative ones); now, there is a variety of hypotheses we might want to test.</p>
+<p>Most often, we want to test whether a larger model (with a certain predictor of interest <em>in</em>) is preferable to the smaller one <em>without it</em>.</p>
+<section id="practical-examples-of-anova-for-regression" class="level3">
+<h3 class="anchored" data-anchor-id="practical-examples-of-anova-for-regression">Practical Examples of ANOVA for Regression</h3>
+<section id="removing-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="removing-parameters">Removing Parameter(s)</h4>
+<p>To carry out ANOVA to determine whether to remove/retain parameters in a multi-predictor regression, we can use <code>car::Anova()</code>.</p>
+<p>This function carries out so-called “Type II” ANOVA tests. A p-value will be reported for each parameter in the model, testing the null hypothesis that <em>that</em> parameter is 0. In other words, it compares a larger model (with a certain predictor of interest <em>in</em>) is preferable to the smaller one <em>without it</em>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> life_rating <span class="sc">+</span> group, <span class="at">data =</span> grateful))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table (Type II tests)
+
+Response: gratitude_score
+            Sum Sq  Df F value    Pr(&gt;F)    
+life_rating  21.83   1  6.0722   0.01461 *  
+group        70.42   2  9.7933 8.913e-05 ***
+Residuals   690.32 192                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Based on this we can conclude that adding <code>life_rating</code> to a model with intercept and <code>group</code> is worthwhile (p-value 0.015); that is, we have moderate evidence there really is an association between <code>life_rating</code> and <code>gratitude_score</code>. And adding <code>group</code> to a model with intercept and <code>life_rating</code> is also worthwhile (p-value 0.000089) (this time we have very, very strong evidence of an association).</p>
+</section>
+<section id="r-note-anova-not-anova" class="level4">
+<h4 class="anchored" data-anchor-id="r-note-anova-not-anova">R Note: <code>Anova()</code>, not <code>anova()</code>!</h4>
+<p>Be careful not to use <code>anova()</code> to carry out tests related to removing parameters from a regression model.</p>
+<p><code>anova()</code> does “sequential” tests; for example, if you fit a model <code>y ~ pred1 + pred2 + pred3</code>, for <code>pred1</code> <code>anova()</code> will compare the intercept-only model to the one with <code>pred1</code> in it, but for <code>pred2</code> it will compare the model with <code>pred1</code> and <code>pred2</code> in it to the one with only <code>pred2</code>, and for <code>pred3</code> it will compare the model with all three predictors to the one without <code>pred3</code>. ACK!</p>
+<p>In other words, with <code>anova()</code>, the order in which predictors are listed greatly affects the hypotheses tested, and the test results. <em>THIS IS (ALMOST ALWAYS) NONSENSE.</em> You want <code>Anova()</code> which is in the package <code>car</code>.</p>
+</section>
+<section id="model-comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="model-comparisons">Model Comparisons</h4>
+<p>In other cases, if we want to compare two particular models with <em>the same response variable</em> but different predictors, we can just <em>fit them both</em> and then compare them with the syntax below.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model1, model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>(Yes, little-a <code>anova()</code> is what you want this time.)</p>
+<p>Why might we want to do this? Maybe, for example, you have two different predictors that measure a similar quantity in different ways and you want to know which one works better as a predictor?</p>
+<p>This <code>anova(model1, model2)</code> approach also works for any of the above cases (removing parameters), if you manually fit the two models.</p>
+<!-- For example, what if we use this method to check whether a model with `life_rating` and `group` is preferable to one with just `group`? Give it a try... -->
+<!-- ```{r practice-anova, exercise = TRUE} -->
+<!-- ``` -->
+<!-- ```{r practice-anova-hint-1} -->
+<!-- Omega <- lm(gratitude_score ~ life_rating + group, data = grateful) -->
+<!-- ``` -->
+<!-- ```{r practice-anova-hint-2} -->
+<!-- Omega <- lm(gratitude_score ~ life_rating + group, data = grateful) -->
+<!-- omega <- lm(gratitude_score ~ group, data = grateful) -->
+<!-- ``` -->
+<!-- ```{r practice-anova-hint-3} -->
+<!-- Omega <- lm(gratitude_score ~ life_rating + group, data = grateful) -->
+<!-- omega <- lm(gratitude_score ~ group, data = grateful) -->
+<!-- anova(Omega, omega) -->
+<!-- ``` -->
+<!-- Note that we end up with the same result that we got before using `Anova()`. -->
+</section>
+</section>
+</section>
+<section id="another-angle-r2" class="level2">
+<h2 class="anchored" data-anchor-id="another-angle-r2">Another angle: <span class="math inline">\(R^2\)</span></h2>
+<p>This isn’t <em>officially</em> model selection, but there’s another common measure of how well a model fits a dataset that we haven’t talked about yet.</p>
+<p>This metric doesn’t generalize especially well beyond linear models, so we won’t use it in <em>too</em> many later course sections, but it is very commonly used out there in the world so we should recognize and be able to interpret it.</p>
+<p>So here we go! Let’s talk about <span class="math inline">\(R^2\)</span>, which measures the proportion variance explained by a model.</p>
+<p>One way of measuring how closely a model fits a dataset is to try to measure how big the residuals are: how close do model predictions get to the dataset?</p>
+<p>One statistic you may have encountered in the past to try to quantify this difference is the correlation coefficient, <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[ r = \frac{1}{(n-1)} \sum_{i=1}^n \bigg{(}  \frac{(x_i - \bar{x})}{s_x} \cdot \frac{(y_i - \bar{y})}{s_y} \bigg{)}\]</span></p>
+<p>The above mathematical expression is pretty opaque to many, but the idea that <span class="math inline">\(r\)</span> closer to 0 means nearly no association between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and closer to 1 (or -1) corresponds to data that will plot in nearly a straight line. If you want some practice, check out <a href="https://www.guessthecorrelation.com/" class="uri">https://www.guessthecorrelation.com/</a>.</p>
+<p>With some algebra, it is possible to demonstrate that the <em>square</em> of this correlation coefficient, <span class="math inline">\(r^2\)</span>, is:</p>
+<p><span class="math display">\[ r^2 = \frac{SSM}{(SSM + SSE)} = \frac{SSM}{SST}\]</span></p>
+<p>Where <span class="math inline">\(SSM\)</span> is the sum of squares for the model (variation explained by the model); <span class="math inline">\(SSE\)</span> is the residual sum of squares (variation not explained by the model); and <span class="math inline">\(SST\)</span> is the total variation of the response. (<em>Note that some authors and software use <span class="math inline">\(R^2\)</span> and some <span class="math inline">\(r^2\)</span> but it’s the same quantity in both cases.</em>)</p>
+<p>In other words, <strong><span class="math inline">\(r^2\)</span> gives the proportion of the total variance in the response that is explained by a model</strong>.</p>
+<p><em>The rationale above is explained for the case of one quantitative predictor and a quantitative response, but it generalizes directly to multiple predictors that are either categorical or quantitative.</em></p>
+<section id="bigger-is-better" class="level3">
+<h3 class="anchored" data-anchor-id="bigger-is-better">Bigger is Better</h3>
+<p>Clearly, larger values of <span class="math inline">\(r^2\)</span> (closer to the upper bound of 1) indicate a closer match between the data and a model.</p>
+<p>And the <span class="math inline">\(r^2\)</span> values are, pleasantly, on an <em>absolute</em> rather than a relative scale; so it would seem that we can compare them across models and datasets to get a sense of how “good” a model is.</p>
+<p>Unfortunately, it’s not that simple. Basically, it’s because explaining a set proportion of the response variance is <em>harder</em> in some scenarios than others.<br>
+Measuring some physical quantity in a controlled physics lab experiment? If your <span class="math inline">\(r^2\)</span> isn’t huge, it means you messed up. Measuring a score indicating subjective happiness in people? An <span class="math inline">\(r^2\)</span> of 0.1 might be a cause to rejoice.</p>
+<p>I recommend reporting and thinking about <span class="math inline">\(r^2\)</span> values strictly in terms of the proportion of variance explained, rather than using them to decide a model is “good” or “bad” based on some universal <span class="math inline">\(r^2\)</span> threshold value.</p>
+</section>
+<section id="adjusted-r2" class="level3">
+<h3 class="anchored" data-anchor-id="adjusted-r2">Adjusted <span class="math inline">\(r^2\)</span></h3>
+<!-- *Text book reference: FAStR2 Chapter 7.2.1* -->
+<p>When predictors are <em>added</em> to a regression model, its residuals can either get smaller, or stay the same. They won’t get larger.</p>
+<p>Therefore, adding more predictors to a regression (even if they aren’t particularly good ones) tends to increase <span class="math inline">\(r^2\)</span> by a small amount.</p>
+<p>This makes <span class="math inline">\(r^2\)</span> a dubious candidate for model comparison – it’s clearly biased to select models with more predictors as “better” (higher <span class="math inline">\(r^2\)</span>).</p>
+<p>One option is to adjust the formula for computing <span class="math inline">\(r^2\)</span> to correct for this phenomenon.</p>
+<p>Recall, we said that <span class="math inline">\(r^2 = \frac{SSM}{SST}\)</span>, with <span class="math inline">\(SST = SSM + SSE\)</span>. So we can rearrange:</p>
+<p><span class="math display">\[ r^2 = \frac{SSM}{(SSM + SSE)} =  \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST} = 1 - \frac{SSE/n}{SST/n}\]</span></p>
+<p>In the last expression, if we substitute the appropriate degrees of freedom <span class="math inline">\((n - k - 1)\)</span> (on the top) and <span class="math inline">\((n - 1)\)</span> (on the bottom), we get the “adjusted” <span class="math inline">\(r^2\)</span>,</p>
+<p><span class="math display">\[r^2_{adj}  = 1 - \frac{SSE/(n - k - 1)}{SST/(n - 1)} = 1 - \frac{MSE}{MST}\]</span></p>
+<p>This value is a little bit less straightforward to interpret than the original, but does have the desirable property of not automatically growing larger when more predictors are added to a model.</p>
+<p>Specifically, <span class="math inline">\(r^2_{adj}\)</span> will increase if a predictor is added to a linear regression model, and it improves the fit <em>more</em> than the expected improvement obtained by adding a random predictor that is independent of the response variable.</p>
+</section>
+<section id="computing-r2-values" class="level3">
+<h3 class="anchored" data-anchor-id="computing-r2-values">Computing <span class="math inline">\(r^2\)</span> values</h3>
+<p>R’s model <code>summary()</code> returns both the “regular” and adjusted <span class="math inline">\(r^2\)</span> values, labelled <code>Multiple R-squared</code> and <code>Adjusted R-squared</code> on the second-to-last line of the <code>summary()</code> output.</p>
+<ul>
+<li>Try adding one or more variables from the <code>grateful</code> dataset to a model predicting <code>gratitude_score</code> as a function of <code>group</code>.</li>
+<li>How do <span class="math inline">\(r^2\)</span> and adjusted <span class="math inline">\(r^2\)</span> change…
+<ul>
+<li>If you add a predictor that is “good” according to ANOVA?</li>
+<li>If you add one that is <em>not</em> “good” according to ANOVA?</li>
+</ul></li>
+</ul>
+<div class="cell" data-layout-align="center" data-exercise="grateful-r">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJjb2RlIjoiXG5zdW1tYXJ5KGxtKGdyYXRpdHVkZV9zY29yZSB+IGdyb3VwLCBkYXRhID0gZ3JhdGVmdWwpKSIsImF0dHIiOnsiZXhlcmNpc2UiOiJncmF0ZWZ1bC1yIiwiZXZhbCI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiYXV0b3J1biI6ZmFsc2V9fQ==
+</script>
+</div>
+</div>
+<div class="hint webr-ojs-exercise exercise-hint d-none" data-exercise="grateful-r">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hints…
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> group, <span class="at">data =</span> grateful))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># add a good predictor: both r^2 go up</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> group <span class="sc">+</span> life_rating, <span class="at">data =</span> grateful))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># add a bad predictor: only un-adjusted r^2 goes up</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> group <span class="sc">+</span> life_rating <span class="sc">+</span> exercise_hours, <span class="at">data =</span> grateful))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-r2" class="level3">
+<h3 class="anchored" data-anchor-id="using-r2">Using <span class="math inline">\(r^2\)</span></h3>
+<p>We could envision using <span class="math inline">\(r^2\)</span> as a criterion for model selection, preferring models with higher values.</p>
+<p>In practice, this is seldom done; instead, other criteria are preferred (often p-values, information criteria (defined next), or predictive performance). Then, the <span class="math inline">\(r^2\)</span> (probably adjusted) value is reported as an additional piece of information quantifying the model’s goodness-of-fit.</p>
+<p>So, if we don’t use <span class="math inline">\(r^2\)</span> to choose the best from a set of models, what <em>do</em> we use?</p>
+</section>
+</section>
+<section id="opt-information-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="opt-information-entropy"><em>(opt)</em> Information Entropy</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://spectrum.ieee.org/media-library/photo-stanley-rowin.jpg?id=25580552&amp;width=2400&amp;height=1800" class="img-fluid figure-img" width="450"></p>
+<figcaption>Claude Shannon</figcaption>
+</figure>
+</div>
+<p>In an <a href="http://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf">an incredibly influential 1948 paper</a>, Claude Shannon laid out the foundations of Information Theory, a mathematical way of thinking about information and communication, signal and noise.</p>
+<p>The <strong>totally optional</strong> video below gives a 7-minute crash course on Shannon’s concept of Information Entropy:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2s3aJfRr9gE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+</section>
+<section id="akaikes-information-criterion" class="level2">
+<h2 class="anchored" data-anchor-id="akaikes-information-criterion">Akaike’s Information Criterion</h2>
+<p>Information theory has influenced many fields, including statistics. In 1974, Japanese statistician Hirotugu Akaike</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Akaike.jpg/330px-Akaike.jpg" class="img-fluid"></p>
+<p>used information theory to <a href="http://bayes.acs.unt.edu:8083/BayesContent/class/Jon/MiscDocs/Akaike_1974.pdf">derive a new criterion, now known as Akaike’s Information Criterion (AIC),</a> to allow comparison of a set of statistical models fitted to a dataset.</p>
+<p>The basic idea is to quantify <em>information loss</em>. Imagine that data is generated by process <span class="math inline">\(f\)</span>. We propose several models (<span class="math inline">\(g_1\)</span>, <span class="math inline">\(g_2\)</span>, <span class="math inline">\(g_3\)</span>) to represent the data-generating process <span class="math inline">\(f\)</span>. AIC measures the relative amount of information <em>lost</em> by approximating <span class="math inline">\(f\)</span> with <span class="math inline">\(g_1\)</span> or <span class="math inline">\(g_2\)</span> or <span class="math inline">\(g_3\)</span> (etc.). AIC provides a <em>relative</em> measure of information loss, not an absolute one (since <span class="math inline">\(f\)</span> is not known); but a <em>smaller</em> AIC corresponds to <em>less</em> information loss by a given model.</p>
+<p><em>Akaike’s paper (linked above) should be accessible to you if you are interested in the details, although you won’t be held responsible for its content.</em></p>
+<section id="pause-for-reflection" class="level3">
+<h3 class="anchored" data-anchor-id="pause-for-reflection">Pause for Reflection</h3>
+<p>If you have time, check out Hirotugu Akaike’s musings in 2006, on the occasion of receiving the 2006 Kyoto Prize in Basic Sciences.</p>
+<iframe width="483" height="362" src="https://www.youtube.com/embed/R28zmilcqnk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+</section>
+</section>
+<section id="aic-definition" class="level2">
+<h2 class="anchored" data-anchor-id="aic-definition">AIC Definition</h2>
+<p>AIC is defined as:</p>
+<p><span class="math display">\[ \text{AIC} = 2k - 2(\hat{\ell})\]</span></p>
+<p>Where <span class="math inline">\(k\)</span> is the size of the model (number of parameters being estimated), and <span class="math inline">\(\hat{\ell}\)</span> is the maximum value of the (base <span class="math inline">\(e\)</span>) log-likelihood fuction.</p>
+<ul>
+<li>The first term, <span class="math inline">\(2k\)</span>, <em>inflates</em> the AIC value, causing <em>larger</em> models to have <em>worse</em> AIC values. This is often thought of as a “penalty” on model size.</li>
+<li>The second term, <span class="math inline">\(-2\hat{\ell}\)</span>, means that (better-fitting) models with higher log-likelihoods have better AIC values.</li>
+</ul>
+<p><em>The direct connection between this and Shannon’s information theory is subtle, and is left to the exploration of the curious student who wants to read both of their papers…</em></p>
+<p>This definition of AIC can be used for <em>any</em> statistical model fitted via maximum-likelihood estimation - a class of models <em>much</em> larger than just regression models, of course!</p>
+<p>R functions <code>AIC()</code> and <code>extractAIC()</code> compute the AIC for fitted <code>lm()</code> models. (Note that they don’t agree on absolute AIC scores, since they include/exclude different constants in their calculations; but as long as you use the same R function on all models you wish to compare, it’s fine, since AIC is only a relative value anyway.)</p>
+</section>
+<section id="aic-practice" class="level2">
+<h2 class="anchored" data-anchor-id="aic-practice">AIC Practice</h2>
+<p>We can use AIC to choose the “best” of a pair (or a larger group) of models.</p>
+<p>For example, last week we used ANOVA to decide whether <code>group</code> (“gratitude”, “hassles”, and “events”) is a good predictor of <code>gratitude</code> score:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table (Type II tests)
+
+Response: gratitude_score
+          Sum Sq  Df F value    Pr(&gt;F)    
+group      82.30   2  11.152 2.612e-05 ***
+Residuals 712.15 193                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>We can make the same comparison with AIC.</p>
+<p>First, we find the AIC for the full model with the <code>group</code> predictor:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 817.0972</code></pre>
+</div>
+</div>
+<p>Hmmm…this number means <strong>nothing</strong> in isolation. The only way to get meaning from it is to compare it to the AIC for <em>another model</em> fitted to the <em>same exact dataset</em> and see which is better (smaller).</p>
+<p>Do the rest of the comparison: what is the AIC of the intercept-only model, and which model is better according to AIC?</p>
+<div class="cell" data-layout-align="center" data-exercise="grateful-AIC">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJjb2RlIjoiIiwiYXR0ciI6eyJleGVyY2lzZSI6ImdyYXRlZnVsLUFJQyIsImV2YWwiOnRydWUsImVkaXQiOnRydWUsImF1dG9ydW4iOmZhbHNlfX0=
+</script>
+</div>
+</div>
+<div class="hint webr-ojs-exercise exercise-hint d-none" data-exercise="grateful-r">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hints…
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Note: working on your own dataset in a qmd file, you’d probably fit each model, give the fitted model object a name, and then use <code>AIC(model_name)</code>…</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> grateful))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> group, <span class="at">data =</span> grateful))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> grateful)) <span class="sc">-</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(<span class="fu">lm</span>(gratitude_score <span class="sc">~</span> group, <span class="at">data =</span> grateful))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="webex-check webex-box">
+<div class="cell" data-layout-align="center">
+What is the difference in AIC between the two gratitude models you just fitted?
+<div id="radio_XEACJDFTRU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_XEACJDFTRU" value="answer"> <span>17.4; the model with the group predictor has lower AIC.</span></label><label><input type="radio" autocomplete="off" name="radio_XEACJDFTRU" value=""> <span>834.5; the model with the group predictor has lower AIC.</span></label><label><input type="radio" autocomplete="off" name="radio_XEACJDFTRU" value=""> <span>17.4; the intercept-only model has lower AIC</span></label><label><input type="radio" autocomplete="off" name="radio_XEACJDFTRU" value=""> <span>The AIC values for the two models are about the same</span></label>
+</div>
+Which model is better, according to AIC?
+<div id="radio_VXPZCPSXAW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VXPZCPSXAW" value=""> <span>They are both about the same</span></label><label><input type="radio" autocomplete="off" name="radio_VXPZCPSXAW" value=""> <span>Intercept-only model</span></label><label><input type="radio" autocomplete="off" name="radio_VXPZCPSXAW" value="answer"> <span>Model with group predictor</span></label>
+</div>
+</div>
+</div>
+<p><em>Remember – smaller AIC is better!</em></p>
+</section>
+<section id="ic-how-big-a-difference" class="level2">
+<h2 class="anchored" data-anchor-id="ic-how-big-a-difference">IC, How big a difference?</h2>
+<p>Strictly and simply using AIC, we can say that a model with <em>lower</em> AIC is <em>better</em> (regardless of how small the difference between the AIC values is).</p>
+<p>In practice, if using AIC to choose between two models, analysts often require some minimal AIC improvement to justify <em>adding</em> an additional parameter/predictor to a model. (Common thresholds are 2, 3, or maybe 6). So, one might not prefer a larger model unless it reduces AIC by <em>at least 2-3 units</em>.</p>
+<p>So, if we are comparing two models (say, with and without a key predictor of interest), if the model <em>with</em> the predictor is better by well over 2-3 AIC units, we consider that strong evidence of an association between that predictor and the response.</p>
+<p>For a <strong>lot</strong> more excellent information about practical use of AIC, the interested reader can check out the classic book by Burnham and Anderson:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348034206i/623279._UY400_SS400_.jpg" class="img-fluid figure-img"></p>
+<figcaption><a href="https://www.springer.com/gp/book/9780387953649"></a></figcaption>
+</figure>
+</div>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC40LjIvIn0sInBhY2thZ2VzIjp7InJlcG9zIjpbXSwicGtncyI6WyJldmFsdWF0ZSIsImtuaXRyIiwiaHRtbHRvb2xzIiwiZHBseXIiLCJ0aWR5ciIsInJlYWRyIiwic3RyaW5nciIsImdncGxvdDIiLCJnZ2Zvcm11bGEiLCJtb3NhaWMiLCJnZ2ZvcmNlIiwid29yZGNsb3VkIiwiUkNvbG9yQnJld2VyIiwiY2FyIl19LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV84O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC04In0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTgtY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV84ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl84LCB7fSk7XG5fd2Vicl9mZWVkYmFja184ID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV84LmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiIsImNlbGxOYW1lIjoid2Vici04In0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4iLCJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTcifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzcgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItNy1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzcgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzcuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLTcifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiIsImNlbGxOYW1lIjoid2Vici13aWRnZXQtNiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNiA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici02LWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNiwge30pO1xuX3dlYnJfZmVlZGJhY2tfNiA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfNi5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4iLCJjZWxsTmFtZSI6IndlYnItNiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV81O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC01In0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTUtY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV81ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl81LCB7fSk7XG5fd2Vicl9mZWVkYmFja181ID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV81LmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiIsImNlbGxOYW1lIjoid2Vici01In0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4iLCJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzQgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItNC1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzQgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzQuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLTQifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMztcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiIsImNlbGxOYW1lIjoid2Vici13aWRnZXQtMyJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici0zLWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMywge30pO1xuX3dlYnJfZmVlZGJhY2tfMyA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfMy5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4iLCJjZWxsTmFtZSI6IndlYnItMyJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8yO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTItY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV8yID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8yLCB7fSk7XG5fd2Vicl9mZWVkYmFja18yID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV8yLmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiIsImNlbGxOYW1lIjoid2Vici0yIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gVXNlIFBvc3RNZXNzYWdlIGNoYW5uZWwgZm9yIGFzeW5jIGNvbW11bmljYXRpb25cbiAgLy8gV2UgZG8gbm90IGV4cGVjdCB0byB0YWtlIG5lc3RlZCBwcm9tcHQgaW5wdXQgaW4gUXVhcnRvIExpdmUgY2VsbHNcbiAgZGF0YS5vcHRpb25zLmNoYW5uZWxUeXBlID0gQ2hhbm5lbFR5cGUuUG9zdE1lc3NhZ2U7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICB0cnkge1xuICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICBpZiAoIWUubWVzc2FnZS5pbmNsdWRlcyhcIkZTIGVycm9yXCIpKSB7XG4gICAgICAgICAgICB0aHJvdyBlO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIiwiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUifV19
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhL2hlaWdodHMuZHRhIiwiZGF0YS9ncmF0aXR1ZGUtZXhwZXJpbWVudC5jc3YiLCJkYXRhL01hbW1hbE1ldGFib2xpY1JhdGVzLmNzdiIsImRhdGEvZWxlcGhhbnRTdXJ2ZXkuY3N2IiwiZGF0YS91bml2ZXJzaXR5X3RlYWNoZXJzLmNzdiIsImRhdGEvSGFEaXZlUGFyYW1ldGVycy5jc3YiLCJkYXRhL0ZsaW50V2F0ZXJUZXN0SmFuTWFyMjAxNi5jc3YiLCJkYXRhL2dhcG1pbmRlcl9jbGVhbi5jc3YiLCJkYXRhL2Jvbm9ib19mYWNlcy5jc3YiXQ==
+</script>
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../quarto";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../quarto/lm-assess.html" class="pagination-link" aria-label="Model Assessment">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Model Assessment</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/lm-interp.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
