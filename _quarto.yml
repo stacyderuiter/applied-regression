@@ -13,6 +13,8 @@ website:
       - href: index.qmd
       - section: R Basics
         contents:
+          - href: quarto/install-r.qmd
+            text: "Install R/RStudio"
           - href: quarto/r-basics.qmd
             text: "R Basics"
           - href: quarto/how-to-quarto.qmd
