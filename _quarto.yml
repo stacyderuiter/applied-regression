@@ -39,6 +39,8 @@ website:
             text: "Model Assessment"
           - href: quarto/lm-interp.qmd
             text: "Interpretation and Inference"
+          - href: quarto/lm-interp-more.qmd
+            text: "More Inference"
   navbar:
     search: true
     left:

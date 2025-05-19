@@ -1,6 +1,6 @@
 ---
 title: "Applied Regression in R"
-author: "Stacy DeRuiter, Calvin University"
+author: ""
 format: live-html
 engine: "knitr"
 toc: true
@@ -8,11 +8,17 @@ toc: true
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
-This site contains materials developed for statistics courses at Calvin University.
+This site provides tutorials and reference guides introducing:
 
-It contains tutorials and reference guides for using R/RStudio for reproducible research with Quarto, data visualization with `ggformula`, and applied regression using packages including `glmmTMB`, `ggeffects`, `mgcv`, and `DHARMa`.
+-    using R/RStudio for reproducible research with Quarto,
 
-Throughout the website, we will include many code examples. These code examples are live. You can edit the code and re-run it to see how things change.
+-   data visualization with `ggformula` (`ggplot`?)
+
+-   linear regression models
+
+Throughout the website, you'll find "webr" code blocks like below.
+
+These code examples are live. You can edit the code and run it to practice and experiment.
 
 ::: {your-turn}
 Give it a try. Run the code below to calculate `1 + 1`. Then see if you can get R to compute the product 3 \* 5 in the code block below.

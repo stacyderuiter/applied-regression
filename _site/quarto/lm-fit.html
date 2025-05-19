@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Stacy DeRuiter">
-<meta name="dcterms.date" content="2025-02-17">
+<meta name="dcterms.date" content="2025-05-19">
 
 <title>Fitting Linear Models in R – Applied Regression with R</title>
 <style>
@@ -66,17 +66,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../quarto/lm-assess.qmd" rel="next">
+<link href="../quarto/lm-assess.html" rel="next">
 <link href="../quarto/lm-plan.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-868b9742d7bde9f1698ef1c41a43f714.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -283,14 +283,20 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto/lm-assess.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../quarto/lm-assess.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model Assessment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto/lm-interp.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../quarto/lm-interp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interpretation and Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/lm-interp-more.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">More Inference</span></a>
   </div>
 </li>
       </ul>
@@ -313,24 +319,12 @@ window.Quarto = {
   </ul></li>
   <li><a href="#simple-linear-regression-equation" id="toc-simple-linear-regression-equation" class="nav-link" data-scroll-target="#simple-linear-regression-equation">Simple Linear Regression Equation</a></li>
   <li><a href="#multiple-predictors" id="toc-multiple-predictors" class="nav-link" data-scroll-target="#multiple-predictors">Multiple Predictors</a></li>
-  <li><a href="#matrix-formulation" id="toc-matrix-formulation" class="nav-link" data-scroll-target="#matrix-formulation">Matrix Formulation</a>
-  <ul class="collapse">
-  <li><a href="#a-problem" id="toc-a-problem" class="nav-link" data-scroll-target="#a-problem">A problem</a></li>
-  <li><a href="#a-solution" id="toc-a-solution" class="nav-link" data-scroll-target="#a-solution">A solution</a></li>
-  <li><a href="#comprehension-check-model-matrix-size" id="toc-comprehension-check-model-matrix-size" class="nav-link" data-scroll-target="#comprehension-check-model-matrix-size">Comprehension Check: Model Matrix Size</a></li>
-  </ul></li>
   <li><a href="#toy-dataset-pigeons" id="toc-toy-dataset-pigeons" class="nav-link" data-scroll-target="#toy-dataset-pigeons">Toy Dataset: Pigeons</a></li>
   <li><a href="#fitting-a-normal-distribution" id="toc-fitting-a-normal-distribution" class="nav-link" data-scroll-target="#fitting-a-normal-distribution">Fitting a normal distribution</a>
   <ul class="collapse">
   <li><a href="#a-no-predictor-model" id="toc-a-no-predictor-model" class="nav-link" data-scroll-target="#a-no-predictor-model">A no-predictor model</a></li>
   </ul></li>
   <li><a href="#one-predictor" id="toc-one-predictor" class="nav-link" data-scroll-target="#one-predictor">One Predictor</a></li>
-  <li><a href="#categorical-predictors-2-categories" id="toc-categorical-predictors-2-categories" class="nav-link" data-scroll-target="#categorical-predictors-2-categories">Categorical Predictors (2 categories)</a>
-  <ul class="collapse">
-  <li><a href="#another-hint" id="toc-another-hint" class="nav-link" data-scroll-target="#another-hint">Another hint</a></li>
-  <li><a href="#the-solution" id="toc-the-solution" class="nav-link" data-scroll-target="#the-solution">The solution</a></li>
-  </ul></li>
-  <li><a href="#categorical-predictors-with-more-categories" id="toc-categorical-predictors-with-more-categories" class="nav-link" data-scroll-target="#categorical-predictors-with-more-categories">Categorical Predictors with More Categories</a></li>
   <li><a href="#finding-the-betas" id="toc-finding-the-betas" class="nav-link" data-scroll-target="#finding-the-betas">Finding the Betas</a></li>
   <li><a href="#least-squares-visually" id="toc-least-squares-visually" class="nav-link" data-scroll-target="#least-squares-visually">Least Squares (visually)</a></li>
   <li><a href="#least-squares-practically" id="toc-least-squares-practically" class="nav-link" data-scroll-target="#least-squares-practically">Least Squares (practically)</a></li>
@@ -348,7 +342,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#an-example-model" id="toc-an-example-model" class="nav-link" data-scroll-target="#an-example-model">An example model</a></li>
   </ul></li>
-  <li><a href="#another-categorical-example" id="toc-another-categorical-example" class="nav-link" data-scroll-target="#another-categorical-example">Another Categorical Example</a></li>
   <li><a href="#linear-regression-conditions" id="toc-linear-regression-conditions" class="nav-link" data-scroll-target="#linear-regression-conditions">Linear Regression Conditions</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/stacyderuiter/applied-regression/edit/main/quarto/lm-fit.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/stacyderuiter/applied-regression/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -375,7 +368,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 17, 2025</p>
+      <p class="date">May 19, 2025</p>
     </div>
   </div>
   
@@ -389,7 +382,7 @@ window.Quarto = {
 
 <div class="cell" data-layout-align="center" data-setup="true" data-exercise="nerd-lm">
 <script type="exercise-setup-nerd-lm-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlLCJlY2hvIjpmYWxzZSwiaW5jbHVkZSI6ZmFsc2UsImV4ZXJjaXNlIjpbIm5lcmQtbG0iXSwiZWRpdCI6ZmFsc2UsInNldHVwIjp0cnVlfSwiY29kZSI6IlxuXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbk1JX2xlYWQgPC0gcmVhZC5jc3YoZmlsZT0naHR0cHM6Ly9zbGRyLm5ldGxpZnkuYXBwL2RhdGEvTUlfbGVhZC5jc3YnKVxuXG5cbnNldC5zZWVkKDE0KVxuYm9ub2JvcyA8LSByZWFkLmNzdignaHR0cHM6Ly9zbGRyLm5ldGxpZnkuYXBwL2RhdGEvYm9ub2JvX2ZhY2VzLmNzdicpIHw+XG4gIG5hLm9taXQoKSBcbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdodHRwczovL3NsZHIubmV0bGlmeS5hcHAvZGF0YS9ncmF0aXR1ZGUtZXhwZXJpbWVudC5jc3YnKSBcblxuZWxlcGhhbnRfc3VydmV5IDwtIHJlYWQuY3N2KCdkYXRhL2VsZXBoYW50U3VydmV5LmNzdicpXG5nYXBtaW5kZXJfY2xlYW4gPC0gcmVhZC5jc3YoJ2RhdGEvZ2FwbWluZGVyX2NsZWFuLmNzdicpXG5IYURpdmVQYXJhbWV0ZXJzIDwtIHJlYWQuY3N2KCdkYXRhL0hhRGl2ZVBhcmFtZXRlcnMuY3N2JylcbilcblxuZWFybiA8LSBmb3JlaWduOjpyZWFkLmR0YSgnZGF0YS9oZWlnaHRzLmR0YScpIHw+XG4gIG11dGF0ZShzZXggPSBpZmVsc2Uoc2V4ID09IDIsICdmZW1hbGUnLCAnbWFsZScpKSB8PlxuICBuYS5vbWl0KCkgfD5cbiAgZHBseXI6OmZpbHRlcihlYXJuID4gMCkifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlY2hvIjpmYWxzZSwiZWRpdCI6ZmFsc2UsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbIm5lcmQtbG0iXSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2UsInNldHVwIjp0cnVlfSwiY29kZSI6IlxuXG50aGVtZV9zZXQodGhlbWVfYncoYmFzZV9zaXplPTE2KSlcblxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBlY2hvID0gRkFMU0UsXG4gIGZpZy5hbGlnbiA9IFwiY2VudGVyXCIsXG4gIGZpZy53aWR0aCA9IDYsIGZpZy5oZWlnaHQgPSAyLjUpXG5cbk1JX2xlYWQgPC0gcmVhZC5jc3YoZmlsZT0naHR0cHM6Ly9zbGRyLm5ldGxpZnkuYXBwL2RhdGEvTUlfbGVhZC5jc3YnKVxuXG5cbnNldC5zZWVkKDE0KVxuYm9ub2JvcyA8LSByZWFkLmNzdignaHR0cHM6Ly9zbGRyLm5ldGxpZnkuYXBwL2RhdGEvYm9ub2JvX2ZhY2VzLmNzdicpIHw+XG4gIG5hLm9taXQoKSBcbmdyYXRlZnVsIDwtIHJlYWQuY3N2KCdodHRwczovL3NsZHIubmV0bGlmeS5hcHAvZGF0YS9ncmF0aXR1ZGUtZXhwZXJpbWVudC5jc3YnKSBcblxuZWxlcGhhbnRfc3VydmV5IDwtIHJlYWQuY3N2KCdkYXRhL2VsZXBoYW50U3VydmV5LmNzdicpXG5nYXBtaW5kZXJfY2xlYW4gPC0gcmVhZC5jc3YoJ2RhdGEvZ2FwbWluZGVyX2NsZWFuLmNzdicpXG5IYURpdmVQYXJhbWV0ZXJzIDwtIHJlYWQuY3N2KCdkYXRhL0hhRGl2ZVBhcmFtZXRlcnMuY3N2JylcbilcblxuZWFybiA8LSBmb3JlaWduOjpyZWFkLmR0YSgnZGF0YS9oZWlnaHRzLmR0YScpIHw+XG4gIG11dGF0ZShzZXggPSBpZmVsc2Uoc2V4ID09IDIsICdmZW1hbGUnLCAnbWFsZScpKSB8PlxuICBuYS5vbWl0KCkgfD5cbiAgZHBseXI6OmZpbHRlcihlYXJuID4gMCkifQ==
 </script>
 </div>
 <style type="text/css">
@@ -439,7 +432,7 @@ table, td, th { border:0px; }
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="lm-fit_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+<p><img src="lm-fit_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -454,7 +447,7 @@ table, td, th { border:0px; }
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="lm-fit_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+<p><img src="lm-fit_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -466,7 +459,7 @@ table, td, th { border:0px; }
 
 </div>
 <script type="webr-2-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJleGVyY2lzZSI6InJpc2UtcnVuIn0sImNvZGUiOiJyaXNlIDwtIDEwIC0gMjsgcmlzZVxucnVuIDwtIDIgLSAwOyBydW5cbiMgc2xvcGUgPSByaXNlIC8gcnVuXG5yaXNlIC8gcnVuIn0=
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6InJpc2UtcnVuIn0sImNvZGUiOiJyaXNlIDwtIDEwIC0gMjsgcmlzZVxucnVuIDwtIDIgLSAwOyBydW5cbiMgc2xvcGUgPSByaXNlIC8gcnVuXG5yaXNlIC8gcnVuIn0=
 </script>
 </div>
 </div>
@@ -533,49 +526,45 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJleGVyY2lzZSI6
 <p>And the models themselves go by different names: regression model, least squares model, least squares regression model, etc.</p>
 <p>Don’t let these little differences distract you. If you focus on the important concepts, you should be able to navigate the notation, whichever way someone does it.</p>
 </div>
-</section>
-<section id="matrix-formulation" class="level2">
-<h2 class="anchored" data-anchor-id="matrix-formulation">Matrix Formulation</h2>
-<p>The form we just saw for the simple linear regression equation can be pretty simply and intuitively extended to the case of <strong>more than one predictor:</strong></p>
-<p><span class="math display">\[ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots \beta_p x_p + \epsilon\]</span></p>
-<p>where <span class="math inline">\(\mathbf{Y}\)</span> are the response variable values, the <span class="math inline">\(\beta\)</span>s are the <span class="math inline">\(p + 1\)</span> intercept and slopes, <span class="math inline">\(x\)</span>s are the <span class="math inline">\(p\)</span> predictor variable values, and <span class="math inline">\(\epsilon\)</span> are the errors or <em>residuals</em>.</p>
-<section id="a-problem" class="level3">
-<h3 class="anchored" data-anchor-id="a-problem">A problem</h3>
-<p>But…this form of the regression equation doesn’t keep track of the individual data points. The <span class="math inline">\(\mathbf{Y}\)</span> up there (capitalized because it’s a random variable) is a <em>vector</em>, not a scalar – it’s a list of <span class="math inline">\(n\)</span> response variable values. Same for the data. So maybe we could say something like:</p>
-<p><span class="math display">\[\mathbf{Y}_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots \beta_p x_{ip} + e_i \]</span></p>
-<p>but…<em>OH</em>, those double subscripts are already getting cumbersome!</p>
-</section>
-<section id="a-solution" class="level3">
-<h3 class="anchored" data-anchor-id="a-solution">A solution</h3>
-<p>We can fix that by writing our regression equation as a matrix equation. Let <span class="math inline">\(\mathbf{i} = &lt;1, 2, 3, \dots n&gt;\)</span> be the indices identifying each observation in the data, and <span class="math inline">\(\mathbf{j} = &lt;0, 1, 2, 3, \dots p&gt;\)</span> the indices identifying the different (intercept and) slope values.</p>
-<p>Now let <span class="math inline">\(\mathbf{Y}\)</span> be a length <span class="math inline">\(n\)</span> column vector of response variable values, and <span class="math inline">\(\mathbf{\beta}\)</span> a length <span class="math inline">\(p\)</span> column vector of parameter values.</p>
-<p><span class="math inline">\(\mathbf{X}\)</span> is a <span class="math inline">\(n\)</span> by <span class="math inline">\((p+1)\)</span> matrix, whose first column is a length <span class="math inline">\(n\)</span> vector of ones, and whose other columns are length <span class="math inline">\(n\)</span> vectors of values of the <span class="math inline">\(jth\)</span> predictor variable. <span class="math inline">\(\mathbf{X}\)</span> is often called the <strong>model matrix</strong>.</p>
-<p>We then have the equation:</p>
-<p><span class="math display">\[ \mathbf{Y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}\]</span></p>
-<p>(the same as before, but using vectors and a matrix to avoid all those pesky subscripts).</p>
-</section>
-<section id="comprehension-check-model-matrix-size" class="level3">
-<h3 class="anchored" data-anchor-id="comprehension-check-model-matrix-size">Comprehension Check: Model Matrix Size</h3>
-<div class="webex-check webex-box">
-<div class="cell" data-layout-align="center">
-Consider a regression model with 4 predictor variables being fitted to a dataset with 46 observations. What will be the size of the model matrix X?
-<div id="radio_QKINUGUVLF" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_QKINUGUVLF" value="answer"> <span>46 x 5</span></label><label><input type="radio" autocomplete="off" name="radio_QKINUGUVLF" value=""> <span>4 x 47</span></label><label><input type="radio" autocomplete="off" name="radio_QKINUGUVLF" value=""> <span>46 x 4</span></label><label><input type="radio" autocomplete="off" name="radio_QKINUGUVLF" value=""> <span>46 x 3</span></label><label><input type="radio" autocomplete="off" name="radio_QKINUGUVLF" value=""> <span>4 x 46</span></label>
+<!-- ## Matrix Formulation -->
+<!-- The form we just saw for the simple linear regression equation can be pretty simply and intuitively extended to the case of **more than one predictor:** -->
+<!-- $$ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots \beta_p x_p + \epsilon$$ -->
+<!-- where $\mathbf{Y}$ are the response variable values, the $\beta$s are the $p + 1$ intercept and slopes, $x$s are the $p$ predictor variable values, and $\epsilon$ are the errors or *residuals*. -->
+<!-- ### A problem -->
+<!-- But...this form of the regression equation doesn't keep track of the individual data points. The $\mathbf{Y}$ up there (capitalized because it's a random variable) is a *vector*, not a scalar -- it's a list of $n$ response variable values. Same for the data. So maybe we could say something like: -->
+<!-- $$\mathbf{Y}_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots \beta_p x_{ip} + e_i $$ -->
+<!-- but...*OH*, those double subscripts are already getting cumbersome! -->
+<!-- ### A solution -->
+<!-- We can fix that by writing our regression equation as a matrix equation. Let $\mathbf{i} = <1, 2, 3, \dots n>$ be the indices identifying each observation in the data, and $\mathbf{j} = <0, 1, 2, 3, \dots p>$ the indices identifying the different (intercept and) slope values. -->
+<!-- Now let $\mathbf{Y}$ be a length $n$ column vector of response variable values, and $\mathbf{\beta}$ a length $p$ column vector of parameter values. -->
+<!-- $\mathbf{X}$ is a $n$ by $(p+1)$ matrix, whose first column is a length $n$ vector of ones, and whose other columns are length $n$ vectors of values of the $jth$ predictor variable. $\mathbf{X}$ is often called the **model matrix**. -->
+<!-- We then have the equation: -->
+<!-- $$ \mathbf{Y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}$$ -->
+<!-- (the same as before, but using vectors and a matrix to avoid all those pesky subscripts). -->
+<!-- ### Comprehension Check: Model Matrix Size -->
+<!-- ::: {.webex-check .webex-box} -->
+<!-- ```{r results = 'asis'} -->
+<!-- #| label: matrix-size -->
+<!-- opts <- sample(c(answer = "46 x 5", -->
+<!--         "46 x 4", -->
+<!--         "46 x 3", -->
+<!--         "4 x 46", -->
+<!--         "4 x 47" -->
+<!--         )) -->
+<!-- cat("Consider a regression model with 4 predictor variables being fitted to a dataset with 46 observations. What will be the size of the model matrix X?", -->
+<!--     longmcq(opts)) -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- 
+<div class='webex-solution'><button>Click for explanations of solution above.</button>
+ -->
+<!-- If you said... -->
+<!-- -   46 x 3, Think about what each column represents. -->
+<!-- -   46 x 4, Do not forget the intercept! -->
+<!-- -   4 x 46 or 4 x 47, It is one row per datapoint and one column per beta... -->
+<!-- 
 </div>
-</div>
-</div>
-<div class="webex-solution">
-<button>
-Click for explanations of solution above.
-</button>
-<p>If you said…</p>
-<ul>
-<li>46 x 3, Think about what each column represents.</li>
-<li>46 x 4, Do not forget the intercept!</li>
-<li>4 x 46 or 4 x 47, It is one row per datapoint and one column per beta…</li>
-</ul>
-</div>
-</section>
+ -->
 </section>
 <section id="toy-dataset-pigeons" class="level2">
 <h2 class="anchored" data-anchor-id="toy-dataset-pigeons">Toy Dataset: Pigeons</h2>
@@ -671,197 +660,101 @@ Click for explanations of solution above.
 <section id="one-predictor" class="level2">
 <h2 class="anchored" data-anchor-id="one-predictor">One Predictor</h2>
 <p>Of course, we can also fit models <em>with</em> one or more predictor variables.</p>
-<p>A model matrix is shown below.</p>
-<span class="math display">\[\begin{bmatrix}
-1 &amp; 1.9 \\
-1 &amp; 1.5 \\
-1 &amp; 2.3 \\
-1 &amp; 2.2 \\
-1 &amp; 2.8 \\
-\end{bmatrix}\]</span>
-<p>for the pigeon data:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 25%">
-<col style="width: 8%">
-<col style="width: 8%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Unirate</th>
-<th style="text-align: center;">OwnerName</th>
-<th style="text-align: center;">Sex</th>
-<th style="text-align: center;">Age</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">2.864</td>
-<td style="text-align: center;">KENNIER PALMIRA</td>
-<td style="text-align: center;">H</td>
-<td style="text-align: center;">1.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2.965</td>
-<td style="text-align: center;">TOM RICHARDS</td>
-<td style="text-align: center;">H</td>
-<td style="text-align: center;">1.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">4.304</td>
-<td style="text-align: center;">KENNIER PALMIRA</td>
-<td style="text-align: center;">H</td>
-<td style="text-align: center;">2.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">5.027</td>
-<td style="text-align: center;">TOM RICHARDS</td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">2.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">9.189</td>
-<td style="text-align: center;">TOM KUIPER</td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">2.8</td>
-</tr>
-</tbody>
-</table>
+<!-- A model matrix is shown below. -->
+<!-- \begin{bmatrix} -->
+<!-- 1 & 1.9 \\ -->
+<!-- 1 & 1.5 \\ -->
+<!-- 1 & 2.3 \\ -->
+<!-- 1 & 2.2 \\ -->
+<!-- 1 & 2.8 \\ -->
+<!-- \end{bmatrix} -->
+<!-- for the pigeon data: -->
+<!-- ```{r} -->
+<!-- pander::pander(pigeons) -->
+<!-- ``` -->
+<!-- ::: {.webex-check .webex-box} -->
+<!-- ```{r results = 'asis'} -->
+<!-- #| label: less-tiny-lm -->
+<!-- opts <- sample(c(answer = "A regression in which age predicts unirate score", -->
+<!--         "A different model with no predictors, but Gamma distributed errors", -->
+<!--         "A regression where the response variable is the pigeon age instead of unirate score" -->
+<!--         )) -->
+<!-- cat("What is the regression model corresponding to the model matrix above?", -->
+<!--     longmcq(opts)) -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- 
+<div class='webex-solution'><button>Click for a hint...</button>
+ -->
+<!-- Think: which variable(s) are represented in the model matrix? -->
+<!-- 
 </div>
+ -->
+<!-- ## Categorical Predictors (2 categories) -->
+<!-- Let's consider another model: one where both `Age` *and* `Sex` ("H" for hen and "C" for cock) predict `Unirate` score. -->
+<!-- How can we formulate a model matrix *now*? -->
+<!-- Take a moment to brainstorm before you reveal the answer. A hint (especially for data science or computer science types): some people call this trick "one hot encoding." -->
+<!-- ### Another hint -->
+<!-- Another hint, if you haven't gotten it yet: Think of a way to encode the information from the `Sex` variable numerically by changing it from a categorical variable to a logical one. -->
+<!-- ### The solution -->
+<!-- The idea is to convert our categorical variable into an **indicator variable** that is 1 if an observation fits in a certain category, and 0 otherwise (i.e., 0 if the observation is in the other category). -->
+<!-- ```{r} -->
+<!-- pander::pander(pigeons) -->
+<!-- ``` -->
+<!-- Our model for `Unirate` score as a function of `Age` and `Sex` would have the model matrix: -->
+<!-- \begin{bmatrix} -->
+<!-- 1 & 1.9 & 1 \\ -->
+<!-- 1 & 1.5 & 1\\ -->
+<!-- 1 & 2.3 & 1\\ -->
+<!-- 1 & 2.2 & 0\\ -->
+<!-- 1 & 2.8 & 0\\ -->
+<!-- \end{bmatrix} -->
+<!-- ::: {.webex-check .webex-box} -->
+<!-- ```{r results = 'asis'} -->
+<!-- #| label: sex-quiz -->
+<!-- opts <- sample(c(answer = "Hen", -->
+<!--                  "Cock" -->
+<!--         )) -->
+<!-- cat("What would be the best name for this new numeric variable indicating sex?", -->
+<!--     longmcq(opts)) -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- 
+<div class='webex-solution'><button>Click for an explanation of the answer above.</button>
+ -->
+<!-- Since "H" is encoded as 1, that would be a better name. -->
+<!-- Cocks are encoded as 0s, which usually corresponds to "FALSE." Best to name the variable after the value that 1 (or TRUE) stands for. -->
+<!-- 
 </div>
-<div class="webex-check webex-box">
-<div class="cell" data-layout-align="center">
-What is the regression model corresponding to the model matrix above?
-<div id="radio_OLEOVEPQVK" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_OLEOVEPQVK" value="answer"> <span>A regression in which age predicts unirate score</span></label><label><input type="radio" autocomplete="off" name="radio_OLEOVEPQVK" value=""> <span>A different model with no predictors, but Gamma distributed errors</span></label><label><input type="radio" autocomplete="off" name="radio_OLEOVEPQVK" value=""> <span>A regression where the response variable is the pigeon age instead of unirate score</span></label>
+ -->
+<!-- ## Categorical Predictors with More Categories -->
+<!-- What if we have a categorical predictor with more than two categories? -->
+<!-- No problem -- we just need *more than one* indicator variables! -->
+<!-- ::: {.webex-check .webex-box} -->
+<!-- ```{r results = 'asis'} -->
+<!-- #| label: cat-pred-5 -->
+<!-- opts <- sample(c(answer = "4", -->
+<!--                  "3", -->
+<!--                  "5" -->
+<!--         )) -->
+<!-- cat("How many indicator variables would be needed to construct the model matrix for a regression with one predictor, which is a categorical variable with 5 categories?", -->
+<!--     longmcq(opts)) -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- 
+<div class='webex-solution'><button>Click for an explanation of the answer above.</button>
+ -->
+<!-- If we have indicator variables for 4 of the 5 categories and they are all 0, then the observation must be from the fifth category. Another way of saying this is that one of the categories is "included in the intercept". -->
+<!-- 
 </div>
-</div>
-</div>
-<div class="webex-solution">
-<button>
-Click for a hint…
-</button>
-<p>Think: which variable(s) are represented in the model matrix?</p>
-</div>
-</section>
-<section id="categorical-predictors-2-categories" class="level2">
-<h2 class="anchored" data-anchor-id="categorical-predictors-2-categories">Categorical Predictors (2 categories)</h2>
-<p>Let’s consider another model: one where both <code>Age</code> <em>and</em> <code>Sex</code> (“H” for hen and “C” for cock) predict <code>Unirate</code> score.</p>
-<p>How can we formulate a model matrix <em>now</em>?</p>
-<p>Take a moment to brainstorm before you reveal the answer. A hint (especially for data science or computer science types): some people call this trick “one hot encoding.”</p>
-<section id="another-hint" class="level3">
-<h3 class="anchored" data-anchor-id="another-hint">Another hint</h3>
-<p>Another hint, if you haven’t gotten it yet: Think of a way to encode the information from the <code>Sex</code> variable numerically by changing it from a categorical variable to a logical one.</p>
-</section>
-<section id="the-solution" class="level3">
-<h3 class="anchored" data-anchor-id="the-solution">The solution</h3>
-<p>The idea is to convert our categorical variable into an <strong>indicator variable</strong> that is 1 if an observation fits in a certain category, and 0 otherwise (i.e., 0 if the observation is in the other category).</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 25%">
-<col style="width: 8%">
-<col style="width: 8%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Unirate</th>
-<th style="text-align: center;">OwnerName</th>
-<th style="text-align: center;">Sex</th>
-<th style="text-align: center;">Age</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">2.864</td>
-<td style="text-align: center;">KENNIER PALMIRA</td>
-<td style="text-align: center;">H</td>
-<td style="text-align: center;">1.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2.965</td>
-<td style="text-align: center;">TOM RICHARDS</td>
-<td style="text-align: center;">H</td>
-<td style="text-align: center;">1.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">4.304</td>
-<td style="text-align: center;">KENNIER PALMIRA</td>
-<td style="text-align: center;">H</td>
-<td style="text-align: center;">2.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">5.027</td>
-<td style="text-align: center;">TOM RICHARDS</td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">2.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">9.189</td>
-<td style="text-align: center;">TOM KUIPER</td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">2.8</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Our model for <code>Unirate</code> score as a function of <code>Age</code> and <code>Sex</code> would have the model matrix:</p>
-<span class="math display">\[\begin{bmatrix}
-1 &amp; 1.9 &amp; 1 \\
-1 &amp; 1.5 &amp; 1\\
-1 &amp; 2.3 &amp; 1\\
-1 &amp; 2.2 &amp; 0\\
-1 &amp; 2.8 &amp; 0\\
-\end{bmatrix}\]</span>
-<div class="webex-check webex-box">
-<div class="cell" data-layout-align="center">
-What would be the best name for this new numeric variable indicating sex?
-<div id="radio_UTAPXVMTLE" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_UTAPXVMTLE" value=""> <span>Cock</span></label><label><input type="radio" autocomplete="off" name="radio_UTAPXVMTLE" value="answer"> <span>Hen</span></label>
-</div>
-</div>
-</div>
-<div class="webex-solution">
-<button>
-Click for an explanation of the answer above.
-</button>
-<p>Since “H” is encoded as 1, that would be a better name.</p>
-<p>Cocks are encoded as 0s, which usually corresponds to “FALSE.” Best to name the variable after the value that 1 (or TRUE) stands for.</p>
-</div>
-</section>
-</section>
-<section id="categorical-predictors-with-more-categories" class="level2">
-<h2 class="anchored" data-anchor-id="categorical-predictors-with-more-categories">Categorical Predictors with More Categories</h2>
-<p>What if we have a categorical predictor with more than two categories?</p>
-<p>No problem – we just need <em>more than one</em> indicator variables!</p>
-<div class="webex-check webex-box">
-<div class="cell" data-layout-align="center">
-How many indicator variables would be needed to construct the model matrix for a regression with one predictor, which is a categorical variable with 5 categories?
-<div id="radio_TNPHJBZKVK" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_TNPHJBZKVK" value="answer"> <span>4</span></label><label><input type="radio" autocomplete="off" name="radio_TNPHJBZKVK" value=""> <span>3</span></label><label><input type="radio" autocomplete="off" name="radio_TNPHJBZKVK" value=""> <span>5</span></label>
-</div>
-</div>
-</div>
-<div class="webex-solution">
-<button>
-Click for an explanation of the answer above.
-</button>
-<p>If we have indicator variables for 4 of the 5 categories and they are all 0, then the observation must be from the fifth category. Another way of saying this is that one of the categories is “included in the intercept”.</p>
-</div>
-<p>The category that is included in the intercept value is often called the “base” level.</p>
+ -->
+<!-- The category that is included in the intercept value is often called the "base" level. -->
 </section>
 <section id="finding-the-betas" class="level2">
 <h2 class="anchored" data-anchor-id="finding-the-betas">Finding the Betas</h2>
-<p>OK, we are now <em>quite</em> familiar with the regression equation and the corresponding model matrix, but how do we go from a model plan and dataset to an actual fitted model? In other words, how do we estimate the <span class="math inline">\(\beta\)</span>s and find the best-fitting regression model?</p>
+<p>OK, but how do we go from a model plan and dataset to an actual fitted model? In other words, how do we estimate the <span class="math inline">\(\beta\)</span>s and find the best-fitting regression model?</p>
 <p>To find the “best-fitting” regression model for a dataset, we need to first define a metric to measure how “well” a line fits, and then find the <span class="math inline">\(\beta\)</span>s (intercept and slope(s)) that maximize it. (Actually, we’ll come up with a way to measure the mismatch between a line and the data, and find the <span class="math inline">\(\beta\)</span>s that minimize it - but it’s the same idea.)</p>
-<p>In other words, our goal at the moment is to figure out <strong>how to estimate the <span class="math inline">\(\beta\)</span>s.</strong></p>
-<p><em>Side note: If you already know about maximum likelihood estimation, you may wonder at this point,</em> “Wouldn’t using maximum likelihood estimation be a great idea to fit this model to data?” <em>Well…sure. But we’re going to first consider another route to the exact same solution, which may be more intuitive - at least for those with less expertise in MLE.</em></p>
+<p>In other words, our goal at the moment is to figure out <strong>how to estimate the</strong> <span class="math inline">\(\beta\)</span>s.</p>
 </section>
 <section id="least-squares-visually" class="level2">
 <h2 class="anchored" data-anchor-id="least-squares-visually">Least Squares (visually)</h2>
@@ -885,8 +778,7 @@ Click for an explanation of the answer above.
 </section>
 <section id="least-squares-explained" class="level2">
 <h2 class="anchored" data-anchor-id="least-squares-explained">Least Squares (explained)</h2>
-<p>This task is <strong>optional</strong>.</p>
-<p>If you would like one more presentation of the idea of least squares fitting, watch the (slightly boring but very clear) StatQuest video explanation:</p>
+<p>Optionally, if you would like one more presentation of the idea of least squares fitting, watch the (slightly boring but very clear) StatQuest video explanation:</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PaFPbb66DxQ?si=Jiz0AUhNLVJ6UTG9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
 </iframe>
 <p>(You can also <a href="https://www.youtube.com/watch?v=PaFPbb66DxQ">watch directly on YouTube</a> if you prefer.)</p>
@@ -897,7 +789,7 @@ Click for an explanation of the answer above.
 <p>In fact, either via calculus or linear algebra, it’s possible to obtain formulas for the slope and intercept that minimize the SSE for a given dataset. (And, of course, software knows how to use them.)</p>
 <p>The function we’ll use to fit a linear regression model in R is <code>lm()</code>.</p>
 <p>The first input to <code>lm()</code> (and basically all other R functions that fit regression models) is a <strong>model formula</strong> of the form:</p>
-&nbsp;
+<p>&nbsp;</p>
 <center>
 <h2 class="anchored">
 <strong><span class="boxed">lm</span> ( <span class="invboxed">&amp;yy</span> ~ <span class="invboxed">&amp;xx</span> , data = <span class="boxed">mydata</span> )</strong>
@@ -908,7 +800,7 @@ Click for an explanation of the answer above.
 <section id="model-formula-left-hand-side" class="level3">
 <h3 class="anchored">Model Formula: Left Hand Side</h3>
 <p>The left hand side of the formula is simplest: we just need to provide the name of the <strong>response variable</strong> that we want to model.</p>
-&nbsp;
+<p>&nbsp;</p>
 <center>
 <h2 class="anchored" data-anchor-id="model-formula-left-hand-side">
 <strong><span class="boxed">lm</span> ( <span class="boxed">&nbsp;Y&nbsp;</span> ~ <span class="invboxed">&amp;xx</span> , data = <span class="boxed">mydata</span> )</strong>
@@ -979,7 +871,7 @@ F-statistic: 14.86 on 2 and 78 DF,  p-value: 3.417e-06</code></pre>
 <ul>
 <li>For example, a model with formula <code>ELL2012 ~ ELL2005</code> would answer, “Does the proportion of kids with elevated lead levels in a county in 2005 predict the proportion in 2012? (Do the same locations have high/low levels in the two years?)”</li>
 </ul></li>
-<li>Don’t forget to consider causal relationships between variables of interest in planning your model - draw a causal diagram to help you decide which predictors should be included.</li>
+<li>Don’t forget to consider your understanding of causal relationships between variables of interest in planning your model - consdier drawing a causal diagram to help you decide which predictors should be included.</li>
 </ul>
 <div class="cell" data-layout-align="center" data-exercise="lm-formula-practice">
 <div>
@@ -987,7 +879,7 @@ F-statistic: 14.86 on 2 and 78 DF,  p-value: 3.417e-06</code></pre>
 
 </div>
 <script type="webr-3-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJleGVyY2lzZSI6ImxtLWZvcm11bGEtcHJhY3RpY2UifSwiY29kZSI6Im15X21vZGVsIDwtIGxtKF9fX19fIH4gX19fX18sIGRhdGEgPSBfX19fX18pXG5zdW1tYXJ5KG15X21vZGVsKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImxtLWZvcm11bGEtcHJhY3RpY2UifSwiY29kZSI6Im15X21vZGVsIDwtIGxtKF9fX19fIH4gX19fX18sIGRhdGEgPSBfX19fX18pXG5zdW1tYXJ5KG15X21vZGVsKSJ9
 </script>
 </div>
 </div>
@@ -1030,7 +922,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJleGVyY2lzZSI6
 </section>
 <section id="model-equation-practice" class="level2">
 <h2 class="anchored" data-anchor-id="model-equation-practice">Model Equation Practice</h2>
-<p><strong>You should be able to use <code>lm()</code> to fit a linear model, and then use <code>summary()</code> output to fill in numerical parameter estimates <span class="math inline">\(\hat{\beta}_0\)</span>, <span class="math inline">\(\hat{\beta}_1\)</span>, <span class="math inline">\(\hat{\beta}_2\)</span>, <span class="math inline">\(\hat{\beta}_3\)</span>, <span class="math inline">\(\hat{\beta}_n\)</span>, and <span class="math inline">\(\hat{\sigma}\)</span> in the regression equation:</strong></p>
+<p><strong>You should be able to use <code>lm()</code> to fit a linear model, and then use <code>summary()</code> output to fill in numerical parameter estimates</strong> <span class="math inline">\(\hat{\beta}_0\)</span>, <span class="math inline">\(\hat{\beta}_1\)</span>, <span class="math inline">\(\hat{\beta}_2\)</span>, <span class="math inline">\(\hat{\beta}_3\)</span>, <span class="math inline">\(\hat{\beta}_n\)</span>, and <span class="math inline">\(\hat{\sigma}\)</span> in the regression equation:</p>
 <p><span class="math display">\[ y_i = \beta_0 + \beta_1x_i + \epsilon, \epsilon \sim \text{Norm}(0, \sigma)\]</span></p>
 <section id="an-example-model" class="level3">
 <h3 class="anchored" data-anchor-id="an-example-model">An example model</h3>
@@ -1042,7 +934,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJleGVyY2lzZSI6
 
 </div>
 <script type="webr-4-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJldmFsIjp0cnVlLCJlZGl0Ijp0cnVlLCJleGVyY2lzZSI6Im5lcmQtbG0ifSwiY29kZSI6Im5lcmRzIDwtIHJlYWQuY3N2KCdodHRwczovL3NsZHIubmV0bGlmeS5hcHAvZGF0YS9uZXJkcy5jc3YnKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6Im5lcmQtbG0ifSwiY29kZSI6Im5lcmRzIDwtIHJlYWQuY3N2KCdodHRwczovL3NsZHIubmV0bGlmeS5hcHAvZGF0YS9uZXJkcy5jc3YnKSJ9
 </script>
 </div>
 </div>
@@ -1089,25 +981,23 @@ Solution:
 <div class="webex-check webex-box">
 <div class="cell" data-layout-align="center">
 What is beta0 for the model you just fitted?
-<div id="radio_DBTCQWWUXE" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_DBTCQWWUXE" value=""> <span>-0.061</span></label><label><input type="radio" autocomplete="off" name="radio_DBTCQWWUXE" value=""> <span>0.00092</span></label><label><input type="radio" autocomplete="off" name="radio_DBTCQWWUXE" value="answer"> <span>95.8</span></label><label><input type="radio" autocomplete="off" name="radio_DBTCQWWUXE" value=""> <span>0.22</span></label><label><input type="radio" autocomplete="off" name="radio_DBTCQWWUXE" value=""> <span>15.81</span></label>
+<div id="radio_OVEPQVKPNU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_OVEPQVKPNU" value=""> <span>0.00092</span></label><label><input type="radio" autocomplete="off" name="radio_OVEPQVKPNU" value=""> <span>-0.061</span></label><label><input type="radio" autocomplete="off" name="radio_OVEPQVKPNU" value=""> <span>0.22</span></label><label><input type="radio" autocomplete="off" name="radio_OVEPQVKPNU" value=""> <span>15.81</span></label><label><input type="radio" autocomplete="off" name="radio_OVEPQVKPNU" value="answer"> <span>95.8</span></label>
 </div>
 What is beta1 for the model you just fitted?
-<div id="radio_PTOALNDTMR" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_PTOALNDTMR" value=""> <span>15.81</span></label><label><input type="radio" autocomplete="off" name="radio_PTOALNDTMR" value=""> <span>95.8</span></label><label><input type="radio" autocomplete="off" name="radio_PTOALNDTMR" value="answer"> <span>-0.061</span></label><label><input type="radio" autocomplete="off" name="radio_PTOALNDTMR" value=""> <span>0.00092</span></label><label><input type="radio" autocomplete="off" name="radio_PTOALNDTMR" value=""> <span>0.22</span></label>
+<div id="radio_MTLEIRJTNP" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_MTLEIRJTNP" value=""> <span>15.81</span></label><label><input type="radio" autocomplete="off" name="radio_MTLEIRJTNP" value="answer"> <span>-0.061</span></label><label><input type="radio" autocomplete="off" name="radio_MTLEIRJTNP" value=""> <span>95.8</span></label><label><input type="radio" autocomplete="off" name="radio_MTLEIRJTNP" value=""> <span>0.00092</span></label><label><input type="radio" autocomplete="off" name="radio_MTLEIRJTNP" value=""> <span>0.22</span></label>
 </div>
 What is sigma, the standard deviation of the residuals, for the model you just fitted?
-<div id="radio_LREAGNABQM" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_LREAGNABQM" value=""> <span>0.00092</span></label><label><input type="radio" autocomplete="off" name="radio_LREAGNABQM" value="answer"> <span>15.81</span></label><label><input type="radio" autocomplete="off" name="radio_LREAGNABQM" value=""> <span>95.8</span></label><label><input type="radio" autocomplete="off" name="radio_LREAGNABQM" value=""> <span>-0.061</span></label><label><input type="radio" autocomplete="off" name="radio_LREAGNABQM" value=""> <span>0.22</span></label>
+<div id="radio_VKZVMQDBTC" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VKZVMQDBTC" value=""> <span>95.8</span></label><label><input type="radio" autocomplete="off" name="radio_VKZVMQDBTC" value=""> <span>0.00092</span></label><label><input type="radio" autocomplete="off" name="radio_VKZVMQDBTC" value=""> <span>-0.061</span></label><label><input type="radio" autocomplete="off" name="radio_VKZVMQDBTC" value=""> <span>0.22</span></label><label><input type="radio" autocomplete="off" name="radio_VKZVMQDBTC" value="answer"> <span>15.81</span></label>
 </div>
 </div>
 </div>
+<!-- ## Another Categorical Example -->
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/DqdtE7Qdfg4?si=YU1pI30o1_gHjmBl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> -->
+<!-- </iframe> -->
 </section>
-</section>
-<section id="another-categorical-example" class="level2">
-<h2 class="anchored" data-anchor-id="another-categorical-example">Another Categorical Example</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/DqdtE7Qdfg4?si=YU1pI30o1_gHjmBl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
-</iframe>
 </section>
 <section id="linear-regression-conditions" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-conditions">Linear Regression Conditions</h2>
@@ -1117,10 +1007,10 @@ What is sigma, the standard deviation of the residuals, for the model you just f
 
 
 <script type="webr-data">
-eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC40LjIvIn0sInJlbmRlcl9kZiI6ImRlZmF1bHQiLCJwYWNrYWdlcyI6eyJyZXBvcyI6W10sInBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImRwbHlyIiwidGlkeXIiLCJyZWFkciIsInN0cmluZ3IiLCJnZ3Bsb3QyIiwiZ2dmb3JtdWxhIiwiZ2dmb3JjZSJdfX0=
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC40LjIvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImRwbHlyIiwidGlkeXIiLCJyZWFkciIsInN0cmluZ3IiLCJnZ3Bsb3QyIiwiZ2dmb3JtdWxhIiwiZ2dmb3JjZSJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
 </script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV80O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwiaW5saW5lIjpmYWxzZSwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC00In0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTQtY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV80ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl80LCB7fSk7XG5fd2Vicl9mZWVkYmFja180ID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV80LmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiIsImlubGluZSI6ZmFsc2UsImNlbGxOYW1lIjoid2Vici00In0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4iLCJpbmxpbmUiOmZhbHNlLCJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTMifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItMy1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzMgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzMsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzMuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIiwiaW5saW5lIjpmYWxzZSwiY2VsbE5hbWUiOiJ3ZWJyLTMifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiIsImlubGluZSI6ZmFsc2UsImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMiA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici0yLWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuX3dlYnJfZmVlZGJhY2tfMiA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfMi5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4iLCJpbmxpbmUiOmZhbHNlLCJjZWxsTmFtZSI6IndlYnItMiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoid2ViUk9qcyA9IHtcbiAgY29uc3QgeyBXZWJSLCBDaGFubmVsVHlwZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZS5XZWJSO1xuICBjb25zdCB7XG4gICAgV2ViUkV2YWx1YXRvcixcbiAgICBXZWJSRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyB3ZWJSIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIC8vIFVzZSBQb3N0TWVzc2FnZSBjaGFubmVsIGZvciBhc3luYyBjb21tdW5pY2F0aW9uXG4gIC8vIFdlIGRvIG5vdCBleHBlY3QgdG8gdGFrZSBuZXN0ZWQgcHJvbXB0IGlucHV0IGluIFF1YXJ0byBMaXZlIGNlbGxzXG4gIGRhdGEub3B0aW9ucy5jaGFubmVsVHlwZSA9IENoYW5uZWxUeXBlLlBvc3RNZXNzYWdlO1xuXG4gIC8vIEluaXRpYWxpc2Ugd2ViUiBhbmQgc2V0dXAgZm9yIFIgY29kZSBldmFsdWF0aW9uXG4gIGxldCB3ZWJSUHJvbWlzZSA9IChhc3luYyAod2ViUikgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgd2ViUmA7XG4gICAgYXdhaXQgd2ViUi5pbml0KCk7XG5cbiAgICAvLyBJbnN0YWxsIHByb3ZpZGVkIGxpc3Qgb2YgcGFja2FnZXNcbiAgICAvLyBFbnN1cmUgd2ViUiBkZWZhdWx0IHJlcG8gaXMgaW5jbHVkZWRcbiAgICBkYXRhLnBhY2thZ2VzLnJlcG9zLnB1c2goXCJodHRwczovL3JlcG8uci13YXNtLm9yZ1wiKVxuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIHdlYlIuZXZhbFJWb2lkKGBcbiAgICAgICAgd2Vicjo6aW5zdGFsbChwa2csIHJlcG9zID0gcmVwb3MpXG4gICAgICAgIGxpYnJhcnkocGtnLCBjaGFyYWN0ZXIub25seSA9IFRSVUUpXG4gICAgICBgLCB7IGVudjoge1xuICAgICAgICBwa2c6IHBrZyxcbiAgICAgICAgcmVwb3M6IGRhdGEucGFja2FnZXMucmVwb3MsXG4gICAgICB9fSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCB3ZWJSLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKCFlLm1lc3NhZ2UuaW5jbHVkZXMoXCJGUyBlcnJvclwiKSkge1xuICAgICAgICAgICAgdGhyb3cgZTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHJldHVybiBhd2FpdCB3ZWJSLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluc3RhbGxpbmcgd2ViUiBzaGltc2A7XG4gICAgYXdhaXQgd2ViUi5ldmFsUlZvaWQoYHdlYnI6OnNoaW1faW5zdGFsbCgpYCk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFdlYlIgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUih3ZWJSLCBkYXRhKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiB3ZWJSO1xuICB9KShuZXcgV2ViUihkYXRhLm9wdGlvbnMpKTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3Qgd2ViUiA9IGF3YWl0IHdlYlJQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBXZWJSRXZhbHVhdG9yKHdlYlIsIGNvbnRleHQpXG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHJvY2VzcyxcbiAgICB3ZWJSUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgfTtcbn1cbiIsImlubGluZSI6ZmFsc2UsImNlbGxOYW1lIjoid2Vici1wcmVsdWRlIn1dfQ==
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV80O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzQgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItNC1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzQgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzQuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici0zLWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMywge30pO1xuX3dlYnJfZmVlZGJhY2tfMyA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfMy5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTItY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV8yID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8yLCB7fSk7XG5fd2Vicl9mZWVkYmFja18yID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV8yLmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gVXNlIFBvc3RNZXNzYWdlIGNoYW5uZWwgZm9yIGFzeW5jIGNvbW11bmljYXRpb25cbiAgLy8gV2UgZG8gbm90IGV4cGVjdCB0byB0YWtlIG5lc3RlZCBwcm9tcHQgaW5wdXQgaW4gUXVhcnRvIExpdmUgY2VsbHNcbiAgZGF0YS5vcHRpb25zLmNoYW5uZWxUeXBlID0gQ2hhbm5lbFR5cGUuUG9zdE1lc3NhZ2U7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICB0cnkge1xuICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICBpZiAoIWUubWVzc2FnZS5pbmNsdWRlcyhcIkZTIGVycm9yXCIpKSB7XG4gICAgICAgICAgICB0aHJvdyBlO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">
@@ -1131,7 +1021,7 @@ eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAv
 </div>
 </div>
 <script type="vfs-file">
-WyJkYXRhL2hlaWdodHMuZHRhIiwiZGF0YS9NYW1tYWxNZXRhYm9saWNSYXRlcy5jc3YiLCJkYXRhL2VsZXBoYW50U3VydmV5LmNzdiIsImRhdGEvdW5pdmVyc2l0eV90ZWFjaGVycy5jc3YiLCJkYXRhL0hhRGl2ZVBhcmFtZXRlcnMuY3N2IiwiZGF0YS9nYXBtaW5kZXJfY2xlYW4uY3N2Il0=
+WyJkYXRhL2hlaWdodHMuZHRhIiwiZGF0YS9ncmF0aXR1ZGUtZXhwZXJpbWVudC5jc3YiLCJkYXRhL01hbW1hbE1ldGFib2xpY1JhdGVzLmNzdiIsImRhdGEvZWxlcGhhbnRTdXJ2ZXkuY3N2IiwiZGF0YS91bml2ZXJzaXR5X3RlYWNoZXJzLmNzdiIsImRhdGEvSGFEaXZlUGFyYW1ldGVycy5jc3YiLCJkYXRhL0ZsaW50V2F0ZXJUZXN0SmFuTWFyMjAxNi5jc3YiLCJkYXRhL2dhcG1pbmRlcl9jbGVhbi5jc3YiLCJkYXRhL2Jvbm9ib19mYWNlcy5jc3YiXQ==
 </script>
 </section>
 
@@ -1435,8 +1325,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1547,7 +1435,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1780,7 +1667,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../quarto/lm-assess.qmd" class="pagination-link" aria-label="Model Assessment">
+      <a href="../quarto/lm-assess.html" class="pagination-link" aria-label="Model Assessment">
         <span class="nav-page-text">Model Assessment</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

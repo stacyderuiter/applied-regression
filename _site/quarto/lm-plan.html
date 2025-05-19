@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -39,10 +39,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-868b9742d7bde9f1698ef1c41a43f714.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -259,6 +259,12 @@ window.Quarto = {
  <span class="menu-text">Interpretation and Inference</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto/lm-interp-more.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">More Inference</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -459,8 +465,8 @@ window.Quarto = {
 <div class="webex-check webex-box">
 <div class="cell" data-layout-align="center">
 What is the difference between random sampling and randomization?
-<div id="radio_ZJVCVDIXDH" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_ZJVCVDIXDH" value=""> <span>Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_ZJVCVDIXDH" value="answer"> <span>Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_ZJVCVDIXDH" value=""> <span>It depends on the context; they are very similar</span></label>
+<div id="radio_IRRTAHTMID" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_IRRTAHTMID" value=""> <span>Randomization has to do with how cases to study are randomly chosen from the population, while random sampling has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_IRRTAHTMID" value="answer"> <span>Random sampling has to do with how cases to study are randomly chosen from the population, while randomization has to do with how already-chosen participants are randomly assigned to experimental treatment groups.</span></label><label><input type="radio" autocomplete="off" name="radio_IRRTAHTMID" value=""> <span>It depends on the context; they are very similar</span></label>
 </div>
 </div>
 </div>
@@ -1044,8 +1050,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1156,7 +1160,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
