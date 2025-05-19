@@ -383,14 +383,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="logistics" class="level2">
 <h2 class="anchored" data-anchor-id="logistics">Logistics</h2>
-<p>To create a .qmd file, you will have to work in RStudio (outside this tutorial environment). So, as you work on this tutorial, you will probably switch back and forth between the tutorial itself and an RStudio session at <a href="https://r.cs.calvin.edu" class="uri">https://r.cs.calvin.edu</a>.</p>
-<p><em>Historical Note: The precursor of the Quarto document is the Rmarkdown (.rmd) document (and even older - the Sweave document). If you know and love one of those, you may use it. Our server can handle all options. For now, our class will stick to qmd as our default.</em></p>
+<p>To create a .qmd file, you will have to work in RStudio (outside this tutorial environment). So, as you work on this tutorial, you will probably switch back and forth between the tutorial itself and an RStudio session on your computer or at <a href="https://posit.cloud">posit.cloud</a>.</p>
+<p><em>Historical Note: The precursor of the Quarto document is the Rmarkdown (.rmd) document (and even older - the Sweave document). If you know and love one of those, you may use it.</em></p>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
 <section id="logging-in-to-rstudio" class="level3">
 <h3 class="anchored" data-anchor-id="logging-in-to-rstudio">Logging in to RStudio</h3>
-<p>Go to <a href="https://r.cs.calvin.edu/auth-sign-in" target="_blank">r.cs.calvin.edu</a> and enter your short Calvin user name (example: abc44, <em>without</em> the <span class="citation" data-cites="calvin.edu">@calvin.edu</span>) and password to log in.</p>
+<p>Either log in to your account at <a href="https://posit.cloud">posit.cloud</a> or open RStudio on your computer (if you installed it).</p>
 </section>
 <section id="panels" class="level3">
 <h3 class="anchored" data-anchor-id="panels">Panels</h3>
@@ -442,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="save-your-qmd-file">Save your qmd file</h3>
 <p>Save your file by clicking on the disk icon at the top of the file tab (give it a clear file name like deruiter_quarto_practice.qmd).</p>
 <p>Do your best to avoid spaces and special characters in your file names.</p>
-<p><strong>The file will be saved to the server, not to your computer.</strong> All your files will be accessible in the RStudio <em>Files</em> tab (lower right panel) whenever you log into RStudio, regardless of which computer you are using. You may organize them into directories (folders) if you want.</p>
+<p><strong>If on posit.cloud, the file will be saved to the cloud, not to your computer.</strong> All your files will be accessible in the RStudio <em>Files</em> tab (lower right panel) whenever you log into RStudio, regardless of which computer you are using. You may organize them into directories (folders) if you want.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -574,7 +574,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>(a sub-section header). Fewer hashtags make the text even larger, and more make it smaller.</p>
 <p>Caution! Forgetting the space after the last hashtag will format your text verbatim rather than as a header (#fail). Failing to leave a blank line before the header can also make formatting fail.</p>
 <p>Check out the Quarto Markdown Basics reference at <a href="https://quarto.org/docs/authoring/markdown-basics.html" class="uri">https://quarto.org/docs/authoring/markdown-basics.html</a> for more examples of how to format text in Quarto.</p>
-<p>For instructions on how to include R output and special characters (symbols, subscripts, etc.) in your text, see also: <a href="https://connect.cs.calvin.edu/STAT341/symbols/" class="uri">https://connect.cs.calvin.edu/STAT341/symbols/</a></p>
 <p>Before moving on, try a few of the tricks you just learned in your qmd file. Make it pretty!</p>
 </section>
 </section>
@@ -788,11 +787,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-from-a-file" class="level2">
 <h2 class="anchored" data-anchor-id="data-from-a-file">Data from a File</h2>
-<p>You can also upload your own data file to the server, and then read it in to R using <code>read_csv()</code>. The basic process is:</p>
+<p>You can also upload your own data file to posit.cloud, or save it to your computer if you installed R/RStudio, and then read it in to R using <code>read_csv()</code>. The basic process is:</p>
 <ul>
 <li>Use spreadsheet software to create the data table</li>
-<li>Save the file as a csv file.</li>
-<li>Upload the csv file to the RStudio server</li>
+<li>Save the file as a csv file</li>
+<li>Upload the csv file if working on posit.cloud</li>
 <li>Use the <code>read_csv()</code> function to read the file into R</li>
 </ul>
 </section>
